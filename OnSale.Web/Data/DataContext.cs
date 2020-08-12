@@ -5,7 +5,7 @@ using OnSale.Web.Data.Entities;
 
 namespace OnSale.Web.Data
 {
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext<User>
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {

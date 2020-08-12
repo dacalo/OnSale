@@ -11,22 +11,22 @@ namespace OnSale.Web.Data
     public class SeedDb
     {
         private readonly DataContext _context;
-        
+        private readonly IUserHelper _userHelper;
 
-        public SeedDb(DataContext context)
+        public SeedDb(DataContext context, IUserHelper userHelper)
         {
             _context = context;
+            _userHelper = userHelper;
         }
 
         public async Task SeedAsync()
         {
             await _context.Database.EnsureCreatedAsync();
             await CheckCountriesAsync();
-            //await CheckRolesAsync();
-            //await CheckUserAsync("CALD7808244AA", "David", "Chávez", "divadchl@gmail.com", "322 311 4620", "Calle Luna Calle Sol", UserType.Admin);
-
+            await CheckRolesAsync();
+            await CheckUserAsync("CALD7808244AA", "David", "Chávez", "divadchl@gmail.com", "322 311 4620", "Calle Luna Calle Sol", UserType.Admin);
         }
-        /*
+        
         private async Task CheckRolesAsync()
         {
             await _userHelper.CheckRoleAsync(UserType.Admin.ToString());
@@ -64,7 +64,7 @@ namespace OnSale.Web.Data
 
             return user;
         }
-        */
+        
         private async Task CheckCountriesAsync()
         {
             if (!_context.Countries.Any())
