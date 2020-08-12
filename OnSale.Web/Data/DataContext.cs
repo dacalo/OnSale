@@ -1,8 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using OnSale.Common.Entities;
+using OnSale.Web.Data.Entities;
 
 namespace OnSale.Web.Data
 {
+    //public class DataContext : IdentityDbContext<User>
     public class DataContext : DbContext
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)

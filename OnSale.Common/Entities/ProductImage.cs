@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnSale.Common.Business;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace OnSale.Common.Entities
@@ -13,8 +14,8 @@ namespace OnSale.Common.Entities
         //TODO: Pending to put the correct paths
         [Display(Name = "Imagen")]
         public string ImageFullPath => ImageId == Guid.Empty
-            ? $"https://localhost:44390/images/noimage.png"
-            : $"https://onsale.blob.core.windows.net/products/{ImageId}";
+            ? $"{Constants.Path.PathNoImage}"
+            : $"{Constants.URL_BASE}/products/{ImageId}";
     }
 
 }

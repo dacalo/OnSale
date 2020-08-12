@@ -15,7 +15,7 @@ namespace OnSale.Web.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseIdentityColumns()
+                .UseIdentityColumns(1, 1)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.0-preview.7.20365.15");
 
@@ -24,7 +24,7 @@ namespace OnSale.Web.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .UseIdentityColumn(1, 1);
 
                     b.Property<Guid>("ImageId")
                         .HasColumnType("uniqueidentifier");
@@ -47,7 +47,7 @@ namespace OnSale.Web.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .UseIdentityColumn(1, 1);
 
                     b.Property<int?>("DepartmentId")
                         .HasColumnType("int");
@@ -72,7 +72,7 @@ namespace OnSale.Web.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .UseIdentityColumn(1, 1);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -92,7 +92,7 @@ namespace OnSale.Web.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .UseIdentityColumn(1, 1);
 
                     b.Property<int?>("CountryId")
                         .HasColumnType("int");
@@ -117,7 +117,7 @@ namespace OnSale.Web.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .UseIdentityColumn(1, 1);
 
                     b.Property<int?>("CategoryId")
                         .HasColumnType("int");
@@ -154,7 +154,7 @@ namespace OnSale.Web.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .UseIdentityColumn(1, 1);
 
                     b.Property<Guid>("ImageId")
                         .HasColumnType("uniqueidentifier");

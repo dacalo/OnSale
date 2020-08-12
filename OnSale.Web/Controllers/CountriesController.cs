@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using OnSale.Common.Business;
 using OnSale.Common.Entities;
 using OnSale.Web.Data;
 
@@ -13,8 +14,6 @@ namespace OnSale.Web.Controllers
     public class CountriesController : Controller
     {
         private readonly DataContext _context;
-        private const string messageContains = "duplicate";
-        private const string messageError = "Ya existe un registro con el mismo nombre.";
 
         public CountriesController(DataContext context)
         {
@@ -64,8 +63,8 @@ namespace OnSale.Web.Controllers
                 }
                 catch(DbUpdateException dbUpdateException)
                 {
-                    if (dbUpdateException.InnerException.Message.Contains(messageContains))
-                        ModelState.AddModelError(string.Empty, messageError);
+                    if (dbUpdateException.InnerException.Message.Contains(Constants.TextString.MessageContains))
+                        ModelState.AddModelError(string.Empty, Constants.TextString.MessageErrorDuplicate);
                     else
                         ModelState.AddModelError(string.Empty, dbUpdateException.InnerException.Message);
                 }
@@ -111,8 +110,8 @@ namespace OnSale.Web.Controllers
                 }
                 catch (DbUpdateException dbUpdateException)
                 {
-                    if (dbUpdateException.InnerException.Message.Contains(messageContains))
-                        ModelState.AddModelError(string.Empty, messageError);
+                    if (dbUpdateException.InnerException.Message.Contains(Constants.TextString.MessageContains))
+                        ModelState.AddModelError(string.Empty, Constants.TextString.MessageErrorDuplicate);
                     else
                         ModelState.AddModelError(string.Empty, dbUpdateException.InnerException.Message);
                 }
@@ -180,8 +179,8 @@ namespace OnSale.Web.Controllers
                 }
                 catch (DbUpdateException dbUpdateException)
                 {
-                    if (dbUpdateException.InnerException.Message.Contains(messageContains))
-                        ModelState.AddModelError(string.Empty, messageError);
+                    if (dbUpdateException.InnerException.Message.Contains(Constants.TextString.MessageContains))
+                        ModelState.AddModelError(string.Empty, Constants.TextString.MessageErrorDuplicate);
                     else
                         ModelState.AddModelError(string.Empty, dbUpdateException.InnerException.Message);
                 }
@@ -222,8 +221,8 @@ namespace OnSale.Web.Controllers
                 }
                 catch (DbUpdateException dbUpdateException)
                 {
-                    if (dbUpdateException.InnerException.Message.Contains(messageContains))
-                        ModelState.AddModelError(string.Empty, messageError);
+                    if (dbUpdateException.InnerException.Message.Contains(Constants.TextString.MessageContains))
+                        ModelState.AddModelError(string.Empty, Constants.TextString.MessageErrorDuplicate);
                     else
                         ModelState.AddModelError(string.Empty, dbUpdateException.InnerException.Message);
                 }
@@ -300,8 +299,8 @@ namespace OnSale.Web.Controllers
                 }
                 catch (DbUpdateException dbUpdateException)
                 {
-                    if (dbUpdateException.InnerException.Message.Contains(messageContains))
-                        ModelState.AddModelError(string.Empty, messageError);
+                    if (dbUpdateException.InnerException.Message.Contains(Constants.TextString.MessageContains))
+                        ModelState.AddModelError(string.Empty, Constants.TextString.MessageErrorDuplicate);
                     else
                         ModelState.AddModelError(string.Empty, dbUpdateException.InnerException.Message);
                 }
@@ -342,8 +341,8 @@ namespace OnSale.Web.Controllers
                 }
                 catch (DbUpdateException dbUpdateException)
                 {
-                    if (dbUpdateException.InnerException.Message.Contains(messageContains))
-                        ModelState.AddModelError(string.Empty, messageError);
+                    if (dbUpdateException.InnerException.Message.Contains(Constants.TextString.MessageContains))
+                        ModelState.AddModelError(string.Empty, Constants.TextString.MessageErrorDuplicate);
                     else
                         ModelState.AddModelError(string.Empty, dbUpdateException.InnerException.Message);
                 }
