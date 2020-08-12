@@ -28,15 +28,6 @@ namespace OnSale.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddIdentity<User, IdentityRole>(cfg =>
-            //{
-            //    cfg.User.RequireUniqueEmail = true;
-            //    cfg.Password.RequireDigit = false;
-            //    cfg.Password.RequiredUniqueChars = 0;
-            //    cfg.Password.RequireLowercase = false;
-            //    cfg.Password.RequireNonAlphanumeric = false;
-            //    cfg.Password.RequireUppercase = false;
-            //}).AddEntityFrameworkStores<DataContext>();
 
             services.AddDbContext<DataContext>(cfg =>
             {
@@ -47,7 +38,6 @@ namespace OnSale.Web
             services.AddScoped<IBlobHelper, BlobHelper>();
             services.AddScoped<IConverterHelper, ConverterHelper>();
             services.AddScoped<ICombosHelper, CombosHelper>();
-            //services.AddScoped<IUserHelper, UserHelper>();
 
             services.AddControllersWithViews();
         }
@@ -67,8 +57,6 @@ namespace OnSale.Web
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
-            //app.UseAuthentication();
 
             app.UseRouting();
 

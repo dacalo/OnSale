@@ -14,8 +14,8 @@ namespace OnSale.Web.Data.Entities
         [Display(Name = "Fecha")]
         public DateTime Date { get; set; }
 
-        [Display(Name = "Usuario")]
-        public User User { get; set; }
+        //[Display(Name = "Usuario")]
+        //public User User { get; set; }
 
         [Display(Name = "Status Orden")]
         public OrderStatus OrderStatus { get; set; }

@@ -11,13 +11,11 @@ namespace OnSale.Web.Data
     public class SeedDb
     {
         private readonly DataContext _context;
-        //private readonly IUserHelper _userHelper;
+        
 
-        //public SeedDb(DataContext context, IUserHelper userHelper)
         public SeedDb(DataContext context)
         {
             _context = context;
-            //_userHelper = userHelper;
         }
 
         public async Task SeedAsync()
