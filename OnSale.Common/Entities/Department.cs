@@ -11,6 +11,7 @@ namespace OnSale.Common.Entities
         
         [MaxLength(50)]
         [Required]
+        [DisplayName("Nombre")]
         public string Name { get; set; }
 
         public ICollection<City> Cities { get; set; }

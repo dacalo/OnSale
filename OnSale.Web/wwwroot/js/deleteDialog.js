@@ -9,16 +9,16 @@
      *
      * @return string id item.
      */
-    function openModal(modalName, classOrld, sourceEvent, deletePath, eventClassOrld) {
+    function openModal(modalName, classOrId, sourceEvent, deletePath, eventClassOrId) {
         var textEvent;
-        if (classOrld) {
+        if (classOrId) {
             textEvent = "." + modalName;
         } else {
             textEvent = "#" + modalName;
         }
         $(textEvent).click((e) => {
             item_to_delete = e.currentTarget.dataset.id;
-            deleteItem(sourceEvent, deletePath, eventClassOrld)
+            deleteItem(sourceEvent, deletePath, eventClassOrId)
         });
     }
 
@@ -27,9 +27,9 @@
      *
      * @return void.
      */
-    function deleteItem(sourceEvent, deletePath, eventClassOrld) {
+    function deleteItem(sourceEvent, deletePath, eventClassOrId) {
         var textEvent;
-        if (eventClassOrld) {
+        if (eventClassOrId) {
             textEvent = "." + sourceEvent;
         } else {
             textEvent = "#" + sourceEvent;

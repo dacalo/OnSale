@@ -1,17 +1,20 @@
 ﻿@model OnSale.Common.Entities.Department
-@{
-    ViewData["Title"] = "AddDepartment";
+@{ 
+    ViewData["Title"] = "Editar";
 }
 
-<h2>Agregar</h2>
+<h2>Editar</h2>
 <h4>Estado</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="AddDepartment">
+        <form asp-action="EditDepartment">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="IdCountry" />
-            <partial name="_Department" />
+            <input type="hidden" asp-for="Id"/>
+            <input type="hidden" asp-for="IdCountry"/>
+
+            <partial name="_Department"/>
+
             <div class="form-group">
                 <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-save"></i> Guardar</button>
                 <a asp-action="Details" asp-route-id="@Model.IdCountry" class="btn btn-success"><i class="glyphicon glyphicon-backward"></i> Regresar</a>
