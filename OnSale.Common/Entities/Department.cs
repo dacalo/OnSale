@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -20,6 +21,7 @@ namespace OnSale.Common.Entities
         public int CitiesNumber => Cities == null ? 0 : Cities.Count;
 
         [NotMapped]
+        [JsonIgnore]
         public int IdCountry { get; set; }
     }
 }

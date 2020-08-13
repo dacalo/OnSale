@@ -52,5 +52,8 @@ namespace OnSale.Web.Helpers
 
         public async Task LogoutAsync() => await _signInManager.SignOutAsync();
 
+        public async Task<SignInResult> ValidatePasswordAsync(User user, string password) => await _signInManager.CheckPasswordSignInAsync(user, password, false);
+
+
     }
 }

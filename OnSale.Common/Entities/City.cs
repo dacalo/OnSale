@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Newtonsoft.Json;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -14,6 +15,7 @@ namespace OnSale.Common.Entities
         public string Name { get; set; }
 
         [NotMapped]
+        [JsonIgnore]
         public int IdDepartment { get; set; }
     }
 }
