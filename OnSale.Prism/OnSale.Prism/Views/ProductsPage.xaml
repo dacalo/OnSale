@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="OnSale.Prism.Views.ProductsPage"
+             Title="{Binding Title}">
+
+    <StackLayout Padding="5">
+        <CollectionView SelectionMode="Single" ItemsSource="{Binding Products}">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="10" HorizontalItemSpacing="10"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.EmptyView>
+                <Label Text="No Item found." TextColor="Gray" HorizontalOptions="Center" VerticalOptions="Center"/>
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions="Auto, *, Auto">
+                        <ffimageloading:CachedImage Aspect="AspectFill"
+                                                    Source="{Binding ImageFullPath}"
+                                                    CacheDuration="50"
+                                                    Margin="5"
+                                                    RetryCount="3"
+                                                    RetryDelay="600"
+                                                    WidthRequest="100"/>
+                        <StackLayout Grid.Column="1"
+                                     VerticalOptions="Center">
+                            <Label Text="{Binding Name}"
+                                   FontAttributes="Bold"
+                                   FontSize="Medium"
+                                   LineBreakMode="TailTruncation"/>
+                            <Label Text="{Binding Price, StringFormat='{0:C2}'}"
+                                   LineBreakMode="TailTruncation"
+                                   FontAttributes="Italic"
+                                   VerticalOptions="End"/>
+                        </StackLayout>
+                        <Image Grid.Column="2"
+                               Source="ic_more_vert.png"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+</ContentPage>

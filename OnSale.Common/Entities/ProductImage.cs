@@ -15,7 +15,7 @@ namespace OnSale.Common.Entities
         [Display(Name = "Imagen")]
         public string ImageFullPath => ImageId == Guid.Empty
             ? $"{Constants.Path.PathNoImage}"
-            : $"{Constants.URL_BASE}/products/{ImageId}";
+            : $"{Constants.URL_BASE_BLOB}/products/{ImageId}";
     }
 
 }

@@ -34,7 +34,7 @@ namespace OnSale.Web.Data.Entities
         [Display(Name = "Imagen")]
         public string ImageFullPath => ImageId == Guid.Empty
             ? $"{Constants.Path.PathNoImage}"
-            : $"{Constants.URL_BASE}/users/{ImageId}";
+            : $"{Constants.URL_BASE_BLOB}/users/{ImageId}";
 
         [Display(Name = "Tipo Usuario")]
         public UserType UserType { get; set; }

@@ -5,7 +5,10 @@
              x:Class="OnSale.Prism.App">
   <Application.Resources>
 
-    <!-- Application resource dictionary -->
+        <ResourceDictionary>
+            <!--Parameters-->
+            
+        </ResourceDictionary>
 
   </Application.Resources>
 </prism:PrismApplication>

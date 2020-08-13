@@ -6,7 +6,7 @@ namespace OnSale.Web.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Nombre Usuario")]
+        [Display(Name = "Usuario")]
         public string Username { get; set; }
 
         [Required]

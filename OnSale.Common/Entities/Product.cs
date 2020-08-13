@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using OnSale.Common.Business;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -39,7 +40,7 @@ namespace OnSale.Common.Entities
         //TODO: Pending to put the correct paths
         [Display(Name = "Imagen")]
         public string ImageFullPath => ProductImages == null || ProductImages.Count == 0
-            ? $"https://localhost:51672/images/noimage.png"
+            ? $"{Constants.Path.PathNoImage}"
             : ProductImages.FirstOrDefault().ImageFullPath;
     }
 
