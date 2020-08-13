@@ -13,9 +13,25 @@ namespace OnSale.Common.Entities
 
         //TODO: Pending to put the correct paths
         [Display(Name = "Imagen")]
-        public string ImageFullPath => ImageId == Guid.Empty
-            ? $"{Constants.Path.PathNoImage}"
-            : $"{Constants.URL_BASE_BLOB}/products/{ImageId}";
-    }
+        public string ImageFullPath
+        {
+            get
+            {
+                var guid = Guid.Parse("d844c6c4-c929-4518-abeb-e900ac95ac53");
+                if(ImageId == guid)
+                {
+                    return $"{Constants.Path.PathImageEmpty}";
+                }
+                else if (ImageId == Guid.Empty)
+                {
+                    return $"{Constants.Path.PathNoImage}";
+                }
+                return $"{Constants.URL_BASE_BLOB}/products/{ImageId}";
+            }
+        }
 
+        
+
+
+    }
 }

@@ -3,38 +3,49 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:skeleton="clr-namespace:Xamarin.Forms.Skeleton;assembly=Xamarin.Forms.Skeleton"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="OnSale.Prism.Views.ProductsPage"
+             x:Name="productsPage"
              Title="{Binding Title}">
 
     <StackLayout Padding="5">
-        <CollectionView SelectionMode="Single" ItemsSource="{Binding Products}">
+        <CollectionView SelectionMode="Single"
+                        ItemsSource="{Binding Products}"
+                        skeleton:Skeleton.Animation="{skeleton:DefaultAnimation Fade}"
+                        skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                        skeleton:Skeleton.IsParent="True">
             <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="10" HorizontalItemSpacing="10"/>
+                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" HorizontalItemSpacing="10"/>
             </CollectionView.ItemsLayout>
-            <CollectionView.EmptyView>
-                <Label Text="No Item found." TextColor="Gray" HorizontalOptions="Center" VerticalOptions="Center"/>
-            </CollectionView.EmptyView>
+            
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid ColumnDefinitions="Auto, *, Auto">
+                    <Grid ColumnDefinitions="Auto, *, Auto"
+                          BackgroundColor="White">
                         <ffimageloading:CachedImage Aspect="AspectFill"
                                                     Source="{Binding ImageFullPath}"
                                                     CacheDuration="50"
                                                     Margin="5"
                                                     RetryCount="3"
                                                     RetryDelay="600"
-                                                    WidthRequest="100"/>
+                                                    WidthRequest="100"
+                                                    skeleton:Skeleton.BackgroundColor="#F0F0F0"
+                                                    skeleton:Skeleton.IsBusy="{Binding Path=BindingContext.IsBusy, Source={x:Reference Name=productsPage}}"/>
                         <StackLayout Grid.Column="1"
                                      VerticalOptions="Center">
                             <Label Text="{Binding Name}"
                                    FontAttributes="Bold"
                                    FontSize="Medium"
-                                   LineBreakMode="TailTruncation"/>
+                                   LineBreakMode="TailTruncation"
+                                   skeleton:Skeleton.BackgroundColor="#F0F0F0"
+                                   skeleton:Skeleton.IsBusy="{Binding Path=BindingContext.IsBusy, Source={x:Reference Name=productsPage}}"/>
                             <Label Text="{Binding Price, StringFormat='{0:C2}'}"
                                    LineBreakMode="TailTruncation"
                                    FontAttributes="Italic"
-                                   VerticalOptions="End"/>
+                                   VerticalOptions="End"
+                                   skeleton:Skeleton.BackgroundColor="#F0F0F0"
+                                   skeleton:Skeleton.IsBusy="{Binding Path=BindingContext.IsBusy, Source={x:Reference Name=productsPage}}"/>
                         </StackLayout>
                         <Image Grid.Column="2"
                                Source="ic_more_vert.png"/>

@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnSale.Web.Data;
+using OnSale.Web.Helpers;
+using OnSale.Web.Models;
 
 namespace OnSale.Web.Controllers.API
 {
@@ -21,12 +23,14 @@ namespace OnSale.Web.Controllers.API
         }
 
         [HttpGet]
-        public IActionResult GetProducts()
+        public async Task<IActionResult> GetProducts([FromQuery] Pagination pagination)
         {
-            return Ok(_context.Products
-                .Include(p => p.Category)
+            var queryable = _context.Products.Include(p => p.Category)
                 .Include(p => p.ProductImages)
-                .Where(p => p.IsActive));
+                .Where(p => p.IsActive).AsQueryable();
+            await HttpContext.InsertParametersPagination(queryable, pagination.RecordsPage);
+            var products = await queryable.Paginate(pagination).ToListAsync();
+            return Ok(products);
         }
 
     }
