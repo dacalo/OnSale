@@ -17,8 +17,14 @@
 
         public class TextString
         {
-            public static string MessageContains => "duplicate";
+            public static string MessageContains = "duplicate";
             public static string MessageErrorDuplicate = "Ya existe un registro con el mismo nombre.";
+            public static string GuidImageEmpty = "d844c6c4-c929-4518-abeb-e900ac95ac53";
+        }
+
+        public class EndPoints
+        {
+            public static string GetProducts = "/Products";
         }
     }
 }

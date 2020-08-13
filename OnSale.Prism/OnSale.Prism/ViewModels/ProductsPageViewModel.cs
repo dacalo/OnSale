@@ -2,14 +2,11 @@
 using OnSale.Common.Entities;
 using OnSale.Common.Responses;
 using OnSale.Common.Services;
-using Prism.Commands;
-using Prism.Mvvm;
+using OnSale.Prism.Helpers;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace OnSale.Prism.ViewModels
@@ -25,7 +22,7 @@ namespace OnSale.Prism.ViewModels
         {
             _navigationService = navigationService;
             _apiService = apiService;
-            Title = "Products";
+            Title = Languages.Products;
             LoadSkeleton();
             LoadProductsAsync();
         }
@@ -52,8 +49,8 @@ namespace OnSale.Prism.ViewModels
                 list.Add(new Product
                 {
                     Id = 0,
-                    Name = "",
-                    ProductImages = new List<ProductImage> { new ProductImage { ImageId = Guid.Parse("d844c6c4-c929-4518-abeb-e900ac95ac53") } }
+                    Name = string.Empty,
+                    ProductImages = new List<ProductImage> { new ProductImage { ImageId = Guid.Parse(Constants.TextString.GuidImageEmpty) } }
                 });
             }
             Products = new ObservableCollection<Product>(list);
@@ -62,20 +59,19 @@ namespace OnSale.Prism.ViewModels
         private async void LoadProductsAsync()
         {
             IsBusy = true;
-            await Task.Delay(5000);
             if(Connectivity.NetworkAccess != NetworkAccess.Internet)
             {
-                await App.Current.MainPage.DisplayAlert("Error", "Check the internet connection.", "Accept");
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.ConnectionError, Languages.Accept);
                 return;
             }
 
             Response response = await _apiService.GetListAsync<Product>(
                 Constants.URL_BASE,
                 Constants.SERVICE_PREFIX,
-                "/Products");
+                Constants.EndPoints.GetProducts);
             if (!response.IsSuccess)
             {
-                await App.Current.MainPage.DisplayAlert("Error", response.Message, "Accept");
+                await App.Current.MainPage.DisplayAlert(Languages.Error, response.Message, Languages.Accept);
                 return;
             }
 
