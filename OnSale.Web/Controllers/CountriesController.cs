@@ -31,18 +31,15 @@ namespace OnSale.Web.Controllers
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
-
+            
             var country = await _context.Countries
                 .Include(c => c.Departments)
                 .ThenInclude(cd => cd.Cities)
                 .FirstOrDefaultAsync(m => m.Id == id);
+            
             if (country == null)
-            {
                 return NotFound();
-            }
 
             return View(country);
         }
@@ -51,7 +48,6 @@ namespace OnSale.Web.Controllers
         {
             return View();
         }
-
         
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -100,7 +96,6 @@ namespace OnSale.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Country country)
         {
-            var prueba = UserType.Admin.ToString();
             if (id != country.Id)
                 return NotFound();
 
@@ -154,6 +149,7 @@ namespace OnSale.Web.Controllers
         {
             if (id == null)
                 return NotFound();
+            
             Country country = await _context.Countries.FindAsync(id);
 
             if (country == null)
@@ -169,6 +165,7 @@ namespace OnSale.Web.Controllers
             if (ModelState.IsValid)
             {
                 Country country = await _context.Countries.Include(c => c.Departments).FirstOrDefaultAsync(c => c.Id == department.IdCountry);
+
                 if (country == null)
                     return NotFound();
 

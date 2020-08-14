@@ -11,7 +11,7 @@ namespace OnSale.Common.Entities
         public int Id { get; set; }
         
         [MaxLength(50)]
-        [Required]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         [DisplayName("Nombre")]
         public string Name { get; set; }
 
