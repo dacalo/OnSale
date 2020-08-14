@@ -6,6 +6,7 @@ using Xamarin.Essentials.Interfaces;
 using Xamarin.Essentials.Implementation;
 using Xamarin.Forms;
 using OnSale.Common.Services;
+using Syncfusion.Licensing;
 
 namespace OnSale.Prism
 {
@@ -18,6 +19,7 @@ namespace OnSale.Prism
 
         protected override async void OnInitialized()
         {
+            SyncfusionLicenseProvider.RegisterLicense("MzAzMDg5QDMxMzgyZTMyMmUzME5RQjFnSWZIZE5nTXpXZTFWaWFCdHhxVnJHTXRjTEFreUhHeTJnN1I1ZXM9");
             InitializeComponent();
 
             await NavigationService.NavigateAsync($"NavigationPage/{nameof(ProductsPage)}");
@@ -28,8 +30,8 @@ namespace OnSale.Prism
             containerRegistry.RegisterSingleton<IAppInfo, AppInfoImplementation>();
             containerRegistry.Register<IApiService, ApiService>();
             containerRegistry.RegisterForNavigation<NavigationPage>();
-            containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<ProductsPage, ProductsPageViewModel>();
+            containerRegistry.RegisterForNavigation<ProductDetailPage, ProductDetailPageViewModel>();
         }
     }
 }

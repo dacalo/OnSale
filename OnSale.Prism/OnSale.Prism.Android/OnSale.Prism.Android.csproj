@@ -61,6 +61,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator">
+      <Version>18.2.0.48</Version>
+    </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.SfRotator">
+      <Version>18.2.0.48</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.FFImageLoading.Forms">
       <Version>2.4.11.982</Version>
     </PackageReference>
@@ -114,12 +120,6 @@
     <AndroidResource Include="Resources\values\strings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OnSale.Prism\OnSale.Prism.csproj">
-      <Project>{A682884C-CB44-4A89-B752-27BB634E0ABE}</Project>
-      <Name>OnSale.Prism</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_more_vert.png" />
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +136,16 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_more_vert.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\OnSale.Common\OnSale.Common.csproj">
+      <Project>{061E9BFA-DCF2-480A-9185-CC91755D8DE7}</Project>
+      <Name>OnSale.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OnSale.Prism\OnSale.Prism.csproj">
+      <Project>{0F0013F5-7996-436A-AABE-8DC059F808C8}</Project>
+      <Name>OnSale.Prism</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

@@ -18,10 +18,10 @@ namespace OnSale.Prism.Helpers
             }
 
             PlatformString = platformCultureString.Replace("_", "-"); // .NET expects dash, not underscore
-            var dashIndex = PlatformString.IndexOf("-", StringComparison.Ordinal);
+            int dashIndex = PlatformString.IndexOf("-", StringComparison.Ordinal);
             if (dashIndex > 0)
             {
-                var parts = PlatformString.Split('-');
+                string[] parts = PlatformString.Split('-');
                 LanguageCode = parts[0];
                 LocaleCode = parts[1];
             }

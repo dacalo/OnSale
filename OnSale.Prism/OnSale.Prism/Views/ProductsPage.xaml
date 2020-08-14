@@ -3,56 +3,80 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
              xmlns:skeleton="clr-namespace:Xamarin.Forms.Skeleton;assembly=Xamarin.Forms.Skeleton"
+             xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+             xmlns:i18n="clr-namespace:OnSale.Prism.Helpers"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="True"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="OnSale.Prism.Views.ProductsPage"
              x:Name="productsPage"
              Title="{Binding Title}">
 
-    <StackLayout Padding="5">
-        <RefreshView Command="{Binding RefreshCommand}"
-                     IsRefreshing="{Binding IsRefreshing}">
-            <CollectionView SelectionMode="Single"
-                            ItemsSource="{Binding Products}"
-                            skeleton:Skeleton.Animation="{skeleton:DefaultAnimation Fade}"
-                            skeleton:Skeleton.IsBusy="{Binding IsBusy}"
-                            skeleton:Skeleton.IsParent="True">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" HorizontalItemSpacing="10"/>
-                </CollectionView.ItemsLayout>
+    <AbsoluteLayout>
+        <StackLayout Padding="5"
+                     AbsoluteLayout.LayoutBounds="0,0,1,1"
+                     AbsoluteLayout.LayoutFlags="All">
+            <SearchBar Placeholder="{i18n:Translate SearchProduct}"
+                       SearchCommand="{Binding SearchCommand}"/>
+            <RefreshView Command="{Binding RefreshCommand}"
+                         IsRefreshing="{Binding IsRefreshing}">
+                <CollectionView SelectionMode="Single"
+                                ItemsSource="{Binding Products}"
+                                skeleton:Skeleton.Animation="{skeleton:DefaultAnimation Fade}"
+                                skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                                skeleton:Skeleton.IsParent="True">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" HorizontalItemSpacing="10"/>
+                    </CollectionView.ItemsLayout>
             
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid ColumnDefinitions="Auto, *, Auto"
-                              BackgroundColor="White">
-                            <Image
-                                Aspect="AspectFill"
-                                Source="{Binding ImageFullPath}"
-                                Margin="5"
-                                WidthRequest="100"
-                                skeleton:Skeleton.BackgroundColor="#F0F0F0"
-                                skeleton:Skeleton.IsBusy="{Binding Path=BindingContext.IsBusy, Source={x:Reference Name=productsPage}}"/>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="Auto, *, Auto"
+                                  BackgroundColor="White">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectProductCommand}"/>
+                                </Grid.GestureRecognizers>
+                                <Image
+                                    Aspect="AspectFill"
+                                    Source="{Binding ImageFullPath}"
+                                    Margin="5"
+                                    WidthRequest="100"
+                                    skeleton:Skeleton.BackgroundColor="#F0F0F0"
+                                    skeleton:Skeleton.IsBusy="{Binding Path=BindingContext.IsBusy, Source={x:Reference Name=productsPage}}"/>
                             
-                            <StackLayout Grid.Column="1"
-                                         VerticalOptions="Center">
-                                <Label Text="{Binding Name}"
-                                       FontAttributes="Bold"
-                                       FontSize="Medium"
-                                       LineBreakMode="TailTruncation"
-                                       skeleton:Skeleton.BackgroundColor="#F0F0F0"
-                                       skeleton:Skeleton.IsBusy="{Binding Path=BindingContext.IsBusy, Source={x:Reference Name=productsPage}}"/>
-                                <Label Text="{Binding Price, StringFormat='{0:C2}'}"
-                                       LineBreakMode="TailTruncation"
-                                       FontAttributes="Italic"
-                                       VerticalOptions="End"
-                                       skeleton:Skeleton.BackgroundColor="#F0F0F0"
-                                       skeleton:Skeleton.IsBusy="{Binding Path=BindingContext.IsBusy, Source={x:Reference Name=productsPage}}"/>
-                            </StackLayout>
-                            <Image Grid.Column="2"
-                                   Source="ic_more_vert.png"/>
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </RefreshView>
-    </StackLayout>
+                                <StackLayout Grid.Column="1"
+                                             VerticalOptions="Center">
+                                    <Label Text="{Binding Name}"
+                                           FontAttributes="Bold"
+                                           FontSize="Medium"
+                                           LineBreakMode="TailTruncation"
+                                           skeleton:Skeleton.BackgroundColor="#F0F0F0"
+                                           skeleton:Skeleton.IsBusy="{Binding Path=BindingContext.IsBusy, Source={x:Reference Name=productsPage}}"/>
+                                    <Label Text="{Binding Price, StringFormat='{0:C2}'}"
+                                           LineBreakMode="TailTruncation"
+                                           FontAttributes="Italic"
+                                           VerticalOptions="End"
+                                           skeleton:Skeleton.BackgroundColor="#F0F0F0"
+                                           skeleton:Skeleton.IsBusy="{Binding Path=BindingContext.IsBusy, Source={x:Reference Name=productsPage}}"/>
+                                </StackLayout>
+                                <Image Grid.Column="2"
+                                       Source="ic_more_vert.png"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+        </StackLayout>
+        <busyindicator:SfBusyIndicator AnimationType="Gear" 
+                                       AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
+                                       AbsoluteLayout.LayoutFlags="All"
+                                       BackgroundColor="Silver"
+                                       HorizontalOptions="Center"
+                                       TextColor="White"
+                                       IsBusy="{Binding IsRunning}"
+                                       Title="{i18n:Translate Loading}"
+                                       VerticalOptions="Center"
+                                       ViewBoxWidth="80"
+                                       ViewBoxHeight="80" />
+    </AbsoluteLayout>
 </ContentPage>

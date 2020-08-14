@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OnSale.Common.Business;
 using OnSale.Common.Entities;
+using OnSale.Common.Enums;
 using OnSale.Web.Data;
 
 namespace OnSale.Web.Controllers
@@ -99,10 +100,9 @@ namespace OnSale.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Country country)
         {
+            var prueba = UserType.Admin.ToString();
             if (id != country.Id)
-            {
                 return NotFound();
-            }
 
             if (ModelState.IsValid)
             {

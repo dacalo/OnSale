@@ -70,11 +70,38 @@ namespace OnSale.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add to cart.
+        /// </summary>
+        public static string AddCart {
+            get {
+                return ResourceManager.GetString("AddCart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        public static string Category {
+            get {
+                return ResourceManager.GetString("Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check the internet connection..
         /// </summary>
         public static string ConnectionError {
             get {
                 return ResourceManager.GetString("ConnectionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
             }
         }
         
@@ -88,11 +115,65 @@ namespace OnSale.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Is Starred.
+        /// </summary>
+        public static string IsStarred {
+            get {
+                return ResourceManager.GetString("IsStarred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading....
+        /// </summary>
+        public static string Loading {
+            get {
+                return ResourceManager.GetString("Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Price.
+        /// </summary>
+        public static string Price {
+            get {
+                return ResourceManager.GetString("Price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product.
+        /// </summary>
+        public static string Product {
+            get {
+                return ResourceManager.GetString("Product", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Products.
         /// </summary>
         public static string Products {
             get {
                 return ResourceManager.GetString("Products", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search a product....
+        /// </summary>
+        public static string SearchProduct {
+            get {
+                return ResourceManager.GetString("SearchProduct", resourceCulture);
             }
         }
     }

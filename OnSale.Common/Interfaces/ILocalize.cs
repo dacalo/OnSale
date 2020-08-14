@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace OnSale.Prism.Interfaces
+namespace OnSale.Common.Interfaces
 {
     public interface ILocalize
     {

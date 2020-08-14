@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             xmlns:i18n="clr-namespace:OnSale.Prism.Helpers"
+             xmlns:rotator="clr-namespace:Syncfusion.SfRotator.XForms;assembly=Syncfusion.SfRotator.XForms"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             ios:Page.UseSafeArea="True"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="OnSale.Prism.Views.ProductDetailPage"
+             Title="{Binding Title}">
+    <StackLayout Padding="5">
+        <ScrollView>
+            <StackLayout>
+                <rotator:SfRotator EnableAutoPlay="True"
+                                   EnableLooping="True"
+                                   HeightRequest="300"
+                                   ItemsSource="{Binding Images}"
+                                   NavigationDelay="5000"
+                                   NavigationDirection="Horizontal"
+                                   NavigationStripMode="Thumbnail"
+                                   NavigationStripPosition="Bottom">
+                    <rotator:SfRotator.ItemTemplate>
+                        <DataTemplate>
+                            <ffimageloading:CachedImage Aspect="AspectFit"
+                                                        CacheDuration= "50"
+                                                        DownsampleToViewSize = "true"
+                                                        ErrorPlaceholder= "ErrorImage"
+                                                        HeightRequest="300"
+                                                        LoadingPlaceholder= "LoaderImage"
+                                                        RetryCount= "3"
+                                                        RetryDelay= "600"
+                                                        Source="{Binding ImageFullPath}"/>
+                        </DataTemplate>
+                    </rotator:SfRotator.ItemTemplate>
+                </rotator:SfRotator>
+                <Grid ColumnDefinitions="Auto, *"
+                      RowDefinitions="Auto, Auto, Auto, Auto, Auto">
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           FontAttributes="Bold"
+                           Text="{i18n:Translate Name}"/>
+                    <Label Grid.Row="0"
+                           Grid.Column="1"
+                           Text="{Binding Product.Name}"/>
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           FontAttributes="Bold"
+                           Text="{i18n:Translate Description}"/>
+                    <Label Grid.Row="1"
+                           Grid.Column="1"
+                           Text="{Binding Product.Description}"/>
+                    <Label Grid.Row="2"
+                           Grid.Column="0"
+                           FontAttributes="Bold"
+                           Text="{i18n:Translate Price}"/>
+                    <Label Grid.Row="2"
+                           Grid.Column="1"
+                           Text="{Binding Product.Price, StringFormat='{0:C2}'}"/>
+                    <Label Grid.Row="3"
+                           Grid.Column="0"
+                           FontAttributes="Bold"
+                           Text="{i18n:Translate Category}"/>
+                    <Label Grid.Row="3"
+                           Grid.Column="1"
+                           Text="{Binding Product.Category.Name}"/>
+                    <Label Grid.Row="4"
+                           Grid.Column="0"
+                           FontAttributes="Bold"
+                           Text="{i18n:Translate IsStarred}"
+                           VerticalOptions="Center"/>
+                    <CheckBox Grid.Row="4"
+                              Grid.Column="1"
+                              HorizontalOptions="Start"
+                              IsEnabled="False"
+                              IsChecked="{Binding Product.IsStarred}"/>
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+        <Button BackgroundColor="Navy"
+                Command="{Binding AddToCartBinding}" 
+                CornerRadius="10"
+                Text="{i18n:Translate AddCart}"
+                TextColor="White"
+                VerticalOptions="EndAndExpand"/>
+    </StackLayout>
+</ContentPage>

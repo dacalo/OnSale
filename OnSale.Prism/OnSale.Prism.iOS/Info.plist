@@ -39,7 +39,7 @@
 
     <key>CFBundleLocalizations</key>
     <array>
-        <string>es</string>
+      <string>es</string>
     </array>
     <key>CFBundleDevelopmentRegion</key>
     <string>en</string>

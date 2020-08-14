@@ -3,11 +3,13 @@ using OnSale.Common.Entities;
 using OnSale.Common.Responses;
 using OnSale.Common.Services;
 using OnSale.Prism.Helpers;
+using OnSale.Prism.ItemViewModels;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
@@ -18,9 +20,13 @@ namespace OnSale.Prism.ViewModels
         #region [ Attributes ]
         private bool _isBusy;
         private bool _isRefreshing;
+        private bool _isRunning;
+        private string _search;
         private readonly INavigationService _navigationService;
         private readonly IApiService _apiService;
-        private ObservableCollection<Product> _products;
+        private DelegateCommand _searchCommand;
+        private List<Product> _myProducts;
+        private ObservableCollection<ProductItemViewModel> _products;
         #endregion [ Attributes ]
 
         #region [ Constructor ]
@@ -36,7 +42,7 @@ namespace OnSale.Prism.ViewModels
         #endregion [ Constructor ]
 
         #region [ Properties ]
-        public ObservableCollection<Product> Products
+        public ObservableCollection<ProductItemViewModel> Products
         {
             get => _products;
             set => SetProperty(ref _products, value);
@@ -53,24 +59,44 @@ namespace OnSale.Prism.ViewModels
             get => _isRefreshing;
             set => SetProperty(ref _isRefreshing, value);
         }
+
+        public bool IsRunning
+        {
+            get => _isRunning;
+            set => SetProperty(ref _isRunning, value);
+        }
+
+        public string Search
+        {
+            get => _search;
+            set
+            {
+                SetProperty(ref _search, value);
+                ShowProducts();
+            }
+        }
         #endregion [ Properties ]
 
-        public DelegateCommand RefreshCommand => new DelegateCommand(async ()=> await Refresh());
+        #region [ Commands ]
+        public DelegateCommand RefreshCommand => new DelegateCommand(async () => await Refresh());
+
+        public DelegateCommand SearchCommand => _searchCommand ?? (_searchCommand = new DelegateCommand(ShowProducts));
+        #endregion [ Commands ]
 
         #region [ Methods ]
         private void LoadSkeleton()
         {
-            List<Product> list = new List<Product>();
+            List<ProductItemViewModel> list = new List<ProductItemViewModel>();
             for (int i = 0; i < 10; i++)
             {
-                list.Add(new Product
+                list.Add(new ProductItemViewModel(_navigationService)
                 {
                     Id = 0,
                     Name = string.Empty,
                     ProductImages = new List<ProductImage> { new ProductImage { ImageId = Guid.Parse(Constants.TextString.GuidImageEmpty) } }
                 });
             }
-            Products = new ObservableCollection<Product>(list);
+            Products = new ObservableCollection<ProductItemViewModel>(list);
         }
 
         private async Task LoadProductsAsync()
@@ -82,28 +108,63 @@ namespace OnSale.Prism.ViewModels
                 return;
             }
 
+            IsRunning = true;
             Response response = await _apiService.GetListAsync<Product>(
                 Constants.URL_BASE,
                 Constants.SERVICE_PREFIX,
                 Constants.EndPoints.GetProducts);
+            IsRunning = false;
             if (!response.IsSuccess)
             {
                 await App.Current.MainPage.DisplayAlert(Languages.Error, response.Message, Languages.Accept);
                 return;
             }
 
-            List<Product> myProducts = (List<Product>)response.Result;
-            Products = new ObservableCollection<Product>(myProducts);
+            _myProducts = (List<Product>)response.Result;
+            ShowProducts();
             IsBusy = false;
         }
 
         private async Task Refresh()
         {
             IsRefreshing = true;
-            await Task.Delay(3000);
             await LoadProductsAsync();
             IsRefreshing = false;
         }
+
+        private void ShowProducts()
+        {
+            if (string.IsNullOrEmpty(Search))
+            {
+                Products = new ObservableCollection<ProductItemViewModel>(_myProducts.Select(p => new ProductItemViewModel(_navigationService)
+                {
+                    Category = p.Category,
+                    Description = p.Description,
+                    Id = p.Id,
+                    IsActive = p.IsActive,
+                    IsStarred = p.IsStarred,
+                    Name = p.Name,
+                    Price = p.Price,
+                    ProductImages = p.ProductImages
+                }).ToList());
+
+            }
+            else
+            {
+                Products = new ObservableCollection<ProductItemViewModel>(_myProducts.Select(p => new ProductItemViewModel(_navigationService)
+                {
+                    Category = p.Category,
+                    Description = p.Description,
+                    Id = p.Id,
+                    IsActive = p.IsActive,
+                    IsStarred = p.IsStarred,
+                    Name = p.Name,
+                    Price = p.Price,
+                    ProductImages = p.ProductImages
+                }).Where(p => p.Name.ToLower().Contains(Search.ToLower())));
+            }
+        }
+
         #endregion [ Methods ]
     }
 }
