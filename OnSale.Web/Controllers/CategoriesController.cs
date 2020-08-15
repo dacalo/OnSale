@@ -46,14 +46,14 @@ namespace OnSale.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Guid imageId = Guid.Empty;
+                string urlImage = string.Empty;
 
                 if (model.ImageFile != null)
-                    imageId = await _blobHelper.UploadBlobAsync(model.ImageFile, _folder);
+                    urlImage = await _blobHelper.SaveFile(model.ImageFile, _folder);
 
                 try
                 {
-                    Category category = _converterHelper.ToCategory(model, imageId, true);
+                    Category category = _converterHelper.ToCategory(model, urlImage, true);
                     _context.Add(category);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
@@ -93,14 +93,14 @@ namespace OnSale.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Guid imageId = model.ImageId;
+                string urlImage = model.UrlImage;
 
                 if (model.ImageFile != null)
-                    imageId = await _blobHelper.UploadBlobAsync(model.ImageFile, _folder);
+                    urlImage = await _blobHelper.EditFile(model.ImageFile, _folder, urlImage);
 
                 try
                 {
-                    Category category = _converterHelper.ToCategory(model, imageId, false);
+                    Category category = _converterHelper.ToCategory(model, urlImage, false);
                     _context.Update(category);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
@@ -132,6 +132,7 @@ namespace OnSale.Web.Controllers
 
             try
             {
+                await _blobHelper.DeleteFile(category.UrlImage, _folder);
                 _context.Categories.Remove(category);
                 await _context.SaveChangesAsync();
             }

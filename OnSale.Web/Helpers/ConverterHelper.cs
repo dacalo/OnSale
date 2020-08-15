@@ -16,12 +16,12 @@ namespace OnSale.Web.Helpers
             _context = context;
             _combosHelper = combosHelper;
         }
-        public Category ToCategory(CategoryViewModel model, Guid imageId, bool isNew)
+        public Category ToCategory(CategoryViewModel model, string urlImage, bool isNew)
         {
             return new Category
             {
                 Id = isNew ? 0 : model.Id,
-                ImageId = imageId,
+                UrlImage = urlImage,
                 Name = model.Name
             };
         }
@@ -31,7 +31,7 @@ namespace OnSale.Web.Helpers
             return new CategoryViewModel
             {
                 Id = category.Id,
-                ImageId = category.ImageId,
+                UrlImage = category.UrlImage,
                 Name = category.Name
             };
         }

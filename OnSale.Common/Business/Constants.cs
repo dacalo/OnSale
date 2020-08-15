@@ -2,9 +2,9 @@
 {
     public class Constants
     {
-        //public static string URL_BASE => "http://10.1.114.74:84";
-        //public static string URL_BASE => "http://localhost:51672";
-        public static string URL_BASE => "https://onsalewebdacalo.azurewebsites.net";
+        public static string URL_BASE => "http://10.1.114.74:84";
+        //public static string URL_BASE => "http://localhost:51773";
+        //public static string URL_BASE => "https://onsalewebdacalo.azurewebsites.net";
         public static string URL_BASE_BLOB => "https://onsaledacalo.blob.core.windows.net";
 
         public static string SERVICE_PREFIX => "/api";

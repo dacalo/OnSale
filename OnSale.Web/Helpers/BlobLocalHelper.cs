@@ -22,11 +22,12 @@ namespace OnSale.Web.Helpers
         {
             _env = env;
             _httpContextAccessor = httpContextAccessor;
-            string keys = configuration["Blob:ConnectionString"];
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(keys);
+            string connectionString = configuration["Blob:ConnectionString"];
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
             _blobClient = storageAccount.CreateCloudBlobClient();
         }
 
+        #region [ Blob Zulu ]
         public async Task<Guid> UploadBlobAsync(IFormFile file, string containerName)
         {
             var nameFile = Guid.NewGuid();
@@ -63,5 +64,52 @@ namespace OnSale.Web.Helpers
             await blockBlob.UploadFromStreamAsync(stream);
             return name;
         }
+        #endregion [ Blob Zulu ]
+
+        #region [ Blob Gavilan ]
+        public async Task<string> SaveFile(IFormFile file, string container)
+        {
+            MemoryStream memoryStream = new MemoryStream();
+
+            await file.CopyToAsync(memoryStream);
+            var content = memoryStream.ToArray();
+            var extension = Path.GetExtension(file.FileName);
+
+            var nameFile = $"{Guid.NewGuid()}{extension}";
+            string folder = Path.Combine(_env.WebRootPath, container);
+
+            if (!Directory.Exists(folder))
+                Directory.CreateDirectory(folder);
+
+            string path = Path.Combine(folder, nameFile);
+            await File.WriteAllBytesAsync(path, content);
+
+            var urlDomine = $"{_httpContextAccessor.HttpContext.Request.Scheme}://{_httpContextAccessor.HttpContext.Request.Host}";
+
+            var url = Path.Combine(urlDomine, container, nameFile).Replace("\\", "/");
+
+            return url;
+        }
+
+        public Task DeleteFile(string path, string container)
+        {
+            if (path != null)
+            {
+                var nameFile = Path.GetFileName(path);
+                string folderFile = Path.Combine(_env.WebRootPath, container, nameFile);
+
+                if (File.Exists(folderFile))
+                    File.Delete(folderFile);
+            }
+            return Task.FromResult(0);
+        }
+
+        public async Task<string> EditFile(IFormFile file, string container, string path)
+        {
+            await DeleteFile(path, container);
+            return await SaveFile(file, container);
+        }
+
+        #endregion [ Blob Gavilan ]
     }
 }

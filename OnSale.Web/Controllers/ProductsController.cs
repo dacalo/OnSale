@@ -61,10 +61,10 @@ namespace OnSale.Web.Controllers
 
                     if (model.ImageFile != null)
                     {
-                        Guid imageId = await _blobHelper.UploadBlobAsync(model.ImageFile, _folder);
+                        string urlImage = await _blobHelper.SaveFile(model.ImageFile, _folder);
                         product.ProductImages = new List<ProductImage>
                         {
-                            new ProductImage { ImageId = imageId }
+                            new ProductImage { UrlImage = urlImage }
                         };
                     }
 
@@ -117,11 +117,11 @@ namespace OnSale.Web.Controllers
 
                     if (model.ImageFile != null)
                     {
-                        Guid imageId = await _blobHelper.UploadBlobAsync(model.ImageFile, _folder);
+                        string urlImage = await _blobHelper.EditFile(model.ImageFile, _folder, product.ImageFullPath);
                         if (product.ProductImages == null)
                             product.ProductImages = new List<ProductImage>();
 
-                        product.ProductImages.Add(new ProductImage { ImageId = imageId });
+                        product.ProductImages.Add(new ProductImage { UrlImage = urlImage });
                     }
 
                     _context.Update(product);
@@ -159,6 +159,7 @@ namespace OnSale.Web.Controllers
 
             try
             {
+
                 _context.Products.Remove(product);
                 await _context.SaveChangesAsync();
             }
@@ -212,11 +213,11 @@ namespace OnSale.Web.Controllers
 
                 try
                 {
-                    Guid imageId = await _blobHelper.UploadBlobAsync(model.ImageFile, _folder);
+                    string urlImage = await _blobHelper.SaveFile(model.ImageFile, _folder);
                     if (product.ProductImages == null)
                         product.ProductImages = new List<ProductImage>();
 
-                    product.ProductImages.Add(new ProductImage { ImageId = imageId });
+                    product.ProductImages.Add(new ProductImage { UrlImage = urlImage });
                     _context.Update(product);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Details), new { id = product.Id });

@@ -13,7 +13,7 @@
         <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="ImageId" />
+            <input type="hidden" asp-for="UrlImage" />
 
             <partial name="_Category" />
 
@@ -24,7 +24,7 @@
         </form>
     </div>
     <div class="col-md-4">
-        <img src="@Model.ImageFullPath" style="width:200px; height:200px; max-width:100%; height:auto;" />
+        <img src="@Model.UrlImageFull" style="width:200px; height:200px; max-width:100%; height:auto;" />
     </div>
 </div>
 

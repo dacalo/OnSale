@@ -93,7 +93,7 @@ namespace OnSale.Prism.ViewModels
                 {
                     Id = 0,
                     Name = string.Empty,
-                    ProductImages = new List<ProductImage> { new ProductImage { ImageId = Guid.Parse(Constants.TextString.GuidImageEmpty) } }
+                    ProductImages = new List<ProductImage> { new ProductImage { UrlImage = Constants.TextString.GuidImageEmpty } }
                 });
             }
             Products = new ObservableCollection<ProductItemViewModel>(list);

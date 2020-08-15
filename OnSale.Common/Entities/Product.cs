@@ -41,7 +41,7 @@ namespace OnSale.Common.Entities
         [Display(Name = "Imagen")]
         public string ImageFullPath => ProductImages == null || ProductImages.Count == 0
             ? $"{Constants.Path.PathNoImage}"
-            : ProductImages.FirstOrDefault().ImageFullPath;
+            : ProductImages.FirstOrDefault().UrlImageFull;
     }
 
 }
