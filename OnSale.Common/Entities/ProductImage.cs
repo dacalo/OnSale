@@ -11,7 +11,6 @@ namespace OnSale.Common.Entities
         [Display(Name = "Imagen")]
         public Guid ImageId { get; set; }
 
-        //TODO: Pending to put the correct paths
         [Display(Name = "Imagen")]
         public string ImageFullPath
         {

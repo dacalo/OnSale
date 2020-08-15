@@ -19,7 +19,10 @@ namespace OnSale.Web.Controllers
         private readonly IBlobHelper _blobHelper;
         private readonly IConverterHelper _converterHelper;
 
-        public CategoriesController(DataContext context, IBlobHelper blobHelper, IConverterHelper converterHelper)
+        public CategoriesController(
+            DataContext context,
+            IBlobHelper blobHelper,
+            IConverterHelper converterHelper)
         {
             _context = context;
             _blobHelper = blobHelper;

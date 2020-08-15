@@ -10,14 +10,13 @@ namespace OnSale.Common.Entities
         public int Id { get; set; }
 
         [MaxLength(50)]
-        [Required]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         [DisplayName("Nombre")]
         public string Name { get; set; }
 
         [Display(Name = "Imagen")]
         public Guid ImageId { get; set; }
 
-        //TODO: Pending to put the correct paths
         [Display(Name = "Imagen")]
         public string ImageFullPath => ImageId == Guid.Empty
             ? $"{Constants.Path.PathNoImage}"

@@ -240,6 +240,7 @@ namespace OnSale.Web.Controllers
                 return NotFound();
 
             Department department = await _context.Departments.Include(d => d.Cities).FirstOrDefaultAsync(m => m.Id == id);
+
             if (department == null)
                 return NotFound();
 
@@ -253,6 +254,7 @@ namespace OnSale.Web.Controllers
         {
             if (id == null)
                 return NotFound();
+
             Department department = await _context.Departments.Include(d => d.Cities).FirstOrDefaultAsync(m => m.Id == id);
 
             if (department == null)
