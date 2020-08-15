@@ -8,8 +8,8 @@ namespace OnSale.Web.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<Category, CategoryViewModel>().ReverseMap();
-            CreateMap<Product, ProductViewModel>().ReverseMap();
+            CreateMap<Category, CategoryViewModel>();
+            
         }
     }
 }

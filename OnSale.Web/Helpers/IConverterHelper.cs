@@ -8,7 +8,7 @@ namespace OnSale.Web.Helpers
     {
         Category ToCategory(CategoryViewModel model, string urlImage, bool isNew);
 
-        CategoryViewModel ToCategoryViewModel(Category category);
+        //CategoryViewModel ToCategoryViewModel(Category category);
         
         Task<Product> ToProductAsync(ProductViewModel model, bool isNew);
 

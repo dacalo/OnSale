@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnSale.Common.Business;
@@ -18,15 +19,18 @@ namespace OnSale.Web.Controllers
         private readonly DataContext _context;
         private readonly IBlobHelper _blobHelper;
         private readonly IConverterHelper _converterHelper;
+        private readonly IMapper _mapper;
 
         public CategoriesController(
             DataContext context,
             IBlobHelper blobHelper,
-            IConverterHelper converterHelper)
+            IConverterHelper converterHelper,
+            IMapper mapper)
         {
             _context = context;
             _blobHelper = blobHelper;
             _converterHelper = converterHelper;
+            _mapper = mapper;
         }
 
         public async Task<IActionResult> Index()
@@ -82,8 +86,9 @@ namespace OnSale.Web.Controllers
             Category category = await _context.Categories.FindAsync(id);
             if (category == null)
                 return NotFound();
-
-            CategoryViewModel model = _converterHelper.ToCategoryViewModel(category);
+            //TODO Eliminar
+            //CategoryViewModel model = _converterHelper.ToCategoryViewModel(category);
+            CategoryViewModel model = _mapper.Map<CategoryViewModel>(category);
             return View(model);
         }
 

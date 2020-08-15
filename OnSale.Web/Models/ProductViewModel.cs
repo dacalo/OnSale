@@ -13,7 +13,7 @@ namespace OnSale.Web.Models
     {
         [Display(Name = "Categoría")]
         [Range(1, int.MaxValue, ErrorMessage = "Debe seleccionar una categoría")]
-        [Required]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public int CategoryId { get; set; }
 
         public IEnumerable<SelectListItem> Categories { get; set; }

@@ -16,10 +16,10 @@ namespace OnSale.Web.Helpers
 
         public IEnumerable<SelectListItem> GetComboCategories()
         {
-            List<SelectListItem> list = _context.Categories.Select(t => new SelectListItem
+            List<SelectListItem> list = _context.Categories.Select(c => new SelectListItem
             {
-                Text = t.Name,
-                Value = $"{t.Id}"
+                Text = c.Name,
+                Value = $"{c.Id}"
             })
                 .OrderBy(t => t.Text)
                 .ToList();

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnSale.Common.Business;
@@ -21,13 +22,20 @@ namespace OnSale.Web.Controllers
         private readonly IBlobHelper _blobHelper;
         private readonly ICombosHelper _combosHelper;
         private readonly IConverterHelper _converterHelper;
+        private readonly IMapper _mapper;
 
-        public ProductsController(DataContext context, IBlobHelper blobHelper, ICombosHelper combosHelper, IConverterHelper converterHelper)
+        public ProductsController(
+            DataContext context,
+            IBlobHelper blobHelper,
+            ICombosHelper combosHelper,
+            IConverterHelper converterHelper,
+            IMapper mapper)
         {
             _context = context;
             _blobHelper = blobHelper;
             _combosHelper = combosHelper;
             _converterHelper = converterHelper;
+            _mapper = mapper;
         }
 
         public async Task<IActionResult> Index()
@@ -101,7 +109,8 @@ namespace OnSale.Web.Controllers
             if (product == null)
                 return NotFound();
 
-            ProductViewModel model = _converterHelper.ToProductViewModel(product);
+            //ProductViewModel model = _converterHelper.ToProductViewModel(product);
+            ProductViewModel model = _mapper.Map<ProductViewModel>(product);
             return View(model);
         }
 

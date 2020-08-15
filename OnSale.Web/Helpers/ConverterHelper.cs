@@ -26,15 +26,15 @@ namespace OnSale.Web.Helpers
             };
         }
 
-        public CategoryViewModel ToCategoryViewModel(Category category)
-        {
-            return new CategoryViewModel
-            {
-                Id = category.Id,
-                UrlImage = category.UrlImage,
-                Name = category.Name
-            };
-        }
+        //public CategoryViewModel ToCategoryViewModel(Category category)
+        //{
+        //    return new CategoryViewModel
+        //    {
+        //        Id = category.Id,
+        //        UrlImage = category.UrlImage,
+        //        Name = category.Name
+        //    };
+        //}
 
         public async Task<Product> ToProductAsync(ProductViewModel model, bool isNew)
         {

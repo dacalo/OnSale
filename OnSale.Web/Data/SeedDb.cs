@@ -2,6 +2,7 @@
 using OnSale.Common.Enums;
 using OnSale.Web.Data.Entities;
 using OnSale.Web.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,8 +26,14 @@ namespace OnSale.Web.Data
             await CheckCountriesAsync();
             await CheckRolesAsync();
             await CheckUserAsync("CALD7808244AA", "David", "Chávez", "divadchl@gmail.com", "322 311 4620", "Calle Luna Calle Sol", UserType.Admin);
+            await CheckCategories();
         }
-        
+
+        private async Task CheckCategories()
+        {
+         
+        }
+
         private async Task CheckRolesAsync()
         {
             await _userHelper.CheckRoleAsync(UserType.Admin.ToString());
