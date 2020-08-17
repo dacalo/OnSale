@@ -8,7 +8,7 @@ using Syncfusion.SfRotator.XForms.Droid;
 
 namespace OnSale.Prism.Droid
 {
-    [Activity(Label = "On Sale", Icon = "@mipmap/ic_launcher", Theme = "@style/MainTheme", MainLauncher = false,
+    [Activity(Label = "On Sale", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = false,
               ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {

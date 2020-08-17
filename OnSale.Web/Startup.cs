@@ -66,14 +66,12 @@ namespace OnSale.Web
                 cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            services.AddHttpContextAccessor();
             services.AddTransient<SeedDb>();
-            services.AddScoped<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IConverterHelper, ConverterHelper>();
             services.AddScoped<ICombosHelper, CombosHelper>();
             services.AddScoped<IUserHelper, UserHelper>();
-            
-            services.AddTransient<IBlobHelper, BlobLocalHelper>();
-            //services.AddHttpContextAccessor();
+            services.AddScoped<IBlobHelper, BlobLocalHelper>();
 
             services.AddSwaggerGen(config =>
             {

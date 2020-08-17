@@ -7,6 +7,7 @@ using OnSale.Web.Data.Entities;
 using OnSale.Web.Helpers;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -37,31 +38,67 @@ namespace OnSale.Web.Data
             await CheckRolesAsync();
             await CheckUserAsync("CALD7808244AA", "David", "Chávez", "divadchl@gmail.com", "322 311 4620", "Calle Luna Calle Sol", UserType.Admin);
             await CheckCategories();
+            await CheckProducts();
         }
 
         private async Task CheckCategories()
         {
-            //if(_context.Categories.Any())
-            //{
-            byte[] data={ 52};
-                var test = new Faker<Category>("es_MX")
-                .RuleFor(c => c.Name, f => f.Commerce.Categories(5).First())
-                .RuleFor(c => c.UrlImage, f => f.Image.LoremFlickrUrl());
-                var list = test.Generate(5);
+            if(!_context.Categories.Any())
+            {
+                byte[] data;
+                var categories = new Faker<Category>("es_MX")
+                .RuleFor(c => c.Name, f => f.Commerce.Categories(25).First())
+                .RuleFor(c => c.UrlImage, f => f.Image.LoremPixelUrl());
+                var listCategories = categories.Generate(5);
+                List<Category> list = new List<Category>();
+                foreach (var item in listCategories)
+                {
+                    using (WebClient webClient = new WebClient())
+                    {
+                        data = webClient.DownloadData(item.UrlImage);
+                    }
+                    item.UrlImage = await _blobHelper.SaveFile(data, "categories");
+                    list.Add(item);
+                }
+                await _context.Categories.AddRangeAsync(list);
+                await _context.SaveChangesAsync();
+            }
+        }
+        private async Task CheckProducts()
+        {
+            if(!_context.Products.Any())
+            {
+                byte[] data;
+                var product = new Faker<Product>("es_MX")
+                    .RuleFor(p => p.Name, f => f.Commerce.ProductName())
+                    .RuleFor(p => p.Description, f => f.Commerce.ProductDescription())
+                    .RuleFor(p => p.Price, f => decimal.Parse(f.Commerce.Price(100, 90000))) 
+                    .RuleFor(p => p.IsActive, f => f.Random.Bool())
+                    .RuleFor(p => p.IsStarred, f => f.Random.Bool());
 
-            var imagen = await _blobHelper.SaveFile(data, "categories");
-            //foreach (var item in list)
-            //    {
-            //        using (WebClient webClient = new WebClient())
-            //        {
-            //           data = webClient.DownloadData(item.UrlImage);
-            //        }
-                    
-            //        var imagen = await _blobHelper.SaveFile(data, "categories");
-            //    }
-
-                
-            //}
+                var listProducts = product.Generate(5);
+                List<Product> list = new List<Product>();
+                Random rnd = new Random();
+                foreach (var item in listProducts)
+                {
+                    var images = new Faker<ProductImage>()
+                        .RuleFor(pi => pi.UrlImage, f => f.Image.LoremPixelUrl());
+                    var listImages = images.Generate(2);
+                    item.ProductImages = listImages;
+                    foreach (var image in listImages)
+                    {
+                        using (WebClient webClient = new WebClient())
+                        {
+                            data = webClient.DownloadData(image.UrlImage);
+                        }
+                        image.UrlImage = await _blobHelper.SaveFile(data, "products");
+                    }
+                    item.Category = await _context.Categories.FindAsync(rnd.Next(1,5));
+                    list.Add(item);
+                }
+                await _context.Products.AddRangeAsync(list);
+                await _context.SaveChangesAsync();
+            }
         }
 
         private async Task CheckRolesAsync()

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.Storage;
 using Microsoft.Azure.Storage.Blob;
 using Microsoft.Extensions.Configuration;
+using OnSale.Common.Business;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -108,7 +109,7 @@ namespace OnSale.Web.Helpers
                 await fs.WriteAsync(file, 0, file.Length);
             }
 
-            var url = Path.Combine("", container, nameFile).Replace("\\", "/");
+            var url = Path.Combine(Constants.URL_BASE, container, nameFile).Replace("\\", "/");
 
             return url;
         }

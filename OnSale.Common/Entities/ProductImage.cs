@@ -27,7 +27,7 @@ namespace OnSale.Common.Entities
             }
 
         }
-
+        //TODO Borrar
         //[Display(Name = "Imagen")]
         //public Guid ImageId { get; set; }
 
