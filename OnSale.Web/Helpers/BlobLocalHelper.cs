@@ -91,6 +91,28 @@ namespace OnSale.Web.Helpers
             return url;
         }
 
+        public async Task<string> SaveFile(byte[] file, string container)
+        {
+            var extension = ".jpg";
+
+            var nameFile = $"{Guid.NewGuid()}{extension}";
+            string folder = Path.Combine(_env.WebRootPath, container);
+
+            if (!Directory.Exists(folder))
+                Directory.CreateDirectory(folder);
+
+            string path = Path.Combine(folder, nameFile);
+
+            using (var fs = new FileStream(path, FileMode.Create, FileAccess.Write))
+            {
+                await fs.WriteAsync(file, 0, file.Length);
+            }
+
+            var url = Path.Combine("", container, nameFile).Replace("\\", "/");
+
+            return url;
+        }
+
         public Task DeleteFile(string path, string container)
         {
             if (path != null)
@@ -105,6 +127,12 @@ namespace OnSale.Web.Helpers
         }
 
         public async Task<string> EditFile(IFormFile file, string container, string path)
+        {
+            await DeleteFile(path, container);
+            return await SaveFile(file, container);
+        }
+
+        public async Task<string> EditFile(byte[] file, string container, string path)
         {
             await DeleteFile(path, container);
             return await SaveFile(file, container);

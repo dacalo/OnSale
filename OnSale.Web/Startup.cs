@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -66,10 +67,13 @@ namespace OnSale.Web
             });
 
             services.AddTransient<SeedDb>();
-            services.AddScoped<IBlobHelper, BlobHelper>();
+            services.AddScoped<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IConverterHelper, ConverterHelper>();
             services.AddScoped<ICombosHelper, CombosHelper>();
             services.AddScoped<IUserHelper, UserHelper>();
+            
+            services.AddTransient<IBlobHelper, BlobLocalHelper>();
+            //services.AddHttpContextAccessor();
 
             services.AddSwaggerGen(config =>
             {

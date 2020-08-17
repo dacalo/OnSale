@@ -73,6 +73,29 @@ namespace OnSale.Web.Helpers
             return blob.Uri.ToString();
         }
 
+        public async Task<string> SaveFile(byte[] file, string container)
+        {
+            MemoryStream memoryStream = new MemoryStream(file);
+            IFormFile formFile = new FormFile(memoryStream, 0, file.Length, "name", "fileName.jpg");
+            //await formFile.CopyToAsync(memoryStream);
+            var content = memoryStream.ToArray();
+            var extension = Path.GetExtension(formFile.FileName);
+            var containerReference = _blobClient.GetContainerReference(container);
+            await containerReference.CreateIfNotExistsAsync();
+            
+            await containerReference.SetPermissionsAsync(new BlobContainerPermissions
+            {
+                PublicAccess = BlobContainerPublicAccessType.Blob
+            });
+
+            var nameFile = $"{Guid.NewGuid()}{extension}";
+            var blob = containerReference.GetBlockBlobReference(nameFile);
+            await blob.UploadFromByteArrayAsync(content, 0, content.Length);
+            blob.Properties.ContentType = formFile.ContentType;
+            await blob.SetPropertiesAsync();
+            return blob.Uri.ToString();
+        }
+
         public async Task DeleteFile(string path, string container)
         {
             if (path != null)
@@ -85,6 +108,12 @@ namespace OnSale.Web.Helpers
         }
 
         public async Task<string> EditFile(IFormFile file, string container, string path)
+        {
+            await DeleteFile(path, container);
+            return await SaveFile(file, container);
+        }
+
+        public async Task<string> EditFile(byte[] file, string container, string path)
         {
             await DeleteFile(path, container);
             return await SaveFile(file, container);

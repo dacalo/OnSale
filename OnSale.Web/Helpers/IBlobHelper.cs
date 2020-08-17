@@ -17,9 +17,13 @@ namespace OnSale.Web.Helpers
         #region [ Blob Gavilan ]
         public Task<string> SaveFile(IFormFile file, string container);
         
+        public Task<string> SaveFile(byte[] file, string container);
+        
         public Task DeleteFile(string path, string container);
 
         public Task<string> EditFile(IFormFile file, string container, string path);
+        
+        public Task<string> EditFile(byte[] file, string container, string path);
         #endregion [ Blob Gavilan ]
     }
 }

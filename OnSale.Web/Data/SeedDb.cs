@@ -1,10 +1,15 @@
-﻿using OnSale.Common.Entities;
+﻿using Bogus;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore.Internal;
+using OnSale.Common.Entities;
 using OnSale.Common.Enums;
 using OnSale.Web.Data.Entities;
 using OnSale.Web.Helpers;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace OnSale.Web.Data
@@ -13,11 +18,16 @@ namespace OnSale.Web.Data
     {
         private readonly DataContext _context;
         private readonly IUserHelper _userHelper;
+        private readonly IBlobHelper _blobHelper;
 
-        public SeedDb(DataContext context, IUserHelper userHelper)
+        public SeedDb(
+            DataContext context,
+            IUserHelper userHelper,
+            IBlobHelper blobHelper)
         {
             _context = context;
             _userHelper = userHelper;
+            _blobHelper = blobHelper;
         }
 
         public async Task SeedAsync()
@@ -31,7 +41,27 @@ namespace OnSale.Web.Data
 
         private async Task CheckCategories()
         {
-         
+            //if(_context.Categories.Any())
+            //{
+            byte[] data={ 52};
+                var test = new Faker<Category>("es_MX")
+                .RuleFor(c => c.Name, f => f.Commerce.Categories(5).First())
+                .RuleFor(c => c.UrlImage, f => f.Image.LoremFlickrUrl());
+                var list = test.Generate(5);
+
+            var imagen = await _blobHelper.SaveFile(data, "categories");
+            //foreach (var item in list)
+            //    {
+            //        using (WebClient webClient = new WebClient())
+            //        {
+            //           data = webClient.DownloadData(item.UrlImage);
+            //        }
+                    
+            //        var imagen = await _blobHelper.SaveFile(data, "categories");
+            //    }
+
+                
+            //}
         }
 
         private async Task CheckRolesAsync()

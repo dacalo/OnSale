@@ -9,6 +9,7 @@
              ios:Page.UseSafeArea="True"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="OnSale.Prism.Views.ProductDetailPage"
+             BackgroundColor="{StaticResource ColorBackgound}"
              Title="{Binding Title}">
     <StackLayout Padding="5">
         <ScrollView>
