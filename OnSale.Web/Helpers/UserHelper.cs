@@ -34,10 +34,7 @@ namespace OnSale.Web.Helpers
         {
             bool roleExists = await _roleManager.RoleExistsAsync(roleName);
             if (!roleExists)
-                await _roleManager.CreateAsync(new IdentityRole
-                {
-                    Name = roleName
-                });
+                await _roleManager.CreateAsync(new IdentityRole{ Name = roleName });
         }
 
         public async Task<User> GetUserAsync(string email) => await _context.Users.Include(u => u.City).FirstOrDefaultAsync(u => u.Email == email);

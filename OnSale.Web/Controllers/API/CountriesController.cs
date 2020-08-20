@@ -21,9 +21,9 @@ namespace OnSale.Web.Controllers.API
         }
 
         [HttpGet]
-        public IActionResult GetCountries()
+        public async Task<IActionResult> GetCountries()
         {
-            return Ok(_context.Countries.Include(c => c.Departments).ThenInclude(d => d.Cities));
+            return Ok(await _context.Countries.Include(c => c.Departments).ThenInclude(d => d.Cities).ToListAsync());
         }
 
     }

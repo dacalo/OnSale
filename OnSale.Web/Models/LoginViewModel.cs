@@ -4,13 +4,13 @@ namespace OnSale.Web.Models
 {
     public class LoginViewModel
     {
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
+        [EmailAddress(ErrorMessage = "El formato del campo {0} es inválido.")]
         [Display(Name = "Usuario")]
         public string Username { get; set; }
 
-        [Required]
-        [MinLength(6)]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
+        [MinLength(6, ErrorMessage = "El campo {0} debe contener al menos {1} caracteres.")]
         [Display(Name = "Contraseña")]
         public string Password { get; set; }
 

@@ -9,18 +9,18 @@ namespace OnSale.Web.Data.Entities
 {
     public class User : IdentityUser
     {
-        [MaxLength(20)]
-        [Required]
+        [MaxLength(20, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres.")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string RFC { get; set; }
 
         [Display(Name = "Nombres")]
-        [MaxLength(50)]
-        [Required]
+        [MaxLength(50, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres.")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string FirstName { get; set; }
 
         [Display(Name = "Apellidos")]
-        [MaxLength(50)]
-        [Required]
+        [MaxLength(50, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres.")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string LastName { get; set; }
 
         [MaxLength(100)]

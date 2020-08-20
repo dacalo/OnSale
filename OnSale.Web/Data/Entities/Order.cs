@@ -17,7 +17,7 @@ namespace OnSale.Web.Data.Entities
         [Display(Name = "Usuario")]
         public User User { get; set; }
 
-        [Display(Name = "Status Orden")]
+        [Display(Name = "Status Pedido")]
         public OrderStatus OrderStatus { get; set; }
 
         [Display(Name = "Fecha Expedición")]
