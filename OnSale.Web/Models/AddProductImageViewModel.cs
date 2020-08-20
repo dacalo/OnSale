@@ -10,7 +10,7 @@ namespace OnSale.Web.Models
         public int ProductId { get; set; }
 
         [Display(Name = "Imagen")]
-        [Required]
+        [Required(ErrorMessage = "El campo {0} es requerido.")]
         [SizeFileValidation(sizeMaximum: 4)]
         [TypeFileValidation(groupTypeFile: GroupTypeFile.Image)]
         public IFormFile ImageFile { get; set; }

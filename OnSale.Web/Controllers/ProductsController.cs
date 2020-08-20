@@ -109,7 +109,7 @@ namespace OnSale.Web.Controllers
             if (product == null)
                 return NotFound();
 
-            ProductViewModel model = _mapper.Map<ProductViewModel>(product);
+            ProductViewModel model = _converterHelper.ToProductViewModel(product);
             return View(model);
         }
 
@@ -253,6 +253,7 @@ namespace OnSale.Web.Controllers
                 return NotFound();
 
             Product product = await _context.Products.FirstOrDefaultAsync(p => p.ProductImages.FirstOrDefault(pi => pi.Id == productImage.Id) != null);
+            await _blobHelper.DeleteFile(productImage.UrlImage, _folder);
             _context.ProductImages.Remove(productImage);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Details) , new { id = product.Id });

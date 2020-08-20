@@ -9,6 +9,7 @@ namespace OnSale.Web.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<Category, CategoryViewModel>();
+            CreateMap<Product, ProductViewModel>();
             
         }
     }

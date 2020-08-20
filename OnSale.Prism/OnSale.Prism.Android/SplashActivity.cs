@@ -11,7 +11,7 @@ namespace OnSale.Prism.Droid
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(500);
             StartActivity(typeof(MainActivity));
         }
     }

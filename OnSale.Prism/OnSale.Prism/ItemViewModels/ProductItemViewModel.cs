@@ -9,6 +9,7 @@ namespace OnSale.Prism.ItemViewModels
     {
         #region [ Attributes ]
         private readonly INavigationService _navigationService;
+        private DelegateCommand _selectProductCommand;
         #endregion [ Attributes ]
 
         #region [ Constructor ]
@@ -19,7 +20,7 @@ namespace OnSale.Prism.ItemViewModels
         #endregion [ Constructor ]
 
         #region [ Commands ]
-        public DelegateCommand SelectProductCommand => new DelegateCommand(SelectProductAsync);
+        public DelegateCommand SelectProductCommand => _selectProductCommand ?? (_selectProductCommand = new DelegateCommand(SelectProductAsync));
         #endregion [ Commands ]
 
         #region [ Methods ]

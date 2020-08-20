@@ -46,24 +46,33 @@ namespace OnSale.Web.Data
             if(!_context.Categories.Any())
             {
                 byte[] data;
-                var categories = new Faker<Category>("es_MX")
-                .RuleFor(c => c.Name, f => f.Commerce.Categories(25).First())
-                .RuleFor(c => c.UrlImage, f => f.Image.LoremPixelUrl());
-                var listCategories = categories.Generate(5);
                 List<Category> list = new List<Category>();
-                foreach (var item in listCategories)
+                list.Add(new Category { Name = "Zapatería", UrlImage = GenerateImage() });
+                list.Add(new Category { Name = "Ropa", UrlImage = GenerateImage() });
+                list.Add(new Category { Name = "Tecnología", UrlImage = GenerateImage() });
+                list.Add(new Category { Name = "Electrodomésticos", UrlImage = GenerateImage() });
+                list.Add(new Category { Name = "Joyería", UrlImage = GenerateImage() });
+                
+                await _context.Categories.AddRangeAsync(list);
+                await _context.SaveChangesAsync();
+
+                foreach (var item in list)
                 {
                     using (WebClient webClient = new WebClient())
                     {
                         data = webClient.DownloadData(item.UrlImage);
                     }
                     item.UrlImage = await _blobHelper.SaveFile(data, "categories");
-                    list.Add(item);
                 }
-                await _context.Categories.AddRangeAsync(list);
-                await _context.SaveChangesAsync();
             }
         }
+
+        private string GenerateImage()
+        {
+            var faker = new Faker();
+            return faker.Image.LoremPixelUrl();
+        }
+
         private async Task CheckProducts()
         {
             if(!_context.Products.Any())
@@ -72,11 +81,11 @@ namespace OnSale.Web.Data
                 var product = new Faker<Product>("es_MX")
                     .RuleFor(p => p.Name, f => f.Commerce.ProductName())
                     .RuleFor(p => p.Description, f => f.Commerce.ProductDescription())
-                    .RuleFor(p => p.Price, f => decimal.Parse(f.Commerce.Price(100, 90000))) 
-                    .RuleFor(p => p.IsActive, f => f.Random.Bool())
+                    .RuleFor(p => p.Price, f => decimal.Parse(f.Commerce.Price(100, 10000))) 
+                    .RuleFor(p => p.IsActive, f => true)
                     .RuleFor(p => p.IsStarred, f => f.Random.Bool());
 
-                var listProducts = product.Generate(5);
+                var listProducts = product.Generate(15);
                 List<Product> list = new List<Product>();
                 Random rnd = new Random();
                 foreach (var item in listProducts)

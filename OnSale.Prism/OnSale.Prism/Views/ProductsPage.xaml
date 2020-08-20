@@ -6,6 +6,7 @@
              xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
              xmlns:i18n="clr-namespace:OnSale.Prism.Helpers"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:helpers="clr-namespace:OnSale.Prism.Helpers"
              ios:Page.UseSafeArea="True"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="OnSale.Prism.Views.ProductsPage"
@@ -61,7 +62,7 @@
                                            skeleton:Skeleton.IsBusy="{Binding Path=BindingContext.IsBusy, Source={x:Reference Name=productsPage}}"/>
                                 </StackLayout>
                                 <Image Grid.Column="2"
-                                       Source="ic_more_vert.png"/>
+                                       Source="{FontImage FontFamily=IconMaterialDesign, Glyph={x:Static helpers:IconMaterialDesign.ChevronRight}, Size=30, Color=Black}"/>
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

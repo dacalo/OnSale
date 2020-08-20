@@ -30,6 +30,10 @@ namespace OnSale.Prism.Helpers
         public static string IsStarred => Resource.IsStarred;
         public static string Category => Resource.Category;
         public static string AddCart => Resource.AddCart;
+        public static string Login => Resource.Login;
+        public static string ShowShoppingCar => Resource.ShowShoppingCar;
+        public static string ShowPurchaseHistory => Resource.ShowPurchaseHistory;
+        public static string ModifyUser => Resource.ModifyUser;
     }
 
 }
