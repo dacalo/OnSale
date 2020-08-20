@@ -20,6 +20,7 @@ namespace OnSale.Prism
 
         protected override async void OnInitialized()
         {
+            Device.SetFlags(new string[] { "Shapes_Experimental" });
             SyncfusionLicenseProvider.RegisterLicense(Constants.TextString.SyncfusionLicense);
             InitializeComponent();
 

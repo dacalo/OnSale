@@ -1,10 +1,10 @@
-﻿using OnSale.Common.Models;
+﻿using Newtonsoft.Json;
+using OnSale.Common.Helpers;
+using OnSale.Common.Models;
+using OnSale.Common.Responses;
 using OnSale.Prism.Helpers;
 using OnSale.Prism.Views;
-using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,6 +14,7 @@ namespace OnSale.Prism.ViewModels
     public class OnSaleMasterDetailPageViewModel : ViewModelBase
     {
         #region [ Attributes ]
+        private UserResponse _user;
         private readonly INavigationService _navigationService;
         #endregion [ Attributes ]
 
@@ -22,10 +23,18 @@ namespace OnSale.Prism.ViewModels
         {
             _navigationService = navigationService;
             LoadMenus();
+            LoadUser();
         }
         #endregion [ Constructor ]
 
         #region [ Properties ]
+
+        public UserResponse User
+        {
+            get => _user;
+            set => SetProperty(ref _user, value);
+        }
+
         public ObservableCollection<MenuItemViewModel> Menus { get; set; }
         #endregion [ Properties ]
 
@@ -64,7 +73,7 @@ namespace OnSale.Prism.ViewModels
                 {
                     Icon = "ic_exit_to_app",
                     PageName = $"{nameof(LoginPage)}",
-                    Title = Languages.Login
+                    Title = Settings.IsLogin ? Languages.Logout : Languages.Login
                 }
             };
 
@@ -77,6 +86,15 @@ namespace OnSale.Prism.ViewModels
                     IsLoginRequired = m.IsLoginRequired
                 }).ToList());
 
+        }
+
+        private void LoadUser()
+        {
+            if (Settings.IsLogin)
+            {
+                TokenResponse token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
+                User = token.User;
+            }
         }
         #endregion [ Methods ]
     }
