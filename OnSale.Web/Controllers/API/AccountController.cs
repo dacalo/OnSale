@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using OnSale.Common.Models;
+using OnSale.Common.Requests;
 using OnSale.Web.Data.Entities;
 using OnSale.Web.Helpers;
 using OnSale.Web.Models;
@@ -72,16 +72,10 @@ namespace OnSale.Web.Controllers.API
         [Route("GetUserByEmail")]
         public async Task<IActionResult> GetUserByEmail([FromBody] EmailRequest request)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
 
             User user = await _userHelper.GetUserAsync(request.Email);
             if (user == null)
-            {
                 return NotFound("Error001");
-            }
 
             return Ok(user);
         }
