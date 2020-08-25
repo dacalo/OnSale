@@ -5,6 +5,7 @@ using OnSale.Common.Enums;
 using OnSale.Web.Validations;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace OnSale.Web.Models
@@ -16,8 +17,15 @@ namespace OnSale.Web.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public int CategoryId { get; set; }
 
+        [DisplayName("Precio")]
+        [MaxLength(12, ErrorMessage ="El campo {0} debe ser menor a {1} números")]
+        [RegularExpression(@"^\d+([\.\,]?\d+)?$", ErrorMessage = "Use solo números y . ó , para ingresar decimales")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
+        public string PriceString { get; set; }
+
         public IEnumerable<SelectListItem> Categories { get; set; }
 
+        [DisplayName("Imagen")]
         [SizeFileValidation(sizeMaximum: 4)]
         [TypeFileValidation(groupTypeFile: GroupTypeFile.Image)]
         public IFormFile ImageFile { get; set; }
