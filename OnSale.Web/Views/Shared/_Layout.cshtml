@@ -42,7 +42,7 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li><a asp-area="" asp-controller="Account" asp-action="ChangeUser">@User.Identity.Name</a></li>
-                        <li><a asp-area="" asp-controller="Accout" asp-action="Logout">Salir</a></li>
+                        <li><a asp-area="" asp-controller="Account" asp-action="Logout">Salir</a></li>
                     }
                     else
                     {

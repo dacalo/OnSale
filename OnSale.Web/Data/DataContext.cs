@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using OnSale.Common.Entities;
 using OnSale.Web.Data.Entities;
+using System.Collections.Specialized;
 
 namespace OnSale.Web.Data
 {
@@ -18,15 +19,21 @@ namespace OnSale.Web.Data
             modelBuilder.Entity<Category>()
                 .HasIndex(t => t.Name)
                 .IsUnique();
-            modelBuilder.Entity<City>()
-                .HasIndex(t => t.Name)
-                .IsUnique();
-            modelBuilder.Entity<Country>()
-                .HasIndex(t => t.Name)
-                .IsUnique();
-            modelBuilder.Entity<Department>()
-                .HasIndex(t => t.Name)
-                .IsUnique();
+            modelBuilder.Entity<City>(cit =>
+            {
+                cit.HasIndex(c => c.Name).IsUnique();
+                cit.HasOne(d => d.Department).WithMany(d => d.Cities).OnDelete(DeleteBehavior.Cascade);
+            });
+            modelBuilder.Entity<Country>(cou =>
+            {
+                cou.HasIndex(t => t.Name).IsUnique();
+                cou.HasMany(c => c.Departments).WithOne(d => d.Country).OnDelete(DeleteBehavior.Cascade);
+            });
+            modelBuilder.Entity<Department>(dep =>
+            {
+                dep.HasIndex("Name", "CountryId").IsUnique();
+                dep.HasOne(d => d.Country).WithMany(c => c.Departments).OnDelete(DeleteBehavior.Cascade);
+            });
             modelBuilder.Entity<Product>()
                 .HasIndex(t => t.Name)
                 .IsUnique();

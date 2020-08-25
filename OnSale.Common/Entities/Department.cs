@@ -23,5 +23,8 @@ namespace OnSale.Common.Entities
         [NotMapped]
         [JsonIgnore]
         public int IdCountry { get; set; }
+
+        [JsonIgnore]
+        public Country Country { get; set; }
     }
 }
