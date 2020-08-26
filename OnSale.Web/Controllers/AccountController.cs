@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnSale.Common.Business;
 using OnSale.Common.Entities;
 using OnSale.Common.Enums;
+using OnSale.Common.Responses;
 using OnSale.Web.Data;
 using OnSale.Web.Data.Entities;
 using OnSale.Web.Helpers;
@@ -20,17 +22,20 @@ namespace OnSale.Web.Controllers
         private readonly IUserHelper _userHelper;
         private readonly ICombosHelper _combosHelper;
         private readonly IBlobHelper _blobHelper;
+        private readonly IMailHelper _mailHelper;
 
         public AccountController(
             DataContext context,
             IUserHelper userHelper,
             ICombosHelper combosHelper,
-            IBlobHelper blobHelper)
+            IBlobHelper blobHelper,
+            IMailHelper mailHelper)
         {
             _context = context;
             _userHelper = userHelper;
             _combosHelper = combosHelper;
             _blobHelper = blobHelper;
+            _mailHelper = mailHelper;
         }
 
 
@@ -106,19 +111,23 @@ namespace OnSale.Web.Controllers
                     return View(model);
                 }
 
-                LoginViewModel loginViewModel = new LoginViewModel
+                string myToken = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
+                string tokenLink = Url.Action("ConfirmEmail", "Account", new
                 {
-                    Password = model.Password,
-                    RememberMe = false,
-                    Username = model.Username
-                };
+                    userid = user.Id,
+                    token = myToken
+                }, protocol: HttpContext.Request.Scheme);
 
-                var result2 = await _userHelper.LoginAsync(loginViewModel);
-
-                if (result2.Succeeded)
+                Response response = _mailHelper.SendMail(model.Username, "Correo de Confirmación", $"<h1>Correo de Confirmación</h1>" +
+                    $"Para tener acceso, " +
+                    $"por favor dar clic en el enlace:</br></br><a href = \"{tokenLink}\">Confirmar Correo</a>");
+                if (response.IsSuccess)
                 {
-                    return RedirectToAction("Index", "Home");
+                    ViewBag.Message = "Las instrucciones del usuario han sido enviadas al correo.";
+                    return View(model);
                 }
+
+                ModelState.AddModelError(string.Empty, response.Message);
             }
 
             model.Countries = _combosHelper.GetComboCountries();
@@ -126,7 +135,6 @@ namespace OnSale.Web.Controllers
             model.Cities = _combosHelper.GetComboCities(model.DepartmentId);
             return View(model);
         }
-
 
         public JsonResult GetDepartments(int countryId)
         {
@@ -240,6 +248,81 @@ namespace OnSale.Web.Controllers
                 }
             }
 
+            return View(model);
+        }
+
+        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        {
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(token))
+                return NotFound();
+
+            User user = await _userHelper.GetUserAsync(new Guid(userId));
+            if (user == null)
+                return NotFound();
+
+            IdentityResult result = await _userHelper.ConfirmEmailAsync(user, token);
+            if (!result.Succeeded)
+                return NotFound();
+
+            return View();
+        }
+
+        public IActionResult RecoverPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RecoverPassword(RecoverPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = await _userHelper.GetUserAsync(model.Email);
+                if (user == null)
+                {
+                    ModelState.AddModelError(string.Empty, Constants.TextString.MessageEmailRegisteredUser);
+                    return View(model);
+                }
+
+                string myToken = await _userHelper.GeneratePasswordResetTokenAsync(user);
+                string link = Url.Action(
+                    "ResetPassword",
+                    "Account",
+                    new { token = myToken }, protocol: HttpContext.Request.Scheme);
+                _mailHelper.SendMail(model.Email, "Reestablecer Contraseña", $"<h1>Reestablecer Contraseña</h1>" +
+                    $"Para reestablcer la contraseña de clic en este link:</br></br>" +
+                    $"<a href = \"{link}\">Reestablecer Contraseña</a>");
+                ViewBag.Message = "Las instrucciones para recuperar su contraseña, han sido enviadas a su correo.";
+                return View();
+
+            }
+
+            return View(model);
+        }
+
+        public IActionResult ResetPassword(string token)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            User user = await _userHelper.GetUserAsync(model.UserName);
+            if (user != null)
+            {
+                IdentityResult result = await _userHelper.ResetPasswordAsync(user, model.Token, model.Password);
+                if (result.Succeeded)
+                {
+                    ViewBag.Message = Constants.TextString.MessagePasswordReset;
+                    return View();
+                }
+
+                ViewBag.Message = Constants.TextString.MessageErrorResetting;
+                return View(model);
+            }
+
+            ViewBag.Message = Constants.TextString.MessageUserNoFound;
             return View(model);
         }
 

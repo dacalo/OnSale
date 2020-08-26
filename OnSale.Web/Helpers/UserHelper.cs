@@ -84,5 +84,13 @@ namespace OnSale.Web.Helpers
 
         public async Task<User> GetUserAsync(Guid userId) => await _context.Users.Include(u => u.City).FirstOrDefaultAsync(u => u.Id == userId.ToString());
 
+        public async Task<IdentityResult> ConfirmEmailAsync(User user, string token) => await _userManager.ConfirmEmailAsync(user, token);
+
+        public async Task<string> GenerateEmailConfirmationTokenAsync(User user) => await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
+        public async Task<string> GeneratePasswordResetTokenAsync(User user) => await _userManager.GeneratePasswordResetTokenAsync(user);
+
+        public async Task<IdentityResult> ResetPasswordAsync(User user, string token, string password) => await _userManager.ResetPasswordAsync(user, token, password);
+
     }
 }

@@ -82,6 +82,7 @@ namespace OnSale.Web
             services.AddScoped<ICombosHelper, CombosHelper>();
             services.AddScoped<IUserHelper, UserHelper>();
             services.AddScoped<IBlobHelper, BlobLocalHelper>();
+            services.AddScoped<IMailHelper, MailHelper>();
 
             services.AddSwaggerGen(config =>
             {
