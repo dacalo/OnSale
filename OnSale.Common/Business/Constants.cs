@@ -13,10 +13,13 @@
         {
             public static string PathNoImage => URL_BASE + "/images/noimage.png";
             public static string PathImageEmpty => URL_BASE + "/images/d844c6c4-c929-4518-abeb-e900ac95ac53";
+            public static string PathImageUser => URL_BASE + "/users/";
         }
 
         public class TextString
         {
+            public static string MessageEmailAlreadyUsed = "El correo ya está registrado por otro usuario.";
+            public static string MessageUserNoFound = "Usuario no encontrado.";
             public static string MessageContains = "duplicate";
             public static string MessageErrorDuplicate = "Ya existe un registro con el mismo nombre.";
             public static string GuidImageEmpty = "d844c6c4-c929-4518-abeb-e900ac95ac53";

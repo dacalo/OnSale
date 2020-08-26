@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using OnSale.Common.Enums;
 using OnSale.Web.Data;
 using OnSale.Web.Data.Entities;
 using OnSale.Web.Models;
+using System;
 using System.Threading.Tasks;
 
 namespace OnSale.Web.Helpers
@@ -51,6 +53,36 @@ namespace OnSale.Web.Helpers
 
         public async Task<SignInResult> ValidatePasswordAsync(User user, string password) => await _signInManager.CheckPasswordSignInAsync(user, password, false);
 
+        public async Task<User> AddUserAsync(AddUserViewModel model, string imageId, UserType userType)
+        {
+            User user = new User
+            {
+                Address = model.Address,
+                RFC = model.RFC,
+                Email = model.Username,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                ImageId = imageId,
+                PhoneNumber = model.PhoneNumber,
+                City = await _context.Cities.FindAsync(model.CityId),
+                UserName = model.Username,
+                UserType = userType
+            };
+
+            IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+            if (result != IdentityResult.Success)
+                return null;
+
+            User newUser = await GetUserAsync(model.Username);
+            await AddUserToRoleAsync(newUser, user.UserType.ToString());
+            return newUser;
+        }
+
+        public async Task<IdentityResult> ChangePasswordAsync(User user, string oldPassword, string newPassword) => await _userManager.ChangePasswordAsync(user, oldPassword, newPassword);
+
+        public async Task<IdentityResult> UpdateUserAsync(User user) => await _userManager.UpdateAsync(user);
+
+        public async Task<User> GetUserAsync(Guid userId) => await _context.Users.Include(u => u.City).FirstOrDefaultAsync(u => u.Id == userId.ToString());
 
     }
 }

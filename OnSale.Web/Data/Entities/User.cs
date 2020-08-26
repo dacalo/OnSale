@@ -2,7 +2,6 @@
 using OnSale.Common.Business;
 using OnSale.Common.Entities;
 using OnSale.Common.Enums;
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace OnSale.Web.Data.Entities
@@ -28,13 +27,12 @@ namespace OnSale.Web.Data.Entities
         public string Address { get; set; }
 
         [Display(Name = "Imagen")]
-        public Guid ImageId { get; set; }
+        public string ImageId { get; set; }
 
-        //TODO: Pending to put the correct paths
         [Display(Name = "Imagen")]
-        public string ImageFullPath => ImageId == Guid.Empty
+        public string ImageFullPath => ImageId == string.Empty
             ? $"{Constants.Path.PathNoImage}"
-            : $"{Constants.URL_BASE_BLOB}/users/{ImageId}";
+            : $"{ImageId}";
 
         [Display(Name = "Tipo Usuario")]
         public UserType UserType { get; set; }
