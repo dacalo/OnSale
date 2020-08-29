@@ -21,12 +21,12 @@ namespace OnSale.Web.Data
                 .IsUnique();
             modelBuilder.Entity<City>(cit =>
             {
-                cit.HasIndex(c => c.Name).IsUnique();
+                cit.HasIndex("Name", "DepartmentId").IsUnique();
                 cit.HasOne(d => d.Department).WithMany(d => d.Cities).OnDelete(DeleteBehavior.Cascade);
             });
             modelBuilder.Entity<Country>(cou =>
             {
-                cou.HasIndex(t => t.Name).IsUnique();
+                cou.HasIndex("Name").IsUnique();
                 cou.HasMany(c => c.Departments).WithOne(d => d.Country).OnDelete(DeleteBehavior.Cascade);
             });
             modelBuilder.Entity<Department>(dep =>

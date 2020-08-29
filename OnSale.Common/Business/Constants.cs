@@ -19,7 +19,7 @@
         public class TextString
         {
             public static string MessageErrorResetting = "Error mientras se reestablecia la contraseña.";
-            public static string MessagePasswordReset = "Password reset successful.";
+            public static string MessagePasswordReset = "Se reestableció la contraseña satisfactoriamente.";
             public static string MessageEmailAlreadyUsed = "El correo ya está registrado por otro usuario.";
             public static string MessageEmailRegisteredUser = "El correo no corresponde a un usuario registrado.";
             public static string MessageUserNoFound = "Usuario no encontrado.";

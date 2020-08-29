@@ -147,7 +147,6 @@ namespace OnSale.Prism.ViewModels
                     Price = p.Price,
                     ProductImages = p.ProductImages
                 }).ToList());
-
             }
             else
             {

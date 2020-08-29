@@ -20,8 +20,8 @@ namespace OnSale.Common.Entities
         [DisplayName("Número de Ciudades")]
         public int CitiesNumber => Cities == null ? 0 : Cities.Count;
 
-        [NotMapped]
         [JsonIgnore]
+        [NotMapped]
         public int IdCountry { get; set; }
 
         [JsonIgnore]

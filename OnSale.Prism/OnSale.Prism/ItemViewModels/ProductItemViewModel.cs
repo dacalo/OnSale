@@ -5,7 +5,7 @@ using Prism.Navigation;
 
 namespace OnSale.Prism.ItemViewModels
 {
-    public class ProductItemViewModel :Product
+    public class ProductItemViewModel : Product
     {
         #region [ Attributes ]
         private readonly INavigationService _navigationService;
@@ -30,7 +30,8 @@ namespace OnSale.Prism.ItemViewModels
             {
                 { "product", this }
             };
-            await _navigationService.NavigateAsync(nameof(ProductDetailPage), parameters);
+            //await _navigationService.NavigateAsync(nameof(ProductDetailPage), parameters);
+            await _navigationService.NavigateAsync($"/{nameof(OnSaleMasterDetailPage)}/NavigationPage/{nameof(ProductDetailPage)}", parameters);
         }
         #endregion
     }

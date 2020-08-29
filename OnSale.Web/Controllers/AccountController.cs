@@ -120,7 +120,8 @@ namespace OnSale.Web.Controllers
 
                 Response response = _mailHelper.SendMail(model.Username, "Correo de Confirmación", $"<h1>Correo de Confirmación</h1>" +
                     $"Para tener acceso, " +
-                    $"por favor dar clic en el enlace:</br></br><a href = \"{tokenLink}\">Confirmar Correo</a>");
+                    $"por favor dar clic en el enlace:<p><a href = \"{tokenLink}\">Confirmar Correo</a></p>");
+                
                 if (response.IsSuccess)
                 {
                     ViewBag.Message = "Las instrucciones del usuario han sido enviadas al correo.";
@@ -136,6 +137,7 @@ namespace OnSale.Web.Controllers
             return View(model);
         }
 
+        
         public JsonResult GetDepartments(int countryId)
         {
             Country country = _context.Countries
@@ -143,7 +145,7 @@ namespace OnSale.Web.Controllers
                 .FirstOrDefault(c => c.Id == countryId);
             if (country == null)
                 return null;
-            var result = Json(country.Departments.OrderBy(d => d.Name));
+            var result = Json(country.Departments.OrderBy(d => d.Name).ToList());
             return Json(country.Departments.OrderBy(d => d.Name));
         }
 
@@ -294,7 +296,6 @@ namespace OnSale.Web.Controllers
                     $"<a href = \"{link}\">Reestablecer Contraseña</a>");
                 ViewBag.Message = "Las instrucciones para recuperar su contraseña, han sido enviadas a su correo.";
                 return View();
-
             }
 
             return View(model);

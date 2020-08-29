@@ -19,7 +19,8 @@
                      AbsoluteLayout.LayoutBounds="0,0,1,1"
                      AbsoluteLayout.LayoutFlags="All">
             <SearchBar Placeholder="{i18n:Translate SearchProduct}"
-                       SearchCommand="{Binding SearchCommand}"/>
+                       SearchCommand="{Binding SearchCommand}"
+                       Text="{Binding Search}"/>
             <RefreshView Command="{Binding RefreshCommand}"
                          IsRefreshing="{Binding IsRefreshing}">
                 <CollectionView SelectionMode="Single"
