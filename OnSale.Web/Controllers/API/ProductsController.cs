@@ -25,8 +25,10 @@ namespace OnSale.Web.Controllers.API
         [HttpGet]
         public async Task<IActionResult> GetProducts([FromQuery] Pagination pagination)
         {
-            var queryable = _context.Products.Include(p => p.Category)
+            var queryable = _context.Products
+                .Include(p => p.Category)
                 .Include(p => p.ProductImages)
+                .Include(p => p.Qualifications)
                 .Where(p => p.IsActive).AsQueryable();
             await HttpContext.InsertParametersPagination(queryable, pagination.RecordsPage);
             var products = await queryable.Paginate(pagination).ToListAsync();

@@ -20,6 +20,7 @@ namespace OnSale.Web.Data
         private readonly DataContext _context;
         private readonly IUserHelper _userHelper;
         private readonly IBlobHelper _blobHelper;
+        private readonly Random _random;
 
         public SeedDb(
             DataContext context,
@@ -29,6 +30,7 @@ namespace OnSale.Web.Data
             _context = context;
             _userHelper = userHelper;
             _blobHelper = blobHelper;
+            _random = new Random();
         }
 
         public async Task SeedAsync()
@@ -77,16 +79,21 @@ namespace OnSale.Web.Data
         {
             if(!_context.Products.Any())
             {
+                User user = await _userHelper.GetUserAsync("divadchl@gmail.com");
                 byte[] data;
-                var product = new Faker<Product>("es_MX")
+                var product = new Faker<ProductEntity>("es_MX")
                     .RuleFor(p => p.Name, f => f.Commerce.ProductName())
                     .RuleFor(p => p.Description, f => f.Commerce.ProductDescription())
                     .RuleFor(p => p.Price, f => decimal.Parse(f.Commerce.Price(100, 10000))) 
                     .RuleFor(p => p.IsActive, f => true)
-                    .RuleFor(p => p.IsStarred, f => f.Random.Bool());
+                    .RuleFor(p => p.IsStarred, f => f.Random.Bool())
+                    .RuleFor(p => p.Qualifications, f =>
+                    {
+                        return GetRandomQualifications(f.Commerce.ProductDescription(), user);
+                    });
 
                 var listProducts = product.Generate(15);
-                List<Product> list = new List<Product>();
+                List<ProductEntity> list = new List<ProductEntity>();
                 Random rnd = new Random();
                 foreach (var item in listProducts)
                 {
@@ -218,5 +225,23 @@ namespace OnSale.Web.Data
                 await _context.SaveChangesAsync();
             }
         }
+
+        private ICollection<Qualification> GetRandomQualifications(string description, User user)
+        {
+            List<Qualification> qualifications = new List<Qualification>();
+            for (int i = 0; i < 10; i++)
+            {
+                qualifications.Add(new Qualification
+                {
+                    Date = DateTime.UtcNow,
+                    Remarks = description,
+                    Score = _random.Next(1, 5),
+                    User = user
+                });
+            }
+
+            return qualifications;
+        }
+
     }
 }

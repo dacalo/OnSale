@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnSale.Web.Data;
 
 namespace OnSale.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200830011002_AddQualifications")]
+    partial class AddQualifications
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -289,10 +291,6 @@ namespace OnSale.Web.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -314,9 +312,7 @@ namespace OnSale.Web.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Product");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Product");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("OnSale.Common.Entities.ProductImage", b =>
@@ -381,9 +377,6 @@ namespace OnSale.Web.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("ProductEntityId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
@@ -397,8 +390,6 @@ namespace OnSale.Web.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductEntityId");
 
                     b.HasIndex("ProductId");
 
@@ -502,13 +493,6 @@ namespace OnSale.Web.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("OnSale.Web.Data.Entities.ProductEntity", b =>
-                {
-                    b.HasBaseType("OnSale.Common.Entities.Product");
-
-                    b.HasDiscriminator().HasValue("ProductEntity");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -610,10 +594,6 @@ namespace OnSale.Web.Migrations
 
             modelBuilder.Entity("OnSale.Web.Data.Entities.Qualification", b =>
                 {
-                    b.HasOne("OnSale.Web.Data.Entities.ProductEntity", null)
-                        .WithMany("Qualifications")
-                        .HasForeignKey("ProductEntityId");
-
                     b.HasOne("OnSale.Common.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
