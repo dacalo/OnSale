@@ -44,7 +44,12 @@ namespace OnSale.Prism.Helpers
         public static string Register => Resource.Register;
         public static string LoginError => Resource.LoginError;
         public static string Logout => Resource.Logout;
+        public static string Qualification => Resource.Qualification;
+        public static string Qualifications => Resource.Qualifications;
+        public static string QualificationNumber => Resource.QualificationNumber;
+        public static string Details => Resource.Details;
+        public static string Date => Resource.Date;
+        public static string Remarks => Resource.Remarks;
 
     }
-
 }

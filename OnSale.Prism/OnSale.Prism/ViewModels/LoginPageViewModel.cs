@@ -22,6 +22,7 @@ namespace OnSale.Prism.ViewModels
     public class LoginPageViewModel : ViewModelBase
     {
         #region [ Attributes ]
+        private string _pageReturn;
         private bool _isRunning;
         private bool _isEnabled;
         private string _password;
@@ -73,6 +74,14 @@ namespace OnSale.Prism.ViewModels
         #endregion [ Commands ]
 
         #region [ Methods ]
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+            if (parameters.ContainsKey("pageReturn"))
+                _pageReturn = parameters.GetValue<string>("pageReturn");
+        }
+
         private async void LogingAsync()
         {
             if (string.IsNullOrEmpty(Email))
@@ -122,7 +131,11 @@ namespace OnSale.Prism.ViewModels
             IsRunning = false;
             IsEnabled = true;
 
-            await _navigationService.NavigateAsync($"/{nameof(OnSaleMasterDetailPage)}/NavigationPage/{nameof(ProductsPage)}");
+            if (string.IsNullOrEmpty(_pageReturn))
+                await _navigationService.NavigateAsync($"/{nameof(OnSaleMasterDetailPage)}/NavigationPage/{nameof(ProductsPage)}");
+            else
+                await _navigationService.NavigateAsync($"/{nameof(OnSaleMasterDetailPage)}/NavigationPage/{_pageReturn}");
+
             Password = string.Empty;
         }
 
