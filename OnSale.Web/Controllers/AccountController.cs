@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnSale.Common.Business;
@@ -38,6 +39,11 @@ namespace OnSale.Web.Controllers
             _mailHelper = mailHelper;
         }
 
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.Users.Include(u => u.City).ToListAsync());
+        }
 
         public IActionResult Login()
         {
@@ -136,7 +142,6 @@ namespace OnSale.Web.Controllers
             model.Cities = _combosHelper.GetComboCities(model.DepartmentId);
             return View(model);
         }
-
         
         public JsonResult GetDepartments(int countryId)
         {
@@ -327,5 +332,67 @@ namespace OnSale.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public IActionResult Create()
+        {
+            AddUserViewModel model = new AddUserViewModel
+            {
+                Countries = _combosHelper.GetComboCountries(),
+                Departments = _combosHelper.GetComboDepartments(0),
+                Cities = _combosHelper.GetComboCities(0),
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(AddUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                string imageId = string.Empty;
+
+                if (model.ImageFile != null)
+                {
+                    imageId = await _blobHelper.SaveFile(model.ImageFile, _folder);
+                }
+
+                User user = await _userHelper.AddUserAsync(model, imageId, UserType.Admin);
+                if (user == null)
+                {
+                    ModelState.AddModelError(string.Empty, Constants.TextString.MessageEmailAlreadyUsed);
+                    model.Countries = _combosHelper.GetComboCountries();
+                    model.Departments = _combosHelper.GetComboDepartments(model.CountryId);
+                    model.Cities = _combosHelper.GetComboCities(model.DepartmentId);
+                    return View(model);
+                }
+
+                string myToken = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
+                string tokenLink = Url.Action("ConfirmEmail", "Account", new
+                {
+                    userid = user.Id,
+                    token = myToken
+                }, protocol: HttpContext.Request.Scheme);
+
+                Response response = _mailHelper.SendMail(model.Username, "Correo de Confirmación", $"<h1>Correo de Confirmación</h1>" +
+                    $"Para tener acceso, " +
+                    $"por favor dar clic en el enlace:<p><a href = \"{tokenLink}\">Confirmar Correo</a></p>");
+
+                if (response.IsSuccess)
+                {
+                    ViewBag.Message = Constants.TextString.MessageInstructionsSend;
+                    return View(model);
+                }
+
+                ModelState.AddModelError(string.Empty, response.Message);
+            }
+
+            model.Countries = _combosHelper.GetComboCountries();
+            model.Departments = _combosHelper.GetComboDepartments(model.CountryId);
+            model.Cities = _combosHelper.GetComboCities(model.DepartmentId);
+            return View(model);
+        }
     }
 }

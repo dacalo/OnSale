@@ -33,6 +33,7 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Inicio</a></li>
                     @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                     {
+                        <li><a asp-area="" asp-controller="Account" asp-action="Index">Usuarios</a></li>
                         <li><a asp-area="" asp-controller="Countries" asp-action="Index">Paises</a></li>
                         <li><a asp-area="" asp-controller="Categories" asp-action="Index">Categorías</a></li>
                         <li><a asp-area="" asp-controller="Products" asp-action="Index">Productos</a></li>

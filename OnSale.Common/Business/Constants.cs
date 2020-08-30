@@ -18,6 +18,7 @@
 
         public class TextString
         {
+            public static string MessageInstructionsSend = "Las instrucciones del usuario han sido enviadas al correo.";
             public static string MessageErrorResetting = "Error mientras se reestablecia la contraseña.";
             public static string MessagePasswordReset = "Se reestableció la contraseña satisfactoriamente.";
             public static string MessageEmailAlreadyUsed = "El correo ya está registrado por otro usuario.";
