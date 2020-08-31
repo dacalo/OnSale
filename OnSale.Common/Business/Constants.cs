@@ -40,6 +40,7 @@
             public static string PostRecoverPassword = "/Account/RecoverPassword";
             public static string GetContries = "/Countries";
             public static string PostModifyUser = "/Account";
+            public static string PostChangePassword = "/Account/ChangePassword";
         }
     }
 }

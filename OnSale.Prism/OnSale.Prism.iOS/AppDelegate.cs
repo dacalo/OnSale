@@ -2,6 +2,7 @@
 using Prism;
 using Prism.Ioc;
 using Syncfusion.SfBusyIndicator.XForms.iOS;
+using Syncfusion.SfNumericTextBox.XForms.iOS;
 using Syncfusion.SfRating.XForms.iOS;
 using Syncfusion.SfRotator.XForms.iOS;
 using Syncfusion.XForms.iOS.TextInputLayout;
@@ -27,6 +28,7 @@ namespace OnSale.Prism.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
+            new SfNumericTextBoxRenderer();
             new SfBusyIndicatorRenderer();
             new SfRotatorRenderer();
             SfTextInputLayoutRenderer.Init();

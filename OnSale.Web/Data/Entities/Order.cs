@@ -1,5 +1,5 @@
-﻿using OnSale.Common.Entities;
-using OnSale.Common.Enums;
+﻿using OnSale.Common.Enums;
+using OnSale.Common.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

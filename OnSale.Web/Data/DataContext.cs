@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using OnSale.Common.Entities;
 using OnSale.Web.Data.Entities;
-using System.Collections.Specialized;
 
 namespace OnSale.Web.Data
 {

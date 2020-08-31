@@ -1,9 +1,13 @@
-﻿using OnSale.Common.Business;
+﻿using Newtonsoft.Json;
+using OnSale.Common.Business;
 using OnSale.Common.Entities;
+using OnSale.Common.Helpers;
+using OnSale.Common.Models;
 using OnSale.Common.Responses;
 using OnSale.Common.Services;
 using OnSale.Prism.Helpers;
 using OnSale.Prism.ItemViewModels;
+using OnSale.Prism.Views;
 using Prism.Commands;
 using Prism.Navigation;
 using System.Collections.Generic;
@@ -20,12 +24,14 @@ namespace OnSale.Prism.ViewModels
         private bool _isBusy;
         private bool _isRefreshing;
         private bool _isRunning;
-        private string _search;
+        private string _search; 
+        private int _cartNumber;
         private readonly INavigationService _navigationService;
         private readonly IApiService _apiService;
         private DelegateCommand _searchCommand;
         private List<ProductResponse> _myProducts;
         private ObservableCollection<ProductItemViewModel> _products;
+        private DelegateCommand _showCartCommand;
         #endregion [ Attributes ]
 
         #region [ Constructor ]
@@ -36,6 +42,7 @@ namespace OnSale.Prism.ViewModels
             _apiService = apiService;
             Title = Languages.Products;
             LoadSkeleton();
+            LoadCartNumber();
             _ = LoadProductsAsync();
         }
         #endregion [ Constructor ]
@@ -74,12 +81,21 @@ namespace OnSale.Prism.ViewModels
                 ShowProducts();
             }
         }
+
+        public int CartNumber
+        {
+            get => _cartNumber;
+            set => SetProperty(ref _cartNumber, value);
+        }
         #endregion [ Properties ]
 
         #region [ Commands ]
         public DelegateCommand RefreshCommand => new DelegateCommand(async () => await Refresh());
 
         public DelegateCommand SearchCommand => _searchCommand ?? (_searchCommand = new DelegateCommand(ShowProducts));
+
+        public DelegateCommand ShowCartCommand => _showCartCommand ?? (_showCartCommand = new DelegateCommand(ShowCartAsync));
+
         #endregion [ Commands ]
 
         #region [ Methods ]
@@ -163,6 +179,23 @@ namespace OnSale.Prism.ViewModels
                     Qualifications = p.Qualifications
                 }).Where(p => p.Name.ToLower().Contains(Search.ToLower())));
             }
+        }
+
+        private void LoadCartNumber()
+        {
+            List<OrderDetail> orderDetails = JsonConvert.DeserializeObject<List<OrderDetail>>(Settings.OrderDetails);
+            if (orderDetails == null)
+            {
+                orderDetails = new List<OrderDetail>();
+                Settings.OrderDetails = JsonConvert.SerializeObject(orderDetails);
+            }
+
+            CartNumber = orderDetails.Count;
+        }
+
+        private async void ShowCartAsync()
+        {
+            await _navigationService.NavigateAsync(nameof(ShowCarPage));
         }
 
         #endregion [ Methods ]
