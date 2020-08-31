@@ -15,6 +15,7 @@ namespace OnSale.Prism.ViewModels
     public class OnSaleMasterDetailPageViewModel : ViewModelBase
     {
         #region [ Attributes ]
+        private static OnSaleMasterDetailPageViewModel _instance;
         private UserResponse _user;
         private readonly INavigationService _navigationService;
         #endregion [ Attributes ]
@@ -22,6 +23,7 @@ namespace OnSale.Prism.ViewModels
         #region [ Constructor ]
         public OnSaleMasterDetailPageViewModel(INavigationService navigationService) : base(navigationService)
         {
+            _instance = this;
             _navigationService = navigationService;
             LoadMenus();
             LoadUser();
@@ -40,6 +42,8 @@ namespace OnSale.Prism.ViewModels
         #endregion [ Properties ]
 
         #region [ Methods ]
+        public static OnSaleMasterDetailPageViewModel GetInstance() => _instance;
+
         private void LoadMenus()
         {
             List<Menu> menus = new List<Menu>
@@ -89,7 +93,7 @@ namespace OnSale.Prism.ViewModels
 
         }
 
-        private void LoadUser()
+        public void LoadUser()
         {
             if (Settings.IsLogin)
             {

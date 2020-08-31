@@ -7,9 +7,10 @@
              ios:Page.UseSafeArea="true"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
-             xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"             x:Class="OnSale.Prism.Views.RegisterPage"
+             xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
              xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
-                xmlns:i18n="clr-namespace:OnSale.Prism.Helpers"
+           	 xmlns:i18n="clr-namespace:OnSale.Prism.Helpers"
+             x:Class="OnSale.Prism.Views.RegisterPage"
              BackgroundColor="{StaticResource ColorBackground}"
              Title="{Binding Title}">
 
@@ -121,16 +122,15 @@
         </StackLayout>
         <busyindicator:SfBusyIndicator AnimationType="Gear" 
                                        AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
-                                       AbsoluteLayout.LayoutFlags="All"
-                                       BackgroundColor="{StaticResource ColorAccent}"
-                                       HorizontalOptions="Center"
-                                       TextColor="{StaticResource ColorFontInverse}"
-                                       IsBusy="{Binding IsRunning}"
-                                       Title="{i18n:Translate Loading}"
-                                       VerticalOptions="Center"
-                                       ViewBoxWidth="80"
-                                       ViewBoxHeight="80" />
+                	                   AbsoluteLayout.LayoutFlags="All"
+                	                   BackgroundColor="{StaticResource ColorAccent}"
+                	                   HorizontalOptions="Center"
+                	                   TextColor="{StaticResource ColorFontInverse}"
+                	                   IsBusy="{Binding IsRunning}"
+                	                   Title="{i18n:Translate Loading}"
+                	                   VerticalOptions="Center"
+                	                   ViewBoxWidth="80"
+                	                   ViewBoxHeight="80" />
     </AbsoluteLayout>
 
 </ContentPage>
-

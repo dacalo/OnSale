@@ -38,6 +38,8 @@
             public static string GetCountries = "/Countries";
             public static string PostRegisterUser = "/Account/Register";
             public static string PostRecoverPassword = "/Account/RecoverPassword";
+            public static string GetContries = "/Countries";
+            public static string PostModifyUser = "/Account";
         }
     }
 }
