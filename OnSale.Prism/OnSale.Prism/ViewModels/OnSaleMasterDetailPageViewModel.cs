@@ -3,6 +3,7 @@ using OnSale.Common.Helpers;
 using OnSale.Common.Models;
 using OnSale.Common.Responses;
 using OnSale.Prism.Helpers;
+using OnSale.Prism.ItemViewModels;
 using OnSale.Prism.Views;
 using Prism.Navigation;
 using System.Collections.Generic;

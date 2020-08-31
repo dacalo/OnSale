@@ -6,7 +6,6 @@ using OnSale.Prism.Helpers;
 using OnSale.Prism.ItemViewModels;
 using Prism.Commands;
 using Prism.Navigation;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -25,7 +24,7 @@ namespace OnSale.Prism.ViewModels
         private readonly INavigationService _navigationService;
         private readonly IApiService _apiService;
         private DelegateCommand _searchCommand;
-        private List<Product> _myProducts;
+        private List<ProductResponse> _myProducts;
         private ObservableCollection<ProductItemViewModel> _products;
         #endregion [ Attributes ]
 
@@ -109,7 +108,7 @@ namespace OnSale.Prism.ViewModels
             }
 
             IsRunning = true;
-            Response response = await _apiService.GetListAsync<Product>(
+            Response response = await _apiService.GetListAsync<ProductResponse>(
                 Constants.URL_BASE,
                 Constants.SERVICE_PREFIX,
                 Constants.EndPoints.GetProducts);
@@ -120,7 +119,7 @@ namespace OnSale.Prism.ViewModels
                 return;
             }
 
-            _myProducts = (List<Product>)response.Result;
+            _myProducts = (List<ProductResponse>)response.Result;
             ShowProducts();
             IsBusy = false;
         }
@@ -145,7 +144,8 @@ namespace OnSale.Prism.ViewModels
                     IsStarred = p.IsStarred,
                     Name = p.Name,
                     Price = p.Price,
-                    ProductImages = p.ProductImages
+                    ProductImages = p.ProductImages,
+                    Qualifications = p.Qualifications
                 }).ToList());
             }
             else
@@ -159,7 +159,8 @@ namespace OnSale.Prism.ViewModels
                     IsStarred = p.IsStarred,
                     Name = p.Name,
                     Price = p.Price,
-                    ProductImages = p.ProductImages
+                    ProductImages = p.ProductImages,
+                    Qualifications = p.Qualifications
                 }).Where(p => p.Name.ToLower().Contains(Search.ToLower())));
             }
         }

@@ -1,11 +1,13 @@
-﻿using OnSale.Common.Entities;
+﻿using Newtonsoft.Json;
+using OnSale.Common.Helpers;
+using OnSale.Common.Responses;
 using OnSale.Prism.Views;
 using Prism.Commands;
 using Prism.Navigation;
 
 namespace OnSale.Prism.ItemViewModels
 {
-    public class ProductItemViewModel : Product
+    public class ProductItemViewModel : ProductResponse
     {
         #region [ Attributes ]
         private readonly INavigationService _navigationService;
@@ -30,8 +32,8 @@ namespace OnSale.Prism.ItemViewModels
             {
                 { "product", this }
             };
-            //await _navigationService.NavigateAsync(nameof(ProductDetailPage), parameters);
-            await _navigationService.NavigateAsync($"/{nameof(OnSaleMasterDetailPage)}/NavigationPage/{nameof(ProductDetailPage)}", parameters);
+            Settings.Product = JsonConvert.SerializeObject(this);
+            await _navigationService.NavigateAsync(nameof(ProductTabbedPage), parameters);
         }
         #endregion
     }

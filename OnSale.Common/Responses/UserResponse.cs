@@ -1,4 +1,5 @@
-﻿using OnSale.Common.Entities;
+﻿using OnSale.Common.Business;
+using OnSale.Common.Entities;
 using OnSale.Common.Enums;
 using System;
 
@@ -20,11 +21,11 @@ namespace OnSale.Common.Responses
 
         public string Address { get; set; }
 
-        public Guid ImageId { get; set; }
+        public string ImageId { get; set; }
 
-        public string ImageFullPath => ImageId == Guid.Empty
-            ? $"https://onsaleprepweb.azurewebsites.net/images/noimage.png"
-            : $"https://onsale.blob.core.windows.net/users/{ImageId}";
+        public string ImageFullPath => ImageId == string.Empty
+            ? $"{Constants.Path.PathNoImage}"
+            : $"{ImageId}";
 
         public UserType UserType { get; set; }
 

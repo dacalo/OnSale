@@ -4,6 +4,7 @@
              xmlns:prism="http://prismlibrary.com"
              xmlns:skeleton="clr-namespace:Xamarin.Forms.Skeleton;assembly=Xamarin.Forms.Skeleton"
              xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+             xmlns:rating="clr-namespace:Syncfusion.SfRating.XForms;assembly=Syncfusion.SfRating.XForms"
              xmlns:i18n="clr-namespace:OnSale.Prism.Helpers"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              xmlns:helpers="clr-namespace:OnSale.Prism.Helpers"
@@ -23,8 +24,7 @@
                        Text="{Binding Search}"/>
             <RefreshView Command="{Binding RefreshCommand}"
                          IsRefreshing="{Binding IsRefreshing}">
-                <CollectionView SelectionMode="Single"
-                                ItemsSource="{Binding Products}"
+                <CollectionView ItemsSource="{Binding Products}"
                                 skeleton:Skeleton.Animation="{skeleton:DefaultAnimation Fade}"
                                 skeleton:Skeleton.IsBusy="{Binding IsBusy}"
                                 skeleton:Skeleton.IsParent="True">
@@ -61,6 +61,10 @@
                                            VerticalOptions="End"
                                            skeleton:Skeleton.BackgroundColor="#F0F0F0"
                                            skeleton:Skeleton.IsBusy="{Binding Path=BindingContext.IsBusy, Source={x:Reference Name=productsPage}}"/>
+                                    <rating:SfRating ItemSize="20"
+                                                 IsEnabled="False"
+                                                 Precision="Exact"
+                                                 Value="{Binding Qualification}"/>
                                 </StackLayout>
                                 <Image Grid.Column="2"
                                        Source="{FontImage FontFamily=IconMaterialDesign, Glyph={x:Static helpers:IconMaterialDesign.ChevronRight}, Size=30, Color=Black}"/>

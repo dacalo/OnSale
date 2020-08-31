@@ -25,6 +25,8 @@ namespace OnSale.Common.Requests
         [Required]
         [StringLength(20, MinimumLength = 6)]
         public string Password { get; set; }
+        
+        public string PasswordConfirm { get; set; }
 
         [Required]
         public int CityId { get; set; }

@@ -4,7 +4,7 @@ using OnSale.Prism.Views;
 using Prism.Commands;
 using Prism.Navigation;
 
-namespace OnSale.Prism.ViewModels
+namespace OnSale.Prism.ItemViewModels
 {
     public class MenuItemViewModel : Menu
     {
@@ -33,7 +33,7 @@ namespace OnSale.Prism.ViewModels
                 Settings.Token = null;
             }
 
-            if(IsLoginRequired && !Settings.IsLogin)
+            if (IsLoginRequired && !Settings.IsLogin)
             {
                 NavigationParameters parameters = new NavigationParameters
                 {
@@ -49,5 +49,4 @@ namespace OnSale.Prism.ViewModels
         }
         #endregion [ Methods ]
     }
-
 }

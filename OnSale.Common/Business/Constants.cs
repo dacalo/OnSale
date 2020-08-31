@@ -33,6 +33,11 @@
         public class EndPoints
         {
             public static string GetProducts = "/Products";
+            public static string PostQualifications = "/Qualifications";
+            public static string PostCreateToken = "/Account/CreateToken";
+            public static string GetCountries = "/Countries";
+            public static string PostRegisterUser = "/Account/Register";
+            public static string PostRecoverPassword = "/Account/RecoverPassword";
         }
     }
 }

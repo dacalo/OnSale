@@ -4,23 +4,43 @@
              xmlns:prism="http://prismlibrary.com"
              xmlns:i18n="clr-namespace:OnSale.Prism.Helpers"
              xmlns:rotator="clr-namespace:Syncfusion.SfRotator.XForms;assembly=Syncfusion.SfRotator.XForms"
-             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:rating="clr-namespace:Syncfusion.SfRating.XForms;assembly=Syncfusion.SfRating.XForms"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.UseSafeArea="True"
+             xmlns:helpers="clr-namespace:OnSale.Prism.Helpers"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="OnSale.Prism.Views.ProductDetailPage"
-             BackgroundColor="{StaticResource ColorBackgound}"
+             BackgroundColor="{StaticResource ColorBackground}"
+             IconImageSource="{FontImage FontFamily=IconMaterialDesign, Glyph={x:Static helpers:IconMaterialDesign.WalletGiftcard}, Size=20, Color=White}"
              Title="{Binding Title}">
     <StackLayout Padding="5">
         <ScrollView>
             <StackLayout>
+                <StackLayout HorizontalOptions="Center"
+                             Orientation="Horizontal">
+                    <Label Text="{i18n:Translate Qualification}"
+                            VerticalOptions="Center"/>
+                    <Label FontAttributes="Bold"
+                            FontSize="Large"
+                            Text="{Binding Product.Qualification, StringFormat='{0:N2}'}"/>
+                    <Label Text="{i18n:Translate QualificationNumber}"
+                            VerticalOptions="Center"/>
+                    <Label FontAttributes="Bold"
+                            FontSize="Large"
+                            Text="{Binding Product.ProductQualifications, StringFormat='{0:N0}'}"/>
+                </StackLayout>
+                <rating:SfRating IsEnabled="False"
+                                 HorizontalOptions="Center"
+                                 Precision="Exact"
+                                 Value="{Binding Product.Qualification}"/>
                 <rotator:SfRotator EnableAutoPlay="True"
                                    EnableLooping="True"
                                    HeightRequest="300"
                                    ItemsSource="{Binding Images}"
                                    NavigationDelay="5000"
                                    NavigationDirection="Horizontal"
-                                   NavigationStripMode="Thumbnail"
+                                   NavigationStripMode="Dots"
                                    NavigationStripPosition="Bottom">
                     <rotator:SfRotator.ItemTemplate>
                         <DataTemplate>
@@ -32,7 +52,7 @@
                                                         LoadingPlaceholder= "LoaderImage"
                                                         RetryCount= "3"
                                                         RetryDelay= "600"
-                                                        Source="{Binding ImageFullPath}"/>
+                                                        Source="{Binding UrlImageFull}"/>
                         </DataTemplate>
                     </rotator:SfRotator.ItemTemplate>
                 </rotator:SfRotator>
@@ -80,7 +100,7 @@
             </StackLayout>
         </ScrollView>
         <Button BackgroundColor="Navy"
-                Command="{Binding AddToCartBinding}" 
+                Command="{Binding AddToCartCommand}" 
                 CornerRadius="10"
                 Text="{i18n:Translate AddCart}"
                 TextColor="White"

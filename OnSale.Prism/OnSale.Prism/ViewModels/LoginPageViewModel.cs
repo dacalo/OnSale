@@ -7,15 +7,8 @@ using OnSale.Common.Services;
 using OnSale.Prism.Helpers;
 using OnSale.Prism.Views;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
-using System.Threading.Tasks;
 using Xamarin.Essentials;
-using Xamarin.Forms;
 
 namespace OnSale.Prism.ViewModels
 {
@@ -113,7 +106,11 @@ namespace OnSale.Prism.ViewModels
                 Password = Password
             };
 
-            Response response = await _apiService.GetTokenAsync(Constants.URL_BASE, Constants.SERVICE_PREFIX, "/Account/CreateToken", request);
+            Response response = await _apiService.GetTokenAsync(
+                Constants.URL_BASE,
+                Constants.SERVICE_PREFIX,
+                Constants.EndPoints.PostCreateToken,
+                request);
             IsRunning = false;
             IsEnabled = true;
 
@@ -141,12 +138,12 @@ namespace OnSale.Prism.ViewModels
 
         private async void RegisterAsync()
         {
-
+            await _navigationService.NavigateAsync(nameof(RegisterPage));
         }
 
         private async void ForgotPasswordAsync()
         {
-
+            await _navigationService.NavigateAsync(nameof(RecoverPasswordPage));
         }
         #endregion [ Methods ]
     }
