@@ -84,12 +84,14 @@ namespace OnSale.Web.Controllers.API
 
             return BadRequest();
         }
-        
+
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
-        [Route("GetUserByEmail")]
-        public async Task<IActionResult> GetUserByEmail([FromBody] EmailRequest request)
+        public async Task<IActionResult> GetUser()
         {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
             string email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
             User user = await _userHelper.GetUserAsync(email);
             if (user == null)

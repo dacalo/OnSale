@@ -355,9 +355,7 @@ namespace OnSale.Web.Controllers
                 string imageId = string.Empty;
 
                 if (model.ImageFile != null)
-                {
                     imageId = await _blobHelper.SaveFile(model.ImageFile, _folder);
-                }
 
                 User user = await _userHelper.AddUserAsync(model, imageId, UserType.Admin);
                 if (user == null)
