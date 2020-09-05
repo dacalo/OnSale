@@ -24,15 +24,22 @@ namespace OnSale.Prism.ViewModels
         private DelegateCommand _forgotPasswordCommand;
         private readonly INavigationService _navigationService;
         private readonly IApiService _apiService;
+        private readonly IRegexHelper _regexHelper;
         #endregion [ Attributes ]
 
         #region [ Constructor ]
-        public LoginPageViewModel(INavigationService navigationService, IApiService apiService) : base(navigationService)
+        public LoginPageViewModel(
+            INavigationService navigationService,
+            IApiService apiService,
+            IRegexHelper regexHelper) : base(navigationService)
         {
             Title = Languages.Login;
             IsEnabled = true;
             _navigationService = navigationService;
             _apiService = apiService;
+            _regexHelper = regexHelper;
+            Email = "divadchl@gmail.com";
+            Password = "123456";
         }
         #endregion [ Constructor ]
 
@@ -77,7 +84,7 @@ namespace OnSale.Prism.ViewModels
 
         private async void LogingAsync()
         {
-            if (string.IsNullOrEmpty(Email))
+            if (string.IsNullOrEmpty(Email) || !_regexHelper.IsValidEmail(Email))
             {
                 await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.EmailError, Languages.Accept);
                 return;

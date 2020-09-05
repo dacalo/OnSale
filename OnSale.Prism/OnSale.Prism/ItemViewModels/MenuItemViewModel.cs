@@ -27,7 +27,7 @@ namespace OnSale.Prism.ItemViewModels
         #region [ Methods ]
         private async void SelectMenuAsync()
         {
-            if (PageName == "LoginPage" && Settings.IsLogin)
+            if (PageName == nameof(LoginPage) && Settings.IsLogin)
             {
                 Settings.IsLogin = false;
                 Settings.Token = null;

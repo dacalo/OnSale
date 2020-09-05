@@ -19,7 +19,7 @@
                 <StackLayout>
                     <Image HeightRequest="150"
                            Margin="20"
-                           Source="onsale.png"/>
+                           Source="on_sale.png"/>
                     <StackLayout VerticalOptions="CenterAndExpand">
                         <inputLayout:SfTextInputLayout Hint="{i18n:Translate Email}"
                                                        ContainerType="Outlined">

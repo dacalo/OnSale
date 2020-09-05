@@ -31,7 +31,6 @@ namespace OnSale.Prism.ViewModels
         #endregion [ Constructor ]
 
         #region [ Properties ]
-
         public UserResponse User
         {
             get => _user;
