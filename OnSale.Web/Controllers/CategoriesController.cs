@@ -9,6 +9,7 @@ using OnSale.Web.Helpers;
 using OnSale.Web.Models;
 using System;
 using System.Threading.Tasks;
+using Vereyon.Web;
 
 namespace OnSale.Web.Controllers
 {
@@ -20,17 +21,20 @@ namespace OnSale.Web.Controllers
         private readonly IBlobHelper _blobHelper;
         private readonly IConverterHelper _converterHelper;
         private readonly IMapper _mapper;
+        private readonly IFlashMessage _flashMessage;
 
         public CategoriesController(
             DataContext context,
             IBlobHelper blobHelper,
             IConverterHelper converterHelper,
-            IMapper mapper)
+            IMapper mapper,
+            IFlashMessage flashMessage)
         {
             _context = context;
             _blobHelper = blobHelper;
             _converterHelper = converterHelper;
             _mapper = mapper;
+            _flashMessage = flashMessage;
         }
 
         public async Task<IActionResult> Index()
@@ -86,8 +90,7 @@ namespace OnSale.Web.Controllers
             Category category = await _context.Categories.FindAsync(id);
             if (category == null)
                 return NotFound();
-            //TODO Eliminar
-            //CategoryViewModel model = _converterHelper.ToCategoryViewModel(category);
+            
             CategoryViewModel model = _mapper.Map<CategoryViewModel>(category);
             return View(model);
         }
@@ -140,10 +143,11 @@ namespace OnSale.Web.Controllers
                 await _blobHelper.DeleteFile(category.UrlImage, _folder);
                 _context.Categories.Remove(category);
                 await _context.SaveChangesAsync();
+                _flashMessage.Confirmation("La Categoría fue borrada.");
             }
-            catch (Exception ex)
+            catch
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                _flashMessage.Danger("La Categoría no puede ser borrada porque tiene registros relacionados.");
             }
 
             return RedirectToAction(nameof(Index));

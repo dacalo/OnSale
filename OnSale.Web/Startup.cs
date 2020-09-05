@@ -21,6 +21,7 @@ using Microsoft.OpenApi.Models;
 using OnSale.Web.Data;
 using OnSale.Web.Data.Entities;
 using OnSale.Web.Helpers;
+using Vereyon.Web;
 
 [assembly: ApiConventionType(typeof(DefaultApiConventions))]
 namespace OnSale.Web
@@ -132,6 +133,8 @@ namespace OnSale.Web
                     }
                 });
             });
+
+            services.AddFlashMessage();
 
             services.AddControllersWithViews();
             services.AddControllers().AddNewtonsoftJson(options =>
