@@ -134,6 +134,7 @@ namespace OnSale.Prism.Helpers
         public static string DeliveryAddress => Resource.DeliveryAddress;
         public static string DeliveryAddressError => Resource.DeliveryAddressError;
         public static string DeliveryAddressPlaceHolder => Resource.DeliveryAddressPlaceHolder;
+        public static string LoginFirstMessage => Resource.LoginFirstMessage;
 
     }
 }

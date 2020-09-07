@@ -101,7 +101,7 @@ namespace OnSale.Prism.ViewModels
             });
 
             Settings.OrderDetails = JsonConvert.SerializeObject(orderDetails);
-            await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.AddToCartMessage, Languages.Accept);
+            await App.Current.MainPage.DisplayAlert(Languages.Ok, Languages.AddToCartMessage, Languages.Accept);
             await _navigationService.NavigateAsync($"/{nameof(OnSaleMasterDetailPage)}/NavigationPage/{nameof(ProductsPage)}");
         }
 
@@ -118,6 +118,4 @@ namespace OnSale.Prism.ViewModels
 
         #endregion[ Methods ]
     }
-
-
 }

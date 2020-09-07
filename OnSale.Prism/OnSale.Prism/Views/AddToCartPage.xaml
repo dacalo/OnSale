@@ -39,12 +39,12 @@
                                                             LoadingPlaceholder= "LoaderImage"
                                                             RetryCount= "3"
                                                             RetryDelay= "600"
-                                                            Source="{Binding ImageFullPath}"/>
+                                                            Source="{Binding UrlImageFull}"/>
                             </DataTemplate>
                         </syncfusion:SfRotator.ItemTemplate>
                     </syncfusion:SfRotator>
 
-                    <Grid ColumnDefinitions="Auto, *" RowDefinitions="AUto, Auto">
+                    <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto">
                         <Label Grid.Column="0"
                                Grid.Row="0"
                                Text="{i18n:Translate Name}"
@@ -81,7 +81,7 @@
             </ScrollView>
             <Button Command="{Binding AddToCartCommand}" 
                     CornerRadius="10"
-                    Text="{i18n:Translate AddToCart}"
+                    Text="{i18n:Translate AddCart}"
                     VerticalOptions="EndAndExpand"/>
         </StackLayout>
         <busyindicator:SfBusyIndicator AnimationType="Gear" 

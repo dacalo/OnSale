@@ -468,5 +468,7 @@
     <data name="DeliveryAddressPlaceHolder" xml:space="preserve">
     <value>Ingresa la dirección de envío...</value>
   </data>
-
+    <data name="LoginFirstMessage" xml:space="preserve">
+    <value>Para completar esta acción debe haber iniciado sesión. Puede iniciar sesión o registrarse como usuario a continuación.</value>
+  </data>
 </root>

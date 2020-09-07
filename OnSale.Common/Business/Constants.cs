@@ -41,6 +41,7 @@
             public static string GetContries = "/Countries";
             public static string PostModifyUser = "/Account";
             public static string PostChangePassword = "/Account/ChangePassword";
+            public static string PostOrders = "/Orders";
         }
     }
 }

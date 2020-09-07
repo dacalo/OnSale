@@ -451,5 +451,7 @@
 	<data name="DeliveryAddressPlaceHolder" xml:space="preserve">
 	<value>Enter the delivery Address...</value>
   </data>
-
+	<data name="LoginFirstMessage" xml:space="preserve">
+	<value>You must be logged in to complete this action. You can login or register as a user below.</value>
+  </data>
 </root>
