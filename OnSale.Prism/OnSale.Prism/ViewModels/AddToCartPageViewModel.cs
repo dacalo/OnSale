@@ -89,11 +89,11 @@ namespace OnSale.Prism.ViewModels
             if (!isValid)
                 return;
 
-            List<OrderDetail> orderDetails = JsonConvert.DeserializeObject<List<OrderDetail>>(Settings.OrderDetails);
+            List<OrderDetailResponse> orderDetails = JsonConvert.DeserializeObject<List<OrderDetailResponse>>(Settings.OrderDetails);
             if (orderDetails == null)
-                orderDetails = new List<OrderDetail>();
+                orderDetails = new List<OrderDetailResponse>();
 
-            orderDetails.Add(new OrderDetail
+            orderDetails.Add(new OrderDetailResponse
             {
                 Product = Product,
                 Quantity = Quantity,

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using OnSale.Common.Entities;
 using OnSale.Common.Helpers;
-using OnSale.Common.Models;
+using OnSale.Common.Responses;
 using OnSale.Prism.Helpers;
 using OnSale.Prism.ItemViewModels;
 using Prism.Commands;
@@ -101,7 +101,7 @@ namespace OnSale.Prism.ViewModels
             if (!isValid)
                 return;
 
-            List<OrderDetail> orderDetails = JsonConvert.DeserializeObject<List<OrderDetail>>(Settings.OrderDetails);
+            List<OrderDetailResponse> orderDetails = JsonConvert.DeserializeObject<List<OrderDetailResponse>>(Settings.OrderDetails);
             if (orderDetails == null)
                 return;
 
@@ -136,7 +136,7 @@ namespace OnSale.Prism.ViewModels
             if (!answer)
                 return;
 
-            List<OrderDetail> orderDetails = JsonConvert.DeserializeObject<List<OrderDetail>>(Settings.OrderDetails);
+            List<OrderDetailResponse> orderDetails = JsonConvert.DeserializeObject<List<OrderDetailResponse>>(Settings.OrderDetails);
             if (orderDetails == null)
                 return;
 
