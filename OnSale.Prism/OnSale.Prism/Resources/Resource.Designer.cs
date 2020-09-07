@@ -124,6 +124,15 @@ namespace OnSale.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cash (on delivery).
+        /// </summary>
+        public static string Cash {
+            get {
+                return ResourceManager.GetString("Cash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Category.
         /// </summary>
         public static string Category {
@@ -322,6 +331,33 @@ namespace OnSale.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delivery Address.
+        /// </summary>
+        public static string DeliveryAddress {
+            get {
+                return ResourceManager.GetString("DeliveryAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must enter the delivery Address..
+        /// </summary>
+        public static string DeliveryAddressError {
+            get {
+                return ResourceManager.GetString("DeliveryAddressError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the delivery Address....
+        /// </summary>
+        public static string DeliveryAddressPlaceHolder {
+            get {
+                return ResourceManager.GetString("DeliveryAddressPlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Department.
         /// </summary>
         public static string Department {
@@ -480,6 +516,15 @@ namespace OnSale.Prism.Resources {
         public static string FinishOrder {
             get {
                 return ResourceManager.GetString("FinishOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your order was completed successfully..
+        /// </summary>
+        public static string FinishOrderMessage {
+            get {
+                return ResourceManager.GetString("FinishOrderMessage", resourceCulture);
             }
         }
         
@@ -781,6 +826,42 @@ namespace OnSale.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Payment Method.
+        /// </summary>
+        public static string PaymentMethod {
+            get {
+                return ResourceManager.GetString("PaymentMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must select a payment method..
+        /// </summary>
+        public static string PaymentMethodError {
+            get {
+                return ResourceManager.GetString("PaymentMethodError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select your payment method....
+        /// </summary>
+        public static string PaymentMethodPlaceHolder {
+            get {
+                return ResourceManager.GetString("PaymentMethodPlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PayPal.
+        /// </summary>
+        public static string PayPal {
+            get {
+                return ResourceManager.GetString("PayPal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Phone.
         /// </summary>
         public static string Phone {
@@ -840,6 +921,15 @@ namespace OnSale.Prism.Resources {
         public static string Products {
             get {
                 return ResourceManager.GetString("Products", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PSE.
+        /// </summary>
+        public static string PSE {
+            get {
+                return ResourceManager.GetString("PSE", resourceCulture);
             }
         }
         

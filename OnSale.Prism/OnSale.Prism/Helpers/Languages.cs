@@ -124,6 +124,16 @@ namespace OnSale.Prism.Helpers
         public static string Delete => Resource.Delete;
         public static string DeleteProductInOrderConfirm => Resource.DeleteProductInOrderConfirm;
         public static string ModifyOrder => Resource.ModifyOrder;
+        public static string FinishOrderMessage => Resource.FinishOrderMessage;
+        public static string PaymentMethod => Resource.PaymentMethod;
+        public static string PaymentMethodError => Resource.PaymentMethodError;
+        public static string PaymentMethodPlaceHolder => Resource.PaymentMethodPlaceHolder;
+        public static string Cash => Resource.Cash;
+        public static string PayPal => Resource.PayPal;
+        public static string PSE => Resource.PSE;
+        public static string DeliveryAddress => Resource.DeliveryAddress;
+        public static string DeliveryAddressError => Resource.DeliveryAddressError;
+        public static string DeliveryAddressPlaceHolder => Resource.DeliveryAddressPlaceHolder;
 
     }
 }
