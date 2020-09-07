@@ -199,5 +199,10 @@ namespace OnSale.Prism.ViewModels
         }
 
         #endregion [ Methods ]
+
+        public override void Initialize(INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
+        }
     }
 }

@@ -21,6 +21,15 @@ namespace OnSale.Prism.ItemViewModels
         }
         #endregion [ Constructor ]
 
+        #region [ Properties ]
+        public float Quantity { get; set; }
+
+        public string Remarks { get; set; }
+
+        public decimal Value => (decimal)Quantity * Price;
+
+        #endregion
+
         #region [ Commands ]
         public DelegateCommand SelectProductCommand => _selectProductCommand ?? (_selectProductCommand = new DelegateCommand(SelectProductAsync));
         #endregion [ Commands ]

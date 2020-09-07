@@ -379,7 +379,7 @@
 	<data name="ChangePassworrdMessage" xml:space="preserve">
 	<value>The password was changed successfully.</value>
   </data>
-  <data name="Quantity" xml:space="preserve">
+	<data name="Quantity" xml:space="preserve">
 	<value>Quantity</value>
   </data>
 	<data name="QuantityError" xml:space="preserve">
@@ -390,6 +390,36 @@
   </data>
 	<data name="AddToCartMessage" xml:space="preserve">
 	<value>The product was added to cart successfully.</value>
+  </data>
+	<data name="Value" xml:space="preserve">
+	<value>Value</value>
+  </data>
+	<data name="FinishOrder" xml:space="preserve">
+	<value>FinishOrder</value>
+  </data>
+	<data name="Yes" xml:space="preserve">
+	<value>Yes</value>
+  </data>
+	<data name="No" xml:space="preserve">
+	<value>No</value>
+  </data>
+	<data name="ClearAllConfirm" xml:space="preserve">
+	<value>Are you sure to clean all the products in the order?</value>
+  </data>
+	<data name="Items" xml:space="preserve">
+	<value>Items</value>
+  </data>
+	<data name="Total" xml:space="preserve">
+	<value>Total</value>
+  </data>
+	<data name="Delete" xml:space="preserve">
+	<value>Delete</value>
+  </data>
+	<data name="DeleteProductInOrderConfirm" xml:space="preserve">
+	<value>Are you sure to delete the product in the order?</value>
+  </data>
+	<data name="ModifyOrder" xml:space="preserve">
+	<value>Modify Order</value>
   </data>
 
 </root>
