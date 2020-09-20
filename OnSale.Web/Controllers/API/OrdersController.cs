@@ -9,7 +9,6 @@ using OnSale.Web.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -35,9 +34,7 @@ namespace OnSale.Web.Controllers.API
             string email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
             User user = await _userHelper.GetUserAsync(email);
             if (user == null)
-            {
                 return NotFound("Error001");
-            }
 
             Order order = new Order
             {
@@ -53,9 +50,7 @@ namespace OnSale.Web.Controllers.API
             {
                 ProductEntity product = await _context.Products.FindAsync(item.Product.Id);
                 if (product == null)
-                {
                     return NotFound("Error002");
-                }
 
                 order.OrderDetails.Add(new OrderDetail
                 {

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using OnSale.Common.Business;
 using OnSale.Common.Entities;
 using OnSale.Common.Enums;
 using OnSale.Common.Requests;
@@ -109,7 +110,7 @@ namespace OnSale.Web.Controllers.API
                 return BadRequest(new Response
                 {
                     IsSuccess = false,
-                    Message = "Bad request",
+                    Message = Constants.TextString.MessageBadRequest,
                     Result = ModelState
                 });
             }
@@ -138,9 +139,7 @@ namespace OnSale.Web.Controllers.API
             string imageId = string.Empty;
 
             if (request.ImageArray != null)
-            {
                 imageId = await _blobHelper.SaveFile(request.ImageArray, _folder);
-            }
 
             user = new User
             {
@@ -158,9 +157,7 @@ namespace OnSale.Web.Controllers.API
 
             IdentityResult result = await _userHelper.AddUserAsync(user, request.Password);
             if (result != IdentityResult.Success)
-            {
                 return BadRequest(result.Errors.FirstOrDefault().Description);
-            }
 
             User userNew = await _userHelper.GetUserAsync(request.Email);
             await _userHelper.AddUserToRoleAsync(userNew, user.UserType.ToString());
@@ -187,7 +184,7 @@ namespace OnSale.Web.Controllers.API
                 return BadRequest(new Response
                 {
                     IsSuccess = false,
-                    Message = "Bad request"
+                    Message = Constants.TextString.MessageBadRequest
                 });
             }
 
@@ -260,7 +257,7 @@ namespace OnSale.Web.Controllers.API
                 return BadRequest(new Response
                 {
                     IsSuccess = false,
-                    Message = "Bad request",
+                    Message = Constants.TextString.MessageBadRequest,
                     Result = ModelState
                 });
             }
@@ -275,7 +272,7 @@ namespace OnSale.Web.Controllers.API
             IdentityResult result = await _userHelper.ChangePasswordAsync(user, request.OldPassword, request.NewPassword);
             if (!result.Succeeded)
             {
-                var message = result.Errors.FirstOrDefault().Description;
+                //var message = result.Errors.FirstOrDefault().Description;
                 return BadRequest(new Response
                 {
                     IsSuccess = false,

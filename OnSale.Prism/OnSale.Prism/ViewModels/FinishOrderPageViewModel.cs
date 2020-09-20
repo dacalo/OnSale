@@ -172,8 +172,7 @@ namespace OnSale.Prism.ViewModels
             switch (paymentMethod.Id)
             {
                 case 1: return Common.Enums.PaymentMethod.Cash;
-                case 2: return Common.Enums.PaymentMethod.PayPal;
-                default: return Common.Enums.PaymentMethod.PSE;
+                default: return Common.Enums.PaymentMethod.CreditCard;
             }
         }
 
