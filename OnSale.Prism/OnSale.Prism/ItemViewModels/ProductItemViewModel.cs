@@ -12,6 +12,7 @@ namespace OnSale.Prism.ItemViewModels
         #region [ Attributes ]
         private readonly INavigationService _navigationService;
         private DelegateCommand _selectProductCommand;
+        private DelegateCommand _selectProduct2Command;
         #endregion [ Attributes ]
 
         #region [ Constructor ]
@@ -32,6 +33,7 @@ namespace OnSale.Prism.ItemViewModels
 
         #region [ Commands ]
         public DelegateCommand SelectProductCommand => _selectProductCommand ?? (_selectProductCommand = new DelegateCommand(SelectProductAsync));
+        public DelegateCommand SelectProduct2Command => _selectProduct2Command ?? (_selectProduct2Command = new DelegateCommand(SelectProduct2Async));
         #endregion [ Commands ]
 
         #region [ Methods ]
@@ -43,6 +45,17 @@ namespace OnSale.Prism.ItemViewModels
             };
             Settings.Product = JsonConvert.SerializeObject(this);
             await _navigationService.NavigateAsync(nameof(ProductTabbedPage), parameters);
+        }
+
+        private async void SelectProduct2Async()
+        {
+            NavigationParameters parameters = new NavigationParameters
+            {
+                { "product", this }
+            };
+
+            Settings.Product = JsonConvert.SerializeObject(this);
+            await _navigationService.NavigateAsync(nameof(ModifiyOrderPage), parameters);
         }
         #endregion
     }

@@ -92,6 +92,7 @@ namespace OnSale.Prism.ViewModels
             }
             else
             {
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.LoginFirstMessage, Languages.Accept);
                 NavigationParameters parameters = new NavigationParameters
                 {
                     { "pageReturn", nameof(AddQualificationPage) }

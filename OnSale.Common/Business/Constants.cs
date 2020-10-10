@@ -28,7 +28,10 @@
             public static string MessageContains = "duplicate";
             public static string MessageErrorDuplicate = "Ya existe un registro con el mismo nombre.";
             public static string GuidImageEmpty = "d844c6c4-c929-4518-abeb-e900ac95ac53";
-            public static string SyncfusionLicense = "MzAzMDg5QDMxMzgyZTMyMmUzME5RQjFnSWZIZE5nTXpXZTFWaWFCdHhxVnJHTXRjTEFreUhHeTJnN1I1ZXM9";
+            public static string SyncfusionLicense = "MzMxOTg1QDMxMzgyZTMzMmUzMEZFczliOC8xRXdSMXJwNWd2dTNONnFYNGtkVmg5eWZmWW91TWVMcnlyLzg9";
+            public static string StripeClavePublicable  = "pk_test_51HYHKpDX9rnrWo2nWtx8Gy5Yu3q2cycZE22VDKBqwnrAFy1RrMEsDgvn2wsKWSM3ayVJuQGPSZOXcYZcOzfTxjkS00n8dRuEKr";
+            public static string StripeClaveSecreta  = "sk_test_51HYHKpDX9rnrWo2nocNDBm5VQSwMSpODyYeOglO38oX2UBoNoN7mgVCQ6ArV6aKmwetkBhDGT0lRplis5LlHzpMU00xrku9Fbx";
+
         }
 
         public class EndPoints

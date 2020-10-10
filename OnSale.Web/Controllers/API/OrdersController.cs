@@ -31,6 +31,9 @@ namespace OnSale.Web.Controllers.API
         [HttpPost]
         public async Task<IActionResult> PostOrder([FromBody] OrderResponse request)
         {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
             string email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
             User user = await _userHelper.GetUserAsync(email);
             if (user == null)
@@ -50,7 +53,9 @@ namespace OnSale.Web.Controllers.API
             {
                 ProductEntity product = await _context.Products.FindAsync(item.Product.Id);
                 if (product == null)
+                {
                     return NotFound("Error002");
+                }
 
                 order.OrderDetails.Add(new OrderDetail
                 {

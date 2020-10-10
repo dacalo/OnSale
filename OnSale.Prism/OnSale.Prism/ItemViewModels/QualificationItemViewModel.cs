@@ -20,9 +20,9 @@ namespace OnSale.Prism.ItemViewModels
         private async void SelectQualificationAsync()
         {
             NavigationParameters parameters = new NavigationParameters
-        {
-            { "qualification", this }
-        };
+            {
+                { "qualification", this }
+            };
 
             await _navigationService.NavigateAsync(nameof(QualificationDetailPage), parameters);
         }

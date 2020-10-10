@@ -15,6 +15,7 @@ namespace OnSale.Web.Data.Entities
         [DataType(DataType.MultilineText)]
         public string Remarks { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:C2}")]
         public decimal Value => (decimal)Quantity * Price;
     }
 }

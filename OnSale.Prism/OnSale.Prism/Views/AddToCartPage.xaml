@@ -80,7 +80,6 @@
                 </StackLayout>
             </ScrollView>
             <Button Command="{Binding AddToCartCommand}" 
-                    CornerRadius="10"
                     Text="{i18n:Translate AddCart}"
                     VerticalOptions="EndAndExpand"/>
         </StackLayout>

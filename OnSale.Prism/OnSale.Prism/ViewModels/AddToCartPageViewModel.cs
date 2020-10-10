@@ -93,6 +93,16 @@ namespace OnSale.Prism.ViewModels
             if (orderDetails == null)
                 orderDetails = new List<OrderDetailResponse>();
 
+            foreach (var orderDetail in orderDetails)
+            {
+                if (orderDetail.Product.Id == Product.Id)
+                {
+                    await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.ProductExistInOrder, Languages.Accept);
+                    await _navigationService.GoBackAsync();
+                    return;
+                }
+            }
+
             orderDetails.Add(new OrderDetailResponse
             {
                 Product = Product,

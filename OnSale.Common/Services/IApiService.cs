@@ -22,5 +22,9 @@ namespace OnSale.Common.Services
 
         Task<Response> PostAsync<T>(string urlBase, string servicePrefix, string controller, T model, string token);
 
+        Task<Response> GetListAsync<T>(string urlBase, string servicePrefix, string controller, string token);
+
+        Task<Response> PutAsync<T>(string urlBase, string servicePrefix, string controller, T model, string token);
+
     }
 }

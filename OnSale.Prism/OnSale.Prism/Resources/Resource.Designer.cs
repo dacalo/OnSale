@@ -124,6 +124,24 @@ namespace OnSale.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure to cancel the order?.
+        /// </summary>
+        public static string CancelOrdenConfirm {
+            get {
+                return ResourceManager.GetString("CancelOrdenConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel Order.
+        /// </summary>
+        public static string CancelOrder {
+            get {
+                return ResourceManager.GetString("CancelOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cash (on delivery).
         /// </summary>
         public static string Cash {
@@ -277,6 +295,33 @@ namespace OnSale.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Credit Card.
+        /// </summary>
+        public static string CreditCard {
+            get {
+                return ResourceManager.GetString("CreditCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must enter your credit card number..
+        /// </summary>
+        public static string CreditCardError {
+            get {
+                return ResourceManager.GetString("CreditCardError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Credit card not valid..
+        /// </summary>
+        public static string CreditCardNoValid {
+            get {
+                return ResourceManager.GetString("CreditCardNoValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current password.
         /// </summary>
         public static string CurrentPassword {
@@ -304,11 +349,47 @@ namespace OnSale.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CVV.
+        /// </summary>
+        public static string CVV {
+            get {
+                return ResourceManager.GetString("CVV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must enter the CVV for your card..
+        /// </summary>
+        public static string CVVError {
+            get {
+                return ResourceManager.GetString("CVVError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date.
         /// </summary>
         public static string Date {
             get {
                 return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date Confirmed.
+        /// </summary>
+        public static string DateConfirmed {
+            get {
+                return ResourceManager.GetString("DateConfirmed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date Sent.
+        /// </summary>
+        public static string DateSent {
+            get {
+                return ResourceManager.GetString("DateSent", resourceCulture);
             }
         }
         
@@ -507,6 +588,24 @@ namespace OnSale.Prism.Resources {
         public static string Error005 {
             get {
                 return ResourceManager.GetString("Error005", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expiry date format yy/mm.
+        /// </summary>
+        public static string Expiry {
+            get {
+                return ResourceManager.GetString("Expiry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must enter the expiry date for your card..
+        /// </summary>
+        public static string ExpiryError {
+            get {
+                return ResourceManager.GetString("ExpiryError", resourceCulture);
             }
         }
         
@@ -772,6 +871,33 @@ namespace OnSale.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Order.
+        /// </summary>
+        public static string Order {
+            get {
+                return ResourceManager.GetString("Order", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Order Status.
+        /// </summary>
+        public static string OrderStatus {
+            get {
+                return ResourceManager.GetString("OrderStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Order updated ok..
+        /// </summary>
+        public static string OrderUpdatedOk {
+            get {
+                return ResourceManager.GetString("OrderUpdatedOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string Password {
@@ -862,6 +988,15 @@ namespace OnSale.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The payment process was not successful..
+        /// </summary>
+        public static string PayNoOk {
+            get {
+                return ResourceManager.GetString("PayNoOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PayPal.
         /// </summary>
         public static string PayPal {
@@ -921,6 +1056,15 @@ namespace OnSale.Prism.Resources {
         public static string Product {
             get {
                 return ResourceManager.GetString("Product", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The product already exists on the order. You can modify the order in &apos;View shopping cart&apos;..
+        /// </summary>
+        public static string ProductExistInOrder {
+            get {
+                return ResourceManager.GetString("ProductExistInOrder", resourceCulture);
             }
         }
         
@@ -1006,6 +1150,15 @@ namespace OnSale.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Question.
+        /// </summary>
+        public static string Question {
+            get {
+                return ResourceManager.GetString("Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Recover Password.
         /// </summary>
         public static string RecoverPassword {
@@ -1051,6 +1204,15 @@ namespace OnSale.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You must enter some remarks..
+        /// </summary>
+        public static string RemarksError {
+            get {
+                return ResourceManager.GetString("RemarksError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter your remarks....
         /// </summary>
         public static string RemarksPlaceHolder {
@@ -1065,6 +1227,15 @@ namespace OnSale.Prism.Resources {
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the value to search....
+        /// </summary>
+        public static string SearchOrder {
+            get {
+                return ResourceManager.GetString("SearchOrder", resourceCulture);
             }
         }
         
@@ -1101,6 +1272,15 @@ namespace OnSale.Prism.Resources {
         public static string Total {
             get {
                 return ResourceManager.GetString("Total", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Remarks.
+        /// </summary>
+        public static string UpdateRemarks {
+            get {
+                return ResourceManager.GetString("UpdateRemarks", resourceCulture);
             }
         }
         
