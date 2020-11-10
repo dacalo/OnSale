@@ -78,13 +78,9 @@ namespace OnSale.Prism.ViewModels
             {
                 SetProperty(ref _paymentMethod, value);
                 if (_paymentMethod.Id == 2)
-                {
                     IsCreditCard = true;
-                }
                 else
-                {
                     IsCreditCard = false;
-                }
             }
         }
 
@@ -164,6 +160,14 @@ namespace OnSale.Prism.ViewModels
             IsRunning = true;
             IsEnabled = false;
 
+            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.ConnectionError, Languages.Accept);
+                return;
+            }
+
             if (PaymentMethod.Id == 2)
             {
                 bool wasPayed = await PayWithStripeAsync();
@@ -173,14 +177,6 @@ namespace OnSale.Prism.ViewModels
                     IsEnabled = true;
                     return;
                 }
-            }
-
-            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
-            {
-                IsRunning = false;
-                IsEnabled = true;
-                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.ConnectionError, Languages.Accept);
-                return;
             }
 
             OrderResponse request = new OrderResponse
@@ -230,8 +226,8 @@ namespace OnSale.Prism.ViewModels
                 StripeConfiguration.ApiKey = _testApiKeySecret;
                 ChargeCreateOptions options = new ChargeCreateOptions
                 {
-                    Amount = (long)TotalValue * 100,
-                    Currency = "COP",
+                    Amount = (long)TotalValue,
+                    Currency = "MXN",
                     Description = $"Order: {DateTime.Now:yyyy/MM/dd hh:mm}",
                     Capture = true,
                     ReceiptEmail = _token.User.Email,
