@@ -18,6 +18,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using OnSale.Common.Helpers;
+using OnSale.Common.Services;
 using OnSale.Web.Data;
 using OnSale.Web.Data.Entities;
 using OnSale.Web.Helpers;
@@ -84,6 +86,8 @@ namespace OnSale.Web
             services.AddScoped<IUserHelper, UserHelper>();
             services.AddScoped<IBlobHelper, BlobLocalHelper>();
             services.AddScoped<IMailHelper, MailHelper>();
+            services.AddScoped<IApiService, ApiService>();
+            services.AddScoped<IFilesHelper, FilesHelper>();
 
             services.AddSwaggerGen(config =>
             {

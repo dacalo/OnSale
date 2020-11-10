@@ -1,4 +1,5 @@
 ﻿using Foundation;
+using Plugin.FacebookClient;
 using Prism;
 using Prism.Ioc;
 using Syncfusion.SfBusyIndicator.XForms.iOS;
@@ -28,6 +29,7 @@ namespace OnSale.Prism.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            Xamarin.FormsMaps.Init();
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
             new SfNumericTextBoxRenderer();
             new SfBusyIndicatorRenderer();
@@ -35,10 +37,28 @@ namespace OnSale.Prism.iOS
             SfTextInputLayoutRenderer.Init();
             SfMaskedEditRenderer.Init();
             SfRatingRenderer.Init();
+            FacebookClientManager.Initialize(app, options);
             LoadApplication(new App(new iOSInitializer()));
 
             return base.FinishedLaunching(app, options);
         }
+
+        public override void OnActivated(UIApplication uiApplication)
+        {
+            base.OnActivated(uiApplication);
+            FacebookClientManager.OnActivated();
+        }
+
+        public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
+        {
+            return FacebookClientManager.OpenUrl(app, url, options);
+        }
+
+        public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
+        {
+            return FacebookClientManager.OpenUrl(application, url, sourceApplication, annotation);
+        }
+
     }
 
     public class iOSInitializer : IPlatformInitializer

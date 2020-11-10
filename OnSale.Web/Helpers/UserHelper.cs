@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OnSale.Common.Enums;
+using OnSale.Common.Models;
 using OnSale.Web.Data;
 using OnSale.Web.Data.Entities;
 using OnSale.Web.Models;
@@ -66,7 +67,9 @@ namespace OnSale.Web.Helpers
                 PhoneNumber = model.PhoneNumber,
                 City = await _context.Cities.FindAsync(model.CityId),
                 UserName = model.Username,
-                UserType = userType
+                UserType = userType,
+                Latitude = model.Latitude,
+                Logitude = model.Logitude
             };
 
             IdentityResult result = await _userManager.CreateAsync(user, model.Password);
@@ -91,6 +94,35 @@ namespace OnSale.Web.Helpers
         public async Task<string> GeneratePasswordResetTokenAsync(User user) => await _userManager.GeneratePasswordResetTokenAsync(user);
 
         public async Task<IdentityResult> ResetPasswordAsync(User user, string token, string password) => await _userManager.ResetPasswordAsync(user, token, password);
+
+        public async Task<User> AddUserAsync(FacebookProfile model)
+        {
+            User userEntity = new User
+            {
+                Address = "...",
+                RFC = "...",
+                Email = model.Email,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                ImageFacebook = model.Picture?.Data?.Url,
+                PhoneNumber = "...",
+                City = await _context.Cities.FirstOrDefaultAsync(),
+                UserName = model.Email,
+                UserType = UserType.User,
+                LoginType = LoginType.Facebook,
+                ImageId = string.Empty
+            };
+
+            IdentityResult result = await _userManager.CreateAsync(userEntity, model.Id);
+            if (result != IdentityResult.Success)
+            {
+                return null;
+            }
+
+            User newUser = await GetUserAsync(model.Email);
+            await AddUserToRoleAsync(newUser, userEntity.UserType.ToString());
+            return newUser;
+        }
 
     }
 }

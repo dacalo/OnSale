@@ -69,10 +69,9 @@ namespace OnSale.Prism.ViewModels
             {
                 Order = parameters.GetValue<OrderResponse>("order");
                 OrderDetails = new ObservableCollection<OrderDetailResponse>(Order.OrderDetails);
+             
                 if (Order.OrderStatus == OrderStatus.Pending)
-                {
                     IsVisible = true;
-                }
             }
         }
 
@@ -107,9 +106,7 @@ namespace OnSale.Prism.ViewModels
         {
             bool asnwer = await App.Current.MainPage.DisplayAlert(Languages.Question, Languages.CancelOrdenConfirm, Languages.Yes, Languages.No);
             if (!asnwer)
-            {
                 return;
-            }
 
             if (Connectivity.NetworkAccess != NetworkAccess.Internet)
             {

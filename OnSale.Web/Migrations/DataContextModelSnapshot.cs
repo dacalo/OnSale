@@ -441,6 +441,9 @@ namespace OnSale.Web.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
+                    b.Property<string>("ImageFacebook")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ImageId")
                         .HasColumnType("nvarchar(max)");
 
@@ -449,11 +452,20 @@ namespace OnSale.Web.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
+                    b.Property<double>("Latitude")
+                        .HasColumnType("float");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<int>("LoginType")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Logitude")
+                        .HasColumnType("float");
 
                     b.Property<string>("NormalizedEmail")
                         .HasColumnType("nvarchar(256)")

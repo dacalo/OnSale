@@ -501,35 +501,44 @@
     <data name="Order" xml:space="preserve">
     <value>Pedido</value>
   </data>
-  <data name="UpdateRemarks" xml:space="preserve">
+    <data name="UpdateRemarks" xml:space="preserve">
     <value>Actualizar Comentarios</value>
   </data>
-  <data name="CancelOrder" xml:space="preserve">
+    <data name="CancelOrder" xml:space="preserve">
     <value>Cancelar Pedido</value>
   </data>
-  <data name="OrderStatus" xml:space="preserve">
+    <data name="OrderStatus" xml:space="preserve">
     <value>Estado Ordén</value>
   </data>
-  <data name="SearchOrder" xml:space="preserve">
+    <data name="SearchOrder" xml:space="preserve">
     <value>Ingrese el valor a buscar...</value>
   </data>
- <data name="DateSent" xml:space="preserve">
+    <data name="DateSent" xml:space="preserve">
     <value>Fecha envío</value>
   </data>
-  <data name="DateConfirmed" xml:space="preserve">
+    <data name="DateConfirmed" xml:space="preserve">
     <value>Fecha confirmación</value>
   </data>
-  <data name="RemarksError" xml:space="preserve">
+    <data name="RemarksError" xml:space="preserve">
     <value>Debes ingresar algún comentario.</value>
   </data>
-  <data name="OrderUpdatedOk" xml:space="preserve">
+    <data name="OrderUpdatedOk" xml:space="preserve">
     <value>Pedido actualizado con éxito.</value>
   </data>
-  <data name="CancelOrdenConfirm" xml:space="preserve">
+    <data name="CancelOrdenConfirm" xml:space="preserve">
     <value>¿Estas seguro de cancelar el pedido?</value>
   </data>
-  <data name="Question" xml:space="preserve">
+    <data name="Question" xml:space="preserve">
     <value>Pregunta</value>
+  </data>
+    <data name="LoginFacebook" xml:space="preserve">
+    <value>Ingresar con Facebook</value>
+  </data>
+    <data name="ChangeOnSocialNetwork" xml:space="preserve">
+    <value>Los usuarios registrados por redes sociales, deben cambiar la foto o contraseña en la red social.</value>
+  </data>
+  <data name="Buyers" xml:space="preserve">
+    <value>Compradores</value>
   </data>
 
 </root>

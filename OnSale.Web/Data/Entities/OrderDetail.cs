@@ -8,8 +8,10 @@ namespace OnSale.Web.Data.Entities
 
         public ProductEntity Product { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:N2}")]
         public float Quantity { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:C2}")]
         public decimal Price { get; set; }
 
         [DataType(DataType.MultilineText)]

@@ -10,7 +10,7 @@ namespace OnSale.Common.Entities
 
         [MaxLength(50, ErrorMessage ="El campo {0} debe contener menos de {1} caracteres.")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-        [DisplayName("Nombre")]
+        [DisplayName("País")]
         public string Name { get; set; }
 
         public ICollection<Department> Departments { get; set; }

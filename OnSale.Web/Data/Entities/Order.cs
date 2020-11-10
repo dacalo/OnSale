@@ -13,7 +13,7 @@ namespace OnSale.Web.Data.Entities
         [Display(Name = "Fecha")]
         public DateTime Date { get; set; }
         
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm tt}")]
         [Display(Name = "Fecha")]
         public DateTime DateLocal => Date.ToLocalTime();
 
@@ -23,19 +23,19 @@ namespace OnSale.Web.Data.Entities
         [Display(Name = "Status Pedido")]
         public OrderStatus OrderStatus { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm tt}")]
         [Display(Name = "Fecha Expedición")]
         public DateTime? DateSent { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm tt}")]
         [Display(Name = "Fecha Expedición")]
         public DateTime? DateSentLocal => DateSent?.ToLocalTime();
 
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm tt}")]
         [Display(Name = "Fecha Confirmación")]
         public DateTime? DateConfirmed { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm tt}")]
         [Display(Name = "Fecha Confirmación")]
         public DateTime? DateConfirmedLocal => DateSent?.ToLocalTime();
 

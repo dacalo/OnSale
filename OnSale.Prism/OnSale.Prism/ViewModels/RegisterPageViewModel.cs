@@ -38,7 +38,7 @@ namespace OnSale.Prism.ViewModels
         private DelegateCommand _registerCommand;
         private MediaFile _file;
         private DelegateCommand _changeImageCommand;
-
+        private readonly IGeolocatorService _geolocatorService;
         #endregion [ Attributes ]
 
         #region [ Constructor ]
@@ -46,13 +46,15 @@ namespace OnSale.Prism.ViewModels
             INavigationService navigationService,
             IRegexHelper regexHelper,
             IApiService apiService,
-            IFilesHelper filesHelper)
+            IFilesHelper filesHelper,
+            IGeolocatorService geolocatorService)
             : base(navigationService)
         {
             _navigationService = navigationService;
             _regexHelper = regexHelper;
             _apiService = apiService;
             _filesHelper = filesHelper;
+            _geolocatorService = geolocatorService;
             Title = Languages.Register;
             Image = Constants.Path.PathNoImage;
             IsEnabled = true;
@@ -193,6 +195,13 @@ namespace OnSale.Prism.ViewModels
             if (_file != null)
             {
                 imageArray = _filesHelper.ReadFully(_file.GetStream());
+            }
+
+            await _geolocatorService.GetLocationAsync();
+            if (_geolocatorService.Latitude != 0 && _geolocatorService.Longitude != 0)
+            {
+                User.Latitude = _geolocatorService.Latitude;
+                User.Logitude = _geolocatorService.Longitude;
             }
 
             User.ImageArray = imageArray;

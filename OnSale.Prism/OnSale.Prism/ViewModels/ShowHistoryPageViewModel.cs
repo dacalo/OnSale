@@ -96,9 +96,7 @@ namespace OnSale.Prism.ViewModels
         private void ShowOrders()
         {
             if (_myOrders == null)
-            {
                 return;
-            }
 
             if (string.IsNullOrEmpty(Search))
             {

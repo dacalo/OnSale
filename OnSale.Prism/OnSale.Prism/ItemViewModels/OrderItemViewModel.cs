@@ -27,9 +27,9 @@ namespace OnSale.Prism.ItemViewModels
         private async void SelectOrderAsync()
         {
             NavigationParameters parameters = new NavigationParameters
-        {
-            { "order", this }
-        };
+            {
+                { "order", this }
+            };
 
             await _navigationService.NavigateAsync(nameof(OrderPage), parameters);
         }

@@ -1,5 +1,7 @@
-﻿using OnSale.Common.Requests;
+﻿using OnSale.Common.Models;
+using OnSale.Common.Requests;
 using OnSale.Common.Responses;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace OnSale.Common.Services
@@ -25,6 +27,12 @@ namespace OnSale.Common.Services
         Task<Response> GetListAsync<T>(string urlBase, string servicePrefix, string controller, string token);
 
         Task<Response> PutAsync<T>(string urlBase, string servicePrefix, string controller, T model, string token);
+
+        Task<Response> GetTokenAsync(string urlBase, string servicePrefix, string controller, FacebookProfile request);
+
+        Task<RandomUsers> GetRandomUser(string urlBase, string servicePrefix);
+
+        Task<Stream> GetPictureAsync(string urlBase, string servicePrefix);
 
     }
 }

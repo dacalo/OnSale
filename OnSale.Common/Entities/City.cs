@@ -11,7 +11,7 @@ namespace OnSale.Common.Entities
 
         [MaxLength(50, ErrorMessage = "EEl campo {0} debe contener menos de {1} caracteres.")]
         [Required(ErrorMessage = "El cacmpo {0} es obligatorio")]
-        [DisplayName("Nombre")]
+        [DisplayName("Ciudad")]
         public string Name { get; set; }
 
         [NotMapped]

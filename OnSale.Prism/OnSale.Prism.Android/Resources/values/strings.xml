@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_name">On Sale</string>
+  <string name="facebook_app_name">OnSale</string>
+  <string name="facebook_app_id">689967948561235</string>
+  <string name="fb_login_protocol_scheme">fb689967948561235</string>
 </resources>

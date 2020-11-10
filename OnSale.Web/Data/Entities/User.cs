@@ -29,10 +29,10 @@ namespace OnSale.Web.Data.Entities
         [Display(Name = "Imagen")]
         public string ImageId { get; set; }
 
-        [Display(Name = "Imagen")]
-        public string ImageFullPath => ImageId == string.Empty
-            ? $"{Constants.Path.PathNoImage}"
-            : $"{ImageId}";
+        //[Display(Name = "Imagen")]
+        //public string ImageFullPath => ImageId == string.Empty
+        //    ? $"{Constants.Path.PathNoImage}"
+        //    : $"{ImageId}";
 
         [Display(Name = "Tipo Usuario")]
         public UserType UserType { get; set; }
@@ -44,5 +44,37 @@ namespace OnSale.Web.Data.Entities
 
         [Display(Name = "Usuario")]
         public string FullNameWithDocument => $"{FirstName} {LastName} - {RFC}";
+
+        [Display(Name = "Login Type")]
+        public LoginType LoginType { get; set; }
+
+        public string ImageFacebook { get; set; }
+
+        [Display(Name = "Image")]
+        public string ImageFullPath
+        {
+            get
+            {
+                if (LoginType == LoginType.Facebook && string.IsNullOrEmpty(ImageFacebook) ||
+                    LoginType == LoginType.OnSale && ImageId == string.Empty)
+                {
+                    return $"{Constants.Path.PathNoImage}";
+                }
+
+                if (LoginType == LoginType.Facebook)
+                {
+                    return ImageFacebook;
+                }
+
+                return $"{ImageId}";
+            }
+        }
+
+        [DisplayFormat(DataFormatString = "{0:N4}")]
+        public double Latitude { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:N4}")]
+        public double Logitude { get; set; }
+
     }
 }

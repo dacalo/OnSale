@@ -115,6 +115,15 @@ namespace OnSale.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Buyers.
+        /// </summary>
+        public static string Buyers {
+            get {
+                return ResourceManager.GetString("Buyers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Cancel {
@@ -156,6 +165,15 @@ namespace OnSale.Prism.Resources {
         public static string Category {
             get {
                 return ResourceManager.GetString("Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Users registered by social networks, must change the photo or password on the social network..
+        /// </summary>
+        public static string ChangeOnSocialNetwork {
+            get {
+                return ResourceManager.GetString("ChangeOnSocialNetwork", resourceCulture);
             }
         }
         
@@ -750,6 +768,15 @@ namespace OnSale.Prism.Resources {
         public static string LoginError {
             get {
                 return ResourceManager.GetString("LoginError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login With Facebook.
+        /// </summary>
+        public static string LoginFacebook {
+            get {
+                return ResourceManager.GetString("LoginFacebook", resourceCulture);
             }
         }
         

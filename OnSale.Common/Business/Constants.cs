@@ -46,6 +46,8 @@
             public static string PostModifyUser = "/Account";
             public static string PostChangePassword = "/Account/ChangePassword";
             public static string PostOrders = "/Orders";
+            public static string GetLoginFacebook = "/Account/LoginFacebook";
+            public static string GetUser = "/Account";
         }
     }
 }
