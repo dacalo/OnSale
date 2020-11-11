@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "697252676333",
+    "firebase_url": "https://onsale-38736.firebaseio.com",
+    "project_id": "onsale-38736",
+    "storage_bucket": "onsale-38736.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:697252676333:android:a6d75e091bf3e5c2aac2e4",
+        "android_client_info": {
+          "package_name": "mx.dacalo.onsale"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "697252676333-j9j0vm3lcuavjlajbcjrv7fl3s7puqlk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyr-KrSV2a3I-N1DFNHR4NgxTHGEmT7Mg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "697252676333-j9j0vm3lcuavjlajbcjrv7fl3s7puqlk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
