@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "697252676333",
-    "firebase_url": "https://onsale-38736.firebaseio.com",
-    "project_id": "onsale-38736",
-    "storage_bucket": "onsale-38736.appspot.com"
+    "project_number": "78345602668",
+    "firebase_url": "https://onsaleapp-e3f34.firebaseio.com",
+    "project_id": "onsaleapp-e3f34",
+    "storage_bucket": "onsaleapp-e3f34.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:697252676333:android:a6d75e091bf3e5c2aac2e4",
+        "mobilesdk_app_id": "1:78345602668:android:b5382ebbb4727a5eb57a49",
         "android_client_info": {
-          "package_name": "mx.dacalo.onsale"
+          "package_name": "com.dacalo.onsaleapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "697252676333-j9j0vm3lcuavjlajbcjrv7fl3s7puqlk.apps.googleusercontent.com",
+          "client_id": "78345602668-k4p7i4ktf5ope40gb4fop8eb0jagk45g.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCyr-KrSV2a3I-N1DFNHR4NgxTHGEmT7Mg"
+          "current_key": "AIzaSyB7CV0NMOvIGgWa1ZnuNUd79CHh8qHGjv8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "697252676333-j9j0vm3lcuavjlajbcjrv7fl3s7puqlk.apps.googleusercontent.com",
+              "client_id": "78345602668-k4p7i4ktf5ope40gb4fop8eb0jagk45g.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

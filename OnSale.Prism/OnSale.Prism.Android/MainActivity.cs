@@ -1,8 +1,11 @@
 ﻿using Android.App;
 using Android.Content;
 using Android.Content.PM;
+using Android.Gms.Common;
 using Android.OS;
+using Android.Util;
 using Java.Security;
+using OnSale.Common.Business;
 using Plugin.CurrentActivity;
 using Plugin.FacebookClient;
 using Plugin.Permissions;
@@ -39,6 +42,14 @@ namespace OnSale.Prism.Droid
 #endif
 
             LoadApplication(new App(new AndroidInitializer()));
+
+            if (!IsPlayServiceAvailable())
+            {
+                throw new Exception("This device does not have Google Play Services and cannot receive push notifications.");
+            }
+
+            CreateNotificationChannel();
+
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Android.Content.PM.Permission[] grantResults)
@@ -75,6 +86,51 @@ namespace OnSale.Prism.Droid
         {
             base.OnActivityResult(requestCode, resultCode, data);
             FacebookClientManager.OnActivityResult(requestCode, resultCode, data);
+        }
+
+        protected override void OnNewIntent(Intent intent)
+        {
+            if (intent.Extras != null)
+            {
+                var message = intent.GetStringExtra("message");
+                //(App.Current.MainPage as MainPage)?.AddMessage(message);
+            }
+
+            base.OnNewIntent(intent);
+        }
+
+        bool IsPlayServiceAvailable()
+        {
+            int resultCode = GoogleApiAvailability.Instance.IsGooglePlayServicesAvailable(this);
+            if (resultCode != ConnectionResult.Success)
+            {
+                if (GoogleApiAvailability.Instance.IsUserResolvableError(resultCode))
+                    Log.Debug(AppConstants.DebugTag, GoogleApiAvailability.Instance.GetErrorString(resultCode));
+                else
+                {
+                    Log.Debug(AppConstants.DebugTag, "This device is not supported");
+                }
+                return false;
+            }
+            return true;
+        }
+
+        void CreateNotificationChannel()
+        {
+            // Notification channels are new as of "Oreo".
+            // There is no need to create a notification channel on older versions of Android.
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+            {
+                var channelName = AppConstants.NotificationChannelName;
+                var channelDescription = String.Empty;
+                var channel = new NotificationChannel(channelName, channelName, NotificationImportance.Default)
+                {
+                    Description = channelDescription
+                };
+
+                var notificationManager = (NotificationManager)GetSystemService(NotificationService);
+                notificationManager.CreateNotificationChannel(channel);
+            }
         }
 
     }
