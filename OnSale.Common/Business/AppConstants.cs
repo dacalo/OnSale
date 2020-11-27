@@ -24,7 +24,7 @@ namespace OnSale.Common.Business
         /// FullShared connection string in a client application.
         /// </summary>
         public static string ListenConnectionString { get; set; } = "Endpoint=sb://notificationsonsale.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=gIz69vYWOJcnzsqHZOQ7TpYOXYXtx/mu2z/PAbMWF5w=";
-
+       
         /// <summary>
         /// Tag used in log messages to easily filter the device log
         /// during development.

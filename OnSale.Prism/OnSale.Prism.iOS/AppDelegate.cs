@@ -12,6 +12,9 @@ using UIKit;
 using WindowsAzure.Messaging;
 using UserNotifications;
 using OnSale.Common.Business;
+using System.Diagnostics;
+using System;
+using System.Linq;
 
 namespace OnSale.Prism.iOS
 {
@@ -42,30 +45,13 @@ namespace OnSale.Prism.iOS
             SfRatingRenderer.Init();
             FacebookClientManager.Initialize(app, options);
             LoadApplication(new App(new iOSInitializer()));
-            
-            base.FinishedLaunching(app, options);
-            
-            if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
-            {
-                UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert | UNAuthorizationOptions.Badge | UNAuthorizationOptions.Sound,
-                                                                        (granted, error) => InvokeOnMainThread(UIApplication.SharedApplication.RegisterForRemoteNotifications));
-            }
-            else if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
-            {
-                var pushSettings = UIUserNotificationSettings.GetSettingsForTypes(
-                        UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound,
-                        new NSSet());
 
-                UIApplication.SharedApplication.RegisterUserNotificationSettings(pushSettings);
-                UIApplication.SharedApplication.RegisterForRemoteNotifications();
-            }
-            else
-            {
-                UIRemoteNotificationType notificationTypes = UIRemoteNotificationType.Alert | UIRemoteNotificationType.Badge | UIRemoteNotificationType.Sound;
-                UIApplication.SharedApplication.RegisterForRemoteNotificationTypes(notificationTypes);
-            }
+            base.FinishedLaunching(app, options);
+
+            RegisterForRemoteNotifications();
 
             return true;
+
         }
 
         public override void OnActivated(UIApplication uiApplication)
@@ -84,21 +70,71 @@ namespace OnSale.Prism.iOS
             return FacebookClientManager.OpenUrl(application, url, sourceApplication, annotation);
         }
 
+        private void RegisterForRemoteNotifications()
+        {
+            // register for remote notifications based on system version
+            if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
+            {
+                UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert |
+                    UNAuthorizationOptions.Badge |
+                    UNAuthorizationOptions.Sound,
+                    (granted, error) =>
+                    {
+                        if (granted)
+                        {
+                            InvokeOnMainThread(UIApplication.SharedApplication.RegisterForRemoteNotifications);
+                        }
+                    });
+            }
+            else if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
+            {
+                UIUserNotificationSettings pushSettings = UIUserNotificationSettings.GetSettingsForTypes(
+                UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound,
+                new NSSet());
+
+                UIApplication.SharedApplication.RegisterUserNotificationSettings(pushSettings);
+                UIApplication.SharedApplication.RegisterForRemoteNotifications();
+            }
+            else
+            {
+                UIRemoteNotificationType notificationTypes = UIRemoteNotificationType.Alert | UIRemoteNotificationType.Badge | UIRemoteNotificationType.Sound;
+                UIApplication.SharedApplication.RegisterForRemoteNotificationTypes(notificationTypes);
+            }
+        }
+
+
         public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
         {
             Hub = new SBNotificationHub(AppConstants.ListenConnectionString, AppConstants.NotificationHubName);
-
-            Hub.UnregisterAll(deviceToken, (error) => {
+            var token = deviceToken.ToString().Trim('<').Trim('>');
+            // update registration with Azure Notification Hub
+            Hub.UnregisterAll(deviceToken, (error) =>
+            {
                 if (error != null)
                 {
-                    System.Diagnostics.Debug.WriteLine("Error calling Unregister: {0}", error.ToString());
+                    Debug.WriteLine($"Unable to call unregister {error}");
                     return;
                 }
 
-                NSSet tags = null; // create tags if you want
-                Hub.RegisterNative(deviceToken, tags, (errorCallback) => {
+                NSSet tags = new NSSet(AppConstants.SubscriptionTags.ToArray());
+                Hub.RegisterNative(deviceToken, tags, (errorCallback) =>
+                {
                     if (errorCallback != null)
-                        System.Diagnostics.Debug.WriteLine("RegisterNative error: " + errorCallback.ToString());
+                    {
+                        Debug.WriteLine($"RegisterNativeAsync error: {errorCallback}");
+                    }
+                });
+
+                string templateExpiration = DateTime.Now.AddDays(120).ToString(System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
+                Hub.RegisterTemplate(deviceToken, "defaultTemplate", AppConstants.APNTemplateBody, templateExpiration, tags, (errorCallback) =>
+                {
+                    if (errorCallback != null)
+                    {
+                        if (errorCallback != null)
+                        {
+                            Debug.WriteLine($"RegisterTemplateAsync error: {errorCallback}");
+                        }
+                    }
                 });
             });
         }
@@ -108,40 +144,33 @@ namespace OnSale.Prism.iOS
             ProcessNotification(userInfo, false);
         }
 
-        void ProcessNotification(NSDictionary options, bool fromFinishedLaunching)
+        private void ProcessNotification(NSDictionary options, bool fromFinishedLaunching)
         {
-            // Check to see if the dictionary has the aps key.  This is the notification payload you would have sent
-            if (null != options && options.ContainsKey(new NSString("aps")))
+            // make sure we have a payload
+            if (options != null && options.ContainsKey(new NSString("aps")))
             {
-                //Get the aps dictionary
+                // get the APS dictionary and extract message payload. Message JSON will be converted
+                // into a NSDictionary so more complex payloads may require more processing
                 NSDictionary aps = options.ObjectForKey(new NSString("aps")) as NSDictionary;
-
-                string alert = string.Empty;
-
-                //Extract the alert text
-                // NOTE: If you're using the simple alert by just specifying
-                // "  aps:{alert:"alert msg here"}  ", this will work fine.
-                // But if you're using a complex alert with Localization keys, etc.,
-                // your "alert" object from the aps dictionary will be another NSDictionary.
-                // Basically the JSON gets dumped right into a NSDictionary,
-                // so keep that in mind.
-                if (aps.ContainsKey(new NSString("alert")))
-                    alert = (aps[new NSString("alert")] as NSString).ToString();
-
-                //If this came from the ReceivedRemoteNotification while the app was running,
-                // we of course need to manually process things like the sound, badge, and alert.
-                if (!fromFinishedLaunching)
+                string payload = string.Empty;
+                NSString payloadKey = new NSString("alert");
+                if (aps.ContainsKey(payloadKey))
                 {
-                    //Manually show an alert
-                    if (!string.IsNullOrEmpty(alert))
-                    {
-                        var myAlert = UIAlertController.Create("Notification", alert, UIAlertControllerStyle.Alert);
-                        myAlert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
-                        UIApplication.SharedApplication.KeyWindow.RootViewController.PresentViewController(myAlert, true, null);
-                    }
+                    payload = aps[payloadKey].ToString();
                 }
+
+                if (!string.IsNullOrWhiteSpace(payload))
+                {
+                    //TournamentsPageViewModel.GetInstance().AddMessage(payload);
+                }
+
+            }
+            else
+            {
+                Debug.WriteLine($"Received request to process notification but there was no payload.");
             }
         }
+
     }
 
     public class iOSInitializer : IPlatformInitializer

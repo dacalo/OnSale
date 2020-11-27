@@ -1,6 +1,6 @@
 ﻿using Foundation;
 using OnSale.Prism.Helpers;
-using OnSale.Prism.Interfaces;
+using OnSale.Common.Interfaces;
 using System.Globalization;
 using System.Threading;
 using Xamarin.Forms;
