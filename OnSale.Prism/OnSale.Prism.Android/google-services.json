@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:78345602668:android:b5382ebbb4727a5eb57a49",
+        "mobilesdk_app_id": "1:78345602668:android:b1ead934b184974fb57a49",
         "android_client_info": {
-          "package_name": "com.dacalo.onsaleapp"
+          "package_name": "mx.dacalo.onsaleapp"
         }
       },
       "oauth_client": [
