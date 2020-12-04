@@ -1,4 +1,8 @@
-﻿using Foundation;
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
+using Foundation;
+using OnSale.Common.Business;
 using Plugin.FacebookClient;
 using Prism;
 using Prism.Ioc;
@@ -9,12 +13,8 @@ using Syncfusion.SfRotator.XForms.iOS;
 using Syncfusion.XForms.iOS.MaskedEdit;
 using Syncfusion.XForms.iOS.TextInputLayout;
 using UIKit;
-using WindowsAzure.Messaging;
 using UserNotifications;
-using OnSale.Common.Business;
-using System.Diagnostics;
-using System;
-using System.Linq;
+using WindowsAzure.Messaging;
 
 namespace OnSale.Prism.iOS
 {
@@ -70,7 +70,7 @@ namespace OnSale.Prism.iOS
             return FacebookClientManager.OpenUrl(application, url, sourceApplication, annotation);
         }
 
-        private void RegisterForRemoteNotifications()
+        void RegisterForRemoteNotifications()
         {
             // register for remote notifications based on system version
             if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
@@ -81,14 +81,12 @@ namespace OnSale.Prism.iOS
                     (granted, error) =>
                     {
                         if (granted)
-                        {
                             InvokeOnMainThread(UIApplication.SharedApplication.RegisterForRemoteNotifications);
-                        }
                     });
             }
             else if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
             {
-                UIUserNotificationSettings pushSettings = UIUserNotificationSettings.GetSettingsForTypes(
+                var pushSettings = UIUserNotificationSettings.GetSettingsForTypes(
                 UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound,
                 new NSSet());
 
@@ -101,12 +99,60 @@ namespace OnSale.Prism.iOS
                 UIApplication.SharedApplication.RegisterForRemoteNotificationTypes(notificationTypes);
             }
         }
-
-
+        /*
         public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
         {
+            var DeviceToken = deviceToken.Description;
+            if (!string.IsNullOrWhiteSpace(DeviceToken)) {
+                DeviceToken = DeviceToken.Trim('<').Trim('>');
+            }
+
+            // Get previous device token
+            var oldDeviceToken = NSUserDefaults.StandardUserDefaults.StringForKey("PushDeviceToken");
+
+            // Has the token changed?
+            if (string.IsNullOrEmpty(oldDeviceToken) || !oldDeviceToken.Equals(DeviceToken))
+            {
+                //TODO: Put your own logic here to notify your server that the device token has changed/been created!
+            }
+
+            // Save new device token
+            NSUserDefaults.StandardUserDefaults.SetString(DeviceToken, "PushDeviceToken");
+
             Hub = new SBNotificationHub(AppConstants.ListenConnectionString, AppConstants.NotificationHubName);
-            var token = deviceToken.ToString().Trim('<').Trim('>');
+
+            Hub.UnregisterAll(deviceToken, (error) =>
+            {
+                if (error != null)
+                {
+                    System.Diagnostics.Debug.WriteLine("Error calling Unregister: {0}", error.ToString());
+                    return;
+                }
+
+                NSSet tags = null; // create tags if you want
+                Hub.RegisterNative(deviceToken, tags, (errorCallback) => {
+                    if (errorCallback != null)
+                        System.Diagnostics.Debug.WriteLine("RegisterNative error: " + errorCallback.ToString());
+                });
+            });
+        }*/
+        public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
+        {
+            byte[] deviceTokenBytes = deviceToken.ToArray();
+
+            string deviceToken2 = BitConverter.ToString(deviceTokenBytes).Replace("-", "").ToUpperInvariant();
+            string token = deviceToken.ToString().TrimStart('<').TrimEnd('>').Replace(" ", "");
+            var oldDeviceToken = NSUserDefaults.StandardUserDefaults.StringForKey("PushDeviceToken");
+
+           
+
+
+
+
+
+
+            Hub = new SBNotificationHub(AppConstants.ListenConnectionString, AppConstants.NotificationHubName);
+
             // update registration with Azure Notification Hub
             Hub.UnregisterAll(deviceToken, (error) =>
             {
@@ -116,7 +162,7 @@ namespace OnSale.Prism.iOS
                     return;
                 }
 
-                NSSet tags = new NSSet(AppConstants.SubscriptionTags.ToArray());
+                var tags = new NSSet(AppConstants.SubscriptionTags.ToArray());
                 Hub.RegisterNative(deviceToken, tags, (errorCallback) =>
                 {
                     if (errorCallback != null)
@@ -125,15 +171,12 @@ namespace OnSale.Prism.iOS
                     }
                 });
 
-                string templateExpiration = DateTime.Now.AddDays(120).ToString(System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
+                var templateExpiration = DateTime.Now.AddDays(120).ToString(System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
                 Hub.RegisterTemplate(deviceToken, "defaultTemplate", AppConstants.APNTemplateBody, templateExpiration, tags, (errorCallback) =>
                 {
                     if (errorCallback != null)
                     {
-                        if (errorCallback != null)
-                        {
-                            Debug.WriteLine($"RegisterTemplateAsync error: {errorCallback}");
-                        }
+                        Debug.WriteLine($"RegisterTemplateAsync error: {errorCallback}");
                     }
                 });
             });
@@ -144,7 +187,7 @@ namespace OnSale.Prism.iOS
             ProcessNotification(userInfo, false);
         }
 
-        private void ProcessNotification(NSDictionary options, bool fromFinishedLaunching)
+        void ProcessNotification(NSDictionary options, bool fromFinishedLaunching)
         {
             // make sure we have a payload
             if (options != null && options.ContainsKey(new NSString("aps")))
@@ -161,7 +204,7 @@ namespace OnSale.Prism.iOS
 
                 if (!string.IsNullOrWhiteSpace(payload))
                 {
-                    //TournamentsPageViewModel.GetInstance().AddMessage(payload);
+                    //(App.Current.MainPage as MainPage)?.AddMessage(payload);
                 }
 
             }
@@ -170,7 +213,6 @@ namespace OnSale.Prism.iOS
                 Debug.WriteLine($"Received request to process notification but there was no payload.");
             }
         }
-
     }
 
     public class iOSInitializer : IPlatformInitializer
