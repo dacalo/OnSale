@@ -74,6 +74,13 @@ namespace OnSale.Web
                 };
             });
 
+            services.AddDbContext<DataContext>(
+               dbContextOptions => dbContextOptions
+                   .UseMySql(Configuration.GetConnectionString("DefaultConnection"), new MySqlServerVersion(new Version(8, 0, 26)))
+                   .EnableSensitiveDataLogging() // <-- These two calls are optional but help
+                   .EnableDetailedErrors()       // <-- with debugging (remove for production).
+                   );
+
             services.AddDbContext<DataContext>(cfg =>
             {
                 cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));

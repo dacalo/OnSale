@@ -10,8 +10,8 @@ namespace OnSale.Common.Entities
     {
         public int Id { get; set; }
         
-        [MaxLength(50, ErrorMessage = "El campo {0} ")]
-        [Required(ErrorMessage = "El campo {0} debe contener menos de {1} caracteres.")]
+        [MaxLength(50, ErrorMessage = "El campo {0} debe contener menos de {1} caracteres.")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         [DisplayName("Departamento")]
         public string Name { get; set; }
 

@@ -62,7 +62,7 @@
                     data: { countryId: $("#CountryId").val() },
                     success: function (subcategories) {
                         $.each(subcategories, function (i, department) {
-                            debugger;
+                            //debugger;
                             $("#DepartmentId").append('<option value="'
                                 + department.id + '">'
                                 + department.name + '</option>');
@@ -85,7 +85,7 @@
                     data: { departmentId: $("#DepartmentId").val() },
                     success: function (cities) {
                         $.each(cities, function (i, city) {
-                            debugger;
+                            //debugger;
                             $("#CityId").append('<option value="'
                                 + city.id + '">'
                                 + city.name + '</option>');

@@ -9,8 +9,8 @@ namespace OnSale.Common.Entities
     {
         public int Id { get; set; }
 
-        [MaxLength(50, ErrorMessage = "EEl campo {0} debe contener menos de {1} caracteres.")]
-        [Required(ErrorMessage = "El cacmpo {0} es obligatorio")]
+        [MaxLength(50, ErrorMessage = "El campo {0} debe contener menos de {1} caracteres.")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [DisplayName("Ciudad")]
         public string Name { get; set; }
 

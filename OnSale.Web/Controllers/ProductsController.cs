@@ -161,7 +161,7 @@ namespace OnSale.Web.Controllers
             if (id == null)
                 return NotFound();
 
-            ProductEntity product = await _context.Products
+            Product product = await _context.Products
                 .Include(p => p.ProductImages)
                 .FirstOrDefaultAsync(p => p.Id == id);
             if (product == null)

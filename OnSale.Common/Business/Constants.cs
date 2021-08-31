@@ -2,9 +2,9 @@
 {
     public class Constants
     {
-        //public static string URL_BASE => "http://10.1.114.74:84";
+        public static string URL_BASE => "http://192.168.0.194:45455/";
         //public static string URL_BASE => "http://localhost:51773";
-        public static string URL_BASE => "https://onsalewebdacalo.azurewebsites.net";
+        //public static string URL_BASE => "https://onsalewebdacalo.azurewebsites.net";
         public static string URL_BASE_BLOB => "https://onsaledacalo.blob.core.windows.net";
 
         public static string SERVICE_PREFIX => "/api";
@@ -25,7 +25,7 @@
             public static string MessageEmailAlreadyUsed = "El correo ya está registrado por otro usuario.";
             public static string MessageEmailRegisteredUser = "El correo no corresponde a un usuario registrado.";
             public static string MessageUserNoFound = "Usuario no encontrado.";
-            public static string MessageContains = "duplicate";
+            public static string MessageContains = "Duplicate";
             public static string MessageErrorDuplicate = "Ya existe un registro con el mismo nombre.";
             public static string GuidImageEmpty = "d844c6c4-c929-4518-abeb-e900ac95ac53";
             public static string SyncfusionLicense = "MzMxOTg1QDMxMzgyZTMzMmUzMEZFczliOC8xRXdSMXJwNWd2dTNONnFYNGtkVmg5eWZmWW91TWVMcnlyLzg9";

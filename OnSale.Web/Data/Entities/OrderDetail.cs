@@ -6,7 +6,7 @@ namespace OnSale.Web.Data.Entities
     {
         public int Id { get; set; }
 
-        public ProductEntity Product { get; set; }
+        public Product Product { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:N2}")]
         public float Quantity { get; set; }

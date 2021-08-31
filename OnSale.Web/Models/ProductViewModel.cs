@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using OnSale.Common.Entities;
 using OnSale.Common.Enums;
+using OnSale.Web.Data.Entities;
 using OnSale.Web.Validations;
 using System;
 using System.Collections.Generic;

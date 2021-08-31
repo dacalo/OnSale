@@ -1,6 +1,5 @@
 ﻿using Bogus;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 using OnSale.Common.Entities;
 using OnSale.Common.Enums;
 using OnSale.Common.Helpers;
@@ -54,20 +53,22 @@ namespace OnSale.Web.Data
 
         private async Task CheckCategories()
         {
-            if(!_context.Categories.Any())
+            if (!_context.Categories.Any())
             {
                 byte[] data;
-                List<Category> list = new List<Category>();
-                list.Add(new Category { Name = "Zapatería", UrlImage = GenerateImage() });
-                list.Add(new Category { Name = "Ropa", UrlImage = GenerateImage() });
-                list.Add(new Category { Name = "Tecnología", UrlImage = GenerateImage() });
-                list.Add(new Category { Name = "Electrodomésticos", UrlImage = GenerateImage() });
-                list.Add(new Category { Name = "Joyería", UrlImage = GenerateImage() });
-                
+                List<Category> list = new List<Category>
+                {
+                    new Category { Name = "Zapatería", UrlImage = GenerateImage() },
+                    new Category { Name = "Ropa", UrlImage = GenerateImage() },
+                    new Category { Name = "Tecnología", UrlImage = GenerateImage() },
+                    new Category { Name = "Electrodomésticos", UrlImage = GenerateImage() },
+                    new Category { Name = "Joyería", UrlImage = GenerateImage() }
+                };
+
                 await _context.Categories.AddRangeAsync(list);
                 await _context.SaveChangesAsync();
 
-                foreach (var item in list)
+                foreach (Category item in list)
                 {
                     using (WebClient webClient = new WebClient())
                     {
@@ -80,21 +81,21 @@ namespace OnSale.Web.Data
 
         private string GenerateImage()
         {
-            var faker = new Faker();
-            return faker.Image.LoremPixelUrl();
+            Faker faker = new Faker();
+            return faker.Image.LoremFlickrUrl();
         }
 
         private async Task CheckProductsAsync()
         {
-            if(!_context.Products.Any())
+            if (!_context.Products.Any())
             {
                 User user = await _userHelper.GetUserAsync("buyer1@yopmail.com");
                 Category mascotas = await _context.Categories.FirstOrDefaultAsync(c => c.Name == "Mascotas");
                 byte[] data;
-                var product = new Faker<ProductEntity>("es_MX")
+                Faker<Product> product = new Faker<Product>("es_MX")
                     .RuleFor(p => p.Name, f => f.Commerce.ProductName())
                     .RuleFor(p => p.Description, f => f.Commerce.ProductDescription())
-                    .RuleFor(p => p.Price, f => decimal.Parse(f.Commerce.Price(100, 10000))) 
+                    .RuleFor(p => p.Price, f => decimal.Parse(f.Commerce.Price(100, 10000)))
                     .RuleFor(p => p.IsActive, f => true)
                     .RuleFor(p => p.IsStarred, f => f.Random.Bool())
                     .RuleFor(p => p.Qualifications, f =>
@@ -102,16 +103,16 @@ namespace OnSale.Web.Data
                         return GetRandomQualifications(f.Commerce.ProductDescription(), user);
                     });
 
-                var listProducts = product.Generate(10);
-                List<ProductEntity> list = new List<ProductEntity>();
+                List<Product> listProducts = product.Generate(10);
+                List<Product> list = new List<Product>();
                 Random rnd = new Random();
-                foreach (var item in listProducts)
+                foreach (Product item in listProducts)
                 {
-                    var images = new Faker<ProductImage>()
-                        .RuleFor(pi => pi.UrlImage, f => f.Image.PlaceholderUrl(100,100));
-                    var listImages = images.Generate(2);
+                    Faker<ProductImage> images = new Faker<ProductImage>()
+                        .RuleFor(pi => pi.UrlImage, f => f.Image.PlaceholderUrl(100, 100));
+                    List<ProductImage> listImages = images.Generate(2);
                     item.ProductImages = listImages;
-                    foreach (var image in listImages)
+                    foreach (ProductImage image in listImages)
                     {
                         using (WebClient webClient = new WebClient())
                         {
@@ -119,7 +120,7 @@ namespace OnSale.Web.Data
                         }
                         image.UrlImage = await _blobHelper.SaveFile(data, "products");
                     }
-                    item.Category = await _context.Categories.FindAsync(rnd.Next(1,5));
+                    item.Category = await _context.Categories.FindAsync(rnd.Next(1, 5));
                     list.Add(item);
                 }
                 await _context.Products.AddRangeAsync(list);
@@ -179,7 +180,7 @@ namespace OnSale.Web.Data
 
         private async Task CheckBuyersAsync()
         {
-            for (int i = 1; i <= 30; i++)
+            for (int i = 1; i <= 20; i++)
             {
                 await CheckUserAsync($"200{i}", $"buyer{i}@yopmail.com", UserType.User);
             }
@@ -247,35 +248,37 @@ namespace OnSale.Web.Data
             {
                 _context.Countries.Add(new Country
                 {
-                    Name = "Colombia",
+                    Name = "México",
                     Departments = new List<Department>
                 {
                     new Department
                     {
-                        Name = "Antioquia",
+                        Name = "Ciudad de México",
                         Cities = new List<City>
                         {
-                            new City { Name = "Medellín" },
-                            new City { Name = "Envigado" },
-                            new City { Name = "Itagüí" }
+                            new City { Name = "Cuauhtémoc" },
+                            new City { Name = "Iztapalapa" },
+                            new City { Name = "Milpa Alta" }
                         }
                     },
                     new Department
                     {
-                        Name = "Bogotá",
+                        Name = "Monterrey",
                         Cities = new List<City>
                         {
-                            new City { Name = "Bogotá" }
+                            new City { Name = "Apodaca" },
+                            new City { Name = "Guadalupe" },
+                            new City { Name = "Santiago" }
                         }
                     },
                     new Department
                     {
-                        Name = "Valle del Cauca",
+                        Name = "Guadalajara",
                         Cities = new List<City>
                         {
-                            new City { Name = "Calí" },
-                            new City { Name = "Buenaventura" },
-                            new City { Name = "Palmira" }
+                            new City { Name = "Puerto Vallarta" },
+                            new City { Name = "Tlaquepaque" },
+                            new City { Name = "Tequila" }
                         }
                     }
                 }

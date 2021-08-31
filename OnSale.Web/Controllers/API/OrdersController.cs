@@ -52,7 +52,7 @@ namespace OnSale.Web.Controllers.API
 
             foreach (OrderDetailResponse item in request.OrderDetails)
             {
-                ProductEntity product = await _context.Products.FindAsync(item.Product.Id);
+                Product product = await _context.Products.FindAsync(item.Product.Id);
                 if (product == null)
                 {
                     return NotFound("Error002");

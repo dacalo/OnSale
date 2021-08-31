@@ -39,7 +39,7 @@ namespace OnSale.Web.Controllers.API
             if (user == null)
                 return NotFound("Error001");
 
-            ProductEntity product = await _context.Products
+            Product product = await _context.Products
                 .Include(p => p.Qualifications)
                 .FirstOrDefaultAsync(p => p.Id == request.ProductId);
             if (product == null)

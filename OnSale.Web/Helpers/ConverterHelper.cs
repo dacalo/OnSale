@@ -1,7 +1,7 @@
 ﻿using OnSale.Common.Entities;
 using OnSale.Web.Data;
+using OnSale.Web.Data.Entities;
 using OnSale.Web.Models;
-using System;
 using System.Globalization;
 using System.Threading.Tasks;
 
@@ -17,6 +17,7 @@ namespace OnSale.Web.Helpers
             _context = context;
             _combosHelper = combosHelper;
         }
+
         public Category ToCategory(CategoryViewModel model, string urlImage, bool isNew)
         {
             return new Category
@@ -27,15 +28,15 @@ namespace OnSale.Web.Helpers
             };
         }
 
-        //public CategoryViewModel ToCategoryViewModel(Category category)
-        //{
-        //    return new CategoryViewModel
-        //    {
-        //        Id = category.Id,
-        //        UrlImage = category.UrlImage,
-        //        Name = category.Name
-        //    };
-        //}
+        public CategoryViewModel ToCategoryViewModel(Category category)
+        {
+            return new CategoryViewModel
+            {
+                Id = category.Id,
+                UrlImage = category.UrlImage,
+                Name = category.Name
+            };
+        }
 
         public async Task<Product> ToProductAsync(ProductViewModel model, bool isNew)
         {

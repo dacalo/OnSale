@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using OnSale.Common.Entities;
+using OnSale.Web.Data.Entities;
 using OnSale.Web.Models;
 
 namespace OnSale.Web.Helpers
