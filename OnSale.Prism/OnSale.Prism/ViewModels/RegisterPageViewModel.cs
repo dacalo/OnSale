@@ -263,6 +263,9 @@ namespace OnSale.Prism.ViewModels
                         Directory = "Sample",
                         Name = "test.jpg",
                         PhotoSize = PhotoSize.Small,
+                        CustomPhotoSize=50,
+                        DefaultCamera = CameraDevice.Front
+                        
                     }
                 );
             }
