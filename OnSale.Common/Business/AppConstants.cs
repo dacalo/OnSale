@@ -14,7 +14,7 @@ namespace OnSale.Common.Business
         /// <summary>
         /// This is the name of your Azure Notification Hub, found in your Azure portal.
         /// </summary>
-        public static string NotificationHubName { get; set; } = "NotificationsOnSale";
+        public static string NotificationHubName { get; set; } = "OnSaleNotifications";
 
         /// <summary>
         /// This is the "DefaultListenSharedAccessSignature" connection string, which is
@@ -23,7 +23,7 @@ namespace OnSale.Common.Business
         /// You should always use the ListenShared connection string. Do not use the
         /// FullShared connection string in a client application.
         /// </summary>
-        public static string ListenConnectionString { get; set; } = "Endpoint=sb://notificationsonsale.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=gIz69vYWOJcnzsqHZOQ7TpYOXYXtx/mu2z/PAbMWF5w=";
+        public static string ListenConnectionString { get; set; } = "Endpoint=sb://notificationsonsalenamespace.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=pXOb4KOntXDR8RmiS+vRZqvJhlJw6W0bpT1tS/sXBvA=";
        
         /// <summary>
         /// Tag used in log messages to easily filter the device log
